@@ -1034,56 +1034,100 @@ const QUIZ_FINAL = {
   ],
 };
 
-/* ---------- SCOREBOARD (persistente por navegador) ---------- */
-const SCORE_KEY = 'geo-av2-scores-v1';
-const Score = {
-  data: null,
+/* ---------- PLAYERS + SCORES (multi-perfil local, por navegador) ---------- */
+const PLAYERS_KEY = 'geo-av2-players-v1';
+const Player = {
+  store: null,
   load() {
-    if (this.data) return this.data;
-    try {
-      this.data = JSON.parse(localStorage.getItem(SCORE_KEY)) || null;
-    } catch { this.data = null; }
-    if (!this.data) {
-      this.data = {
-        quiz: {},   // chave "modo-topico" => {acertos, erros, melhorAcertos}
-        velha: { vitorias: 0, derrotas: 0, empates: 0, sequencia: 0, melhorSequencia: 0 },
-        forca: { vitorias: 0, derrotas: 0, sequencia: 0, melhorSequencia: 0 },
-        caca: { partidasVencidas: 0 },
-        memoria: { melhorTempo: null, partidasVencidas: 0 },
-      };
-    }
-    return this.data;
+    if (this.store) return this.store;
+    try { this.store = JSON.parse(localStorage.getItem(PLAYERS_KEY)) || null; } catch { this.store = null; }
+    if (!this.store) this.store = { currentId: null, players: {} };
+    return this.store;
   },
-  save() { try { localStorage.setItem(SCORE_KEY, JSON.stringify(this.data)); } catch {} },
-  registraQuiz(chave, acertou) {
+  save() { try { localStorage.setItem(PLAYERS_KEY, JSON.stringify(this.store)); } catch {} },
+  list() { this.load(); return Object.values(this.store.players); },
+  current() { this.load(); return this.store.currentId ? this.store.players[this.store.currentId] : null; },
+  defaultScores() {
+    return {
+      quiz: {},
+      velha: { vitorias: 0, derrotas: 0, empates: 0, sequencia: 0, melhorSequencia: 0 },
+      forca: { vitorias: 0, derrotas: 0, sequencia: 0, melhorSequencia: 0 },
+    };
+  },
+  login(nome) {
     this.load();
-    const s = this.data.quiz[chave] = this.data.quiz[chave] || { acertos: 0, erros: 0 };
-    if (acertou) s.acertos++; else s.erros++;
+    nome = (nome || '').trim().slice(0, 24);
+    if (!nome) return false;
+    // Reusa se j\u00e1 existe (case-insensitive)
+    const existente = Object.values(this.store.players).find(p => p.nome.toLowerCase() === nome.toLowerCase());
+    if (existente) {
+      this.store.currentId = existente.id;
+    } else {
+      const id = 'p' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+      this.store.players[id] = { id, nome, criadoEm: Date.now(), scores: this.defaultScores() };
+      this.store.currentId = id;
+    }
+    this.save();
+    return true;
+  },
+  trocar() { this.load(); this.store.currentId = null; this.save(); },
+  remover(id) {
+    this.load();
+    delete this.store.players[id];
+    if (this.store.currentId === id) this.store.currentId = null;
     this.save();
   },
+  pontos(p) {
+    if (!p) return 0;
+    const s = p.scores;
+    const qAc = Object.values(s.quiz || {}).reduce((a, v) => a + v.acertos, 0);
+    return qAc * 1 + (s.velha?.vitorias || 0) * 5 + (s.forca?.vitorias || 0) * 3;
+  },
+  ranking() {
+    return this.list()
+      .map(p => ({ p, pts: this.pontos(p) }))
+      .sort((a, b) => b.pts - a.pts);
+  }
+};
+Player.load();
+
+const Score = {
+  cur() {
+    const p = Player.current();
+    if (!p) return null;
+    if (!p.scores) p.scores = Player.defaultScores();
+    return p.scores;
+  },
+  load() { return this.cur() || Player.defaultScores(); },
+  saveCur() { if (Player.current()) Player.save(); },
+  registraQuiz(chave, acertou) {
+    const s = this.cur(); if (!s) return;
+    const q = s.quiz[chave] = s.quiz[chave] || { acertos: 0, erros: 0 };
+    if (acertou) q.acertos++; else q.erros++;
+    this.saveCur();
+  },
   registraVelha(quem) {
-    this.load();
-    const v = this.data.velha;
+    const s = this.cur(); if (!s) return;
+    const v = s.velha;
     if (quem === 'player') { v.vitorias++; v.sequencia++; v.melhorSequencia = Math.max(v.melhorSequencia, v.sequencia); }
     else if (quem === 'ia') { v.derrotas++; v.sequencia = 0; }
     else { v.empates++; }
-    this.save();
+    this.saveCur();
   },
   registraForca(venceu) {
-    this.load();
-    const f = this.data.forca;
+    const s = this.cur(); if (!s) return;
+    const f = s.forca;
     if (venceu) { f.vitorias++; f.sequencia++; f.melhorSequencia = Math.max(f.melhorSequencia, f.sequencia); }
     else { f.derrotas++; f.sequencia = 0; }
-    this.save();
+    this.saveCur();
   },
   resumoQuizModo(modo) {
-    this.load();
+    const s = this.cur() || Player.defaultScores();
     let ac = 0, er = 0;
-    Object.entries(this.data.quiz).forEach(([k, v]) => { if (k.startsWith(modo + '-')) { ac += v.acertos; er += v.erros; } });
+    Object.entries(s.quiz || {}).forEach(([k, v]) => { if (k.startsWith(modo + '-')) { ac += v.acertos; er += v.erros; } });
     return { ac, er };
   }
 };
-Score.load();
 
 /* ---------- ESTADO GLOBAL ---------- */
 const state = {
@@ -1159,56 +1203,140 @@ if ($brandHome) $brandHome.addEventListener('click', () => go('home'));
 function renderHome() {
   const card = document.createElement('section');
   card.className = 'card capa';
+
+  // Se ningu\u00e9m logou ainda neste navegador, mostra tela de login
+  const cur = Player.current();
+  if (!cur) {
+    const outros = Player.list();
+    card.innerHTML = `
+      <div class="capa-hero">
+        <div class="capa-emoji">\ud83c\udf0d</div>
+        <h2 class="capa-titulo">GEOGRAFIA <span class="acento">AV2</span></h2>
+        <p class="capa-sub">\u00c1frica \u00b7 Espa\u00e7o, Economia e Desigualdades</p>
+      </div>
+      <div class="login-box">
+        <h3 class="score-titulo">\ud83d\udc4b QUEM EST\u00c1 JOGANDO?</h3>
+        <p class="sec-sub" style="text-align:center">Coloque seu nome para entrar no ranking da sala. Seu score fica salvo neste navegador.</p>
+        <div class="login-input-wrap">
+          <input type="text" id="loginNome" maxlength="24" placeholder="Seu nome (ex: LEVI)" autocomplete="off">
+          <button class="btn-primario btn-continuar-mega" data-login>ENTRAR \u279c</button>
+        </div>
+        ${outros.length ? `
+          <p class="sec-sub" style="text-align:center;margin-top:18px">Ou continue como:</p>
+          <div class="login-players">
+            ${outros.map(p => `<button class="login-player-btn" data-login-id="${p.id}">\ud83d\udc64 ${escapeHtml(p.nome)} <small>(${Player.pontos(p)} pts)</small></button>`).join('')}
+          </div>
+        ` : ''}
+      </div>
+    `;
+    $screens.appendChild(card);
+    const inp = card.querySelector('#loginNome');
+    const doLogin = () => {
+      if (Player.login(inp.value)) { render(); }
+      else inp.focus();
+    };
+    card.querySelector('[data-login]').addEventListener('click', doLogin);
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+    card.querySelectorAll('[data-login-id]').forEach(b => b.addEventListener('click', () => {
+      Player.store.currentId = b.dataset.loginId; Player.save(); render();
+    }));
+    setTimeout(() => inp.focus(), 50);
+    return;
+  }
+
   card.innerHTML = `
     <div class="capa-hero">
-      <div class="capa-emoji">🌍</div>
+      <div class="capa-emoji">\ud83c\udf0d</div>
       <h2 class="capa-titulo">GEOGRAFIA <span class="acento">AV2</span></h2>
-      <p class="capa-sub">África · Espaço, Economia e Desigualdades</p>
+      <p class="capa-sub">\u00c1frica \u00b7 Espa\u00e7o, Economia e Desigualdades</p>
       <div class="capa-credito">
-        <span>FEITO POR</span>
-        <strong>LEVI MACIEL</strong>
+        <span>JOGANDO COMO</span>
+        <strong>${escapeHtml(cur.nome)}</strong>
+      </div>
+      <div class="player-acoes">
+        <button class="link-back" data-trocar>\ud83d\udd04 Trocar de jogador</button>
       </div>
     </div>
 
-    <p class="capa-intro">Escolha como você quer estudar 👇</p>
+    <p class="capa-intro">Escolha como voc\u00ea quer estudar \ud83d\udc47</p>
 
     <div class="hub-grid">
       <button class="hub-card hub-modos" data-go="modos-hub">
-        <div class="hub-icon">🎯</div>
+        <div class="hub-icon">\ud83c\udfaf</div>
         <div class="hub-title">MODOS DE ESTUDO</div>
-        <div class="hub-desc">Aprenda em fases, com mini-quizzes ao longo do caminho e quiz final.<br><b>3 níveis</b> para escolher.</div>
+        <div class="hub-desc">Aprenda em fases, com mini-quizzes ao longo do caminho e quiz final.<br><b>3 n\u00edveis</b> para escolher.</div>
       </button>
 
       <button class="hub-card hub-leitura" data-go="leitura">
-        <div class="hub-icon">📖</div>
+        <div class="hub-icon">\ud83d\udcd6</div>
         <div class="hub-title">LEITURA COMPLETA</div>
-        <div class="hub-desc">Tudo sobre o conteúdo, explicado de um jeito leve e direto. Sem quiz, só leitura.</div>
+        <div class="hub-desc">Tudo sobre o conte\u00fado, explicado de um jeito leve e direto. Sem quiz, s\u00f3 leitura.</div>
       </button>
 
       <button class="hub-card hub-games" data-go="jogos-hub">
-        <div class="hub-icon">🎮</div>
-        <div class="hub-title">SÓ GAMES</div>
-        <div class="hub-desc">Caça-palavras, Forca, Jogo da Velha e Memória. Escolha qual quer jogar.</div>
+        <div class="hub-icon">\ud83c\udfae</div>
+        <div class="hub-title">S\u00d3 GAMES</div>
+        <div class="hub-desc">Ca\u00e7a-palavras, Forca, Jogo da Velha e Mem\u00f3ria. Cada vit\u00f3ria sobe no ranking.</div>
       </button>
     </div>
 
+    ${renderRankingBox()}
     ${renderScoreHomeBox()}
   `;
   $screens.appendChild(card);
   card.querySelectorAll('[data-go]').forEach(b =>
     b.addEventListener('click', () => go(b.dataset.go))
   );
+  card.querySelector('[data-trocar]').addEventListener('click', () => { Player.trocar(); render(); });
   const btnReset = card.querySelector('[data-reset-score]');
   if (btnReset) btnReset.addEventListener('click', () => {
-    if (confirm('Apagar TODOS os seus scores deste navegador? N\u00e3o d\u00e1 pra desfazer.')) {
-      localStorage.removeItem(SCORE_KEY);
-      Score.data = null; Score.load();
+    if (confirm('Apagar seu score atual? N\u00e3o d\u00e1 pra desfazer.')) {
+      const p = Player.current();
+      if (p) { p.scores = Player.defaultScores(); Player.save(); }
       render();
     }
   });
+  card.querySelectorAll('[data-rm-player]').forEach(b => b.addEventListener('click', () => {
+    const id = b.dataset.rmPlayer;
+    const p = Player.load().players[id];
+    if (p && confirm(`Remover ${p.nome} do ranking deste navegador?`)) { Player.remover(id); render(); }
+  }));
 }
 
-/* ---------- PAINEL DE SCORE ---------- */
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+
+/* ---------- RANKING DA SALA (local, por navegador) ---------- */
+function renderRankingBox() {
+  const rk = Player.ranking();
+  const curId = Player.current()?.id;
+  if (rk.length === 0) return '';
+  const linhas = rk.map((r, i) => {
+    const medalha = i === 0 ? '\ud83e\udd47' : i === 1 ? '\ud83e\udd48' : i === 2 ? '\ud83e\udd49' : `<b>${i + 1}\u00ba</b>`;
+    const eu = r.p.id === curId ? ' rk-eu' : '';
+    const s = r.p.scores;
+    const qAc = Object.values(s.quiz || {}).reduce((a, v) => a + v.acertos, 0);
+    const vV = s.velha?.vitorias || 0;
+    const fV = s.forca?.vitorias || 0;
+    return `
+      <div class="rk-linha${eu}">
+        <div class="rk-pos">${medalha}</div>
+        <div class="rk-nome">${escapeHtml(r.p.nome)}${r.p.id === curId ? ' <span class="rk-tag">VOC\u00ca</span>' : ''}</div>
+        <div class="rk-stats"><span>\ud83c\udfaf${qAc}</span> <span>\u274c\u2b55${vV}</span> <span>\ud83d\udc80${fV}</span></div>
+        <div class="rk-pts">${r.pts} <small>pts</small></div>
+        ${r.p.id !== curId ? `<button class="rk-rm" data-rm-player="${r.p.id}" title="Remover">\u00d7</button>` : ''}
+      </div>
+    `;
+  }).join('');
+  return `
+    <div class="ranking-painel">
+      <h3 class="score-titulo">\ud83c\udfc6 RANKING DA SALA \u00b7 ${rk.length} jogador${rk.length>1?'es':''}</h3>
+      <p class="sec-sub" style="text-align:center;margin-top:-8px">Pontos = acertos no quiz \u00d71 \u00b7 vit\u00f3rias na velha \u00d75 \u00b7 acertos na forca \u00d73</p>
+      <div class="ranking-lista">${linhas}</div>
+    </div>
+  `;
+}
+
+/* ---------- PAINEL DE SCORE (do jogador atual) ---------- */
 function renderScoreHomeBox() {
   const s = Score.load();
   const totalQuizAc = Object.values(s.quiz).reduce((a, v) => a + v.acertos, 0);
@@ -1224,7 +1352,7 @@ function renderScoreHomeBox() {
   }).join('');
   return `
     <div class="score-painel">
-      <h3 class="score-titulo">\ud83d\udcca SEU SCORE NESTE NAVEGADOR</h3>
+      <h3 class="score-titulo">\ud83d\udcca SEU SCORE PESSOAL</h3>
       <div class="score-grid">
         <div class="score-bloco score-quiz">
           <div class="score-cabec">\ud83c\udfaf QUIZZES</div>
@@ -1243,7 +1371,7 @@ function renderScoreHomeBox() {
           <div class="score-sub">${s.forca.derrotas} derrotas \u00b7 \ud83d\udd25 recorde ${s.forca.melhorSequencia}</div>
         </div>
       </div>
-      <button class="link-back" data-reset-score style="margin-top:10px">\ud83d\uddd1\ufe0f Zerar meu score</button>
+      <button class="link-back" data-reset-score style="margin-top:10px">\ud83d\uddd1\ufe0f Zerar meu score pessoal</button>
     </div>
   `;
 }
@@ -1944,13 +2072,14 @@ function initForca(area) {
    Regras de revezamento:
    - 1ª partida: IA começa (X).
    - Vencedor da partida anterior começa a próxima.
-   - Em empate: quem PERDEU a última partida (antes do empate) começa; se nunca houve perda, IA começa.
+   - Em empate: alterna a cada empate (uma vez você, outra a IA).
+   Bloqueio: enquanto a IA está pensando/jogando, o tabuleiro fica travado.
 */
 function initVelha(area) {
   const sc0 = Score.load().velha;
-  // proximoComecador: 'ia' | 'player'
   let proximoComecador = 'ia';
-  let ultimoPerdedor = 'player'; // default antes da 1ª partida
+  let proxEmpateComecador = 'player'; // alterna a cada empate
+  let aguardandoIA = false;
   area.innerHTML = `
     <p class="sec-sub">Você é <b>O</b>. A IA (X) joga com minimax 😈</p>
     <div class="velha-placar">
@@ -1976,7 +2105,8 @@ function initVelha(area) {
   const LINHAS = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 
   function reset() {
-    cells = Array(9).fill(null); fim = false;
+    cells = Array(9).fill(null); fim = false; aguardandoIA = false;
+    board.classList.remove('travado');
     board.innerHTML = '';
     for (let i=0;i<9;i++) {
       const c = document.createElement('div'); c.className='velha-cell';
@@ -1985,9 +2115,12 @@ function initVelha(area) {
     }
     status.innerHTML = '';
     quemBox.innerHTML = proximoComecador === 'ia'
-      ? '🤖 <b>IA começa essa partida</b> (ganhou ou você perdeu antes)'
-      : '🎯 <b>Você começa essa partida!</b> (ganhou antes ou empatou após vitória sua)';
-    if (proximoComecador === 'ia') iaMove();
+      ? '🤖 <b>IA começa essa partida</b>'
+      : '🎯 <b>Você começa essa partida!</b>';
+    if (proximoComecador === 'ia') {
+      aguardandoIA = true; board.classList.add('travado');
+      setTimeout(() => { iaMove(); aguardandoIA = false; board.classList.remove('travado'); }, 260);
+    }
   }
 
   function checkWin(p, b = cells) {
@@ -2034,13 +2167,14 @@ function initVelha(area) {
   }
 
   function playerMove(i) {
-    if (fim || cells[i]) return;
+    if (fim || cells[i] || aguardandoIA) return;
     cells[i] = 'O';
     board.children[i].textContent = 'O';
     board.children[i].classList.add('o');
     if (checkWin('O')) return end('🎉 Você ganhou! (raro)', 'player');
     if (emptyCells(cells).length === 0) return end('🤝 Empate.', 'empate');
-    setTimeout(iaMove, 280);
+    aguardandoIA = true; board.classList.add('travado');
+    setTimeout(() => { iaMove(); aguardandoIA = false; board.classList.remove('travado'); }, 320);
   }
 
   function end(msg, quem) {
@@ -2051,9 +2185,13 @@ function initVelha(area) {
     piEl.textContent = sc.derrotas;
     peEl.textContent = sc.empates;
     prEl.textContent = sc.melhorSequencia;
-    if (quem === 'player') { proximoComecador = 'player'; ultimoPerdedor = 'ia'; }
-    else if (quem === 'ia') { proximoComecador = 'ia'; ultimoPerdedor = 'player'; }
-    else { proximoComecador = ultimoPerdedor; } // empate: último perdedor começa
+    if (quem === 'player') { proximoComecador = 'player'; }
+    else if (quem === 'ia') { proximoComecador = 'ia'; }
+    else {
+      // Empate: alterna entre player e IA a cada empate
+      proximoComecador = proxEmpateComecador;
+      proxEmpateComecador = proxEmpateComecador === 'player' ? 'ia' : 'player';
+    }
     const proxTxt = proximoComecador === 'player' ? '🎯 Você' : '🤖 IA';
     status.innerHTML = `<div class="box-resultado">${msg}<br><small>Próxima partida: <b>${proxTxt}</b> começa</small></div>`;
   }
