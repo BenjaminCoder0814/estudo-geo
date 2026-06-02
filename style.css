@@ -24,7 +24,7 @@
   --text-dim: #b9b3a3;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { margin: 0; padding: 0; height: 100%; }
 body {
   font-family: 'Inter', system-ui, sans-serif;
@@ -32,6 +32,9 @@ body {
   background: linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 50%, var(--bg-2) 100%);
   overflow: hidden;
   position: relative;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
 }
 
 /* ===== FUNDO ESPACIAL ===== */
@@ -613,20 +616,302 @@ b, strong { color: var(--gold-glow); }
 }
 .explica-nivel.n2 { background: var(--violet); }
 
-@media (max-width: 760px) {
-  .topbar { flex-direction: column; gap: 10px; padding: 12px; }
-  .progress-wrap { width: 100%; min-width: 0; }
-  .screen { padding: 16px; }
-  .card { padding: 22px 18px; }
-  .hero h1 { font-size: 38px; letter-spacing: 2px; }
-  .hero .africa-emoji { font-size: 90px; }
-  .velha-board { grid-template-columns: repeat(3, 80px); }
-  .velha-cell { width: 80px; height: 80px; font-size: 40px; }
+/* ===========================================================
+   📱 RESPONSIVO — MOBILE PREMIUM
+   =========================================================== */
+
+/* ===== TABLET (≤ 980px) ===== */
+@media (max-width: 980px) {
+  .card { max-width: 100%; padding: 26px 24px; }
+  .screen { padding: 22px 20px; }
   .mem-wrap { grid-template-columns: repeat(3, 1fr); }
-  .planet-africa { width: 160px; height: 160px; }
-  .sun { width: 120px; height: 120px; }
-  .sun-core { width: 60px; height: 60px; }
-  .forca-word { font-size: 28px; letter-spacing: 8px; }
-  .navbar { padding: 10px 14px; }
-  .nav-btn { padding: 10px 16px; font-size: 11px; letter-spacing: 1px; }
+}
+
+/* ===== CELULAR (≤ 720px) ===== */
+@media (max-width: 720px) {
+  body { overflow: auto; }
+  html, body { height: 100%; }
+
+  #app {
+    height: 100dvh;
+    min-height: 100vh;
+  }
+
+  /* ---- Topbar compacta ---- */
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 10px 14px;
+    padding-top: max(10px, env(safe-area-inset-top));
+    border-radius: 0;
+  }
+  .brand {
+    gap: 12px;
+    width: 100%;
+    align-items: center;
+  }
+  .logo-orb {
+    width: 44px; height: 44px;
+    flex-shrink: 0;
+  }
+  .logo-orb-core { font-size: 22px; }
+  .brand > div:last-child { flex: 1; min-width: 0; }
+  .brand h1 {
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .brand small {
+    font-size: 10px;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .progress-wrap {
+    width: 100%; min-width: 0; gap: 10px;
+  }
+  .progress-bar { height: 8px; }
+  #progressLabel { font-size: 10px; min-width: 60px; letter-spacing: 1px; }
+
+  /* ---- Telas e cards ---- */
+  #screens { padding-bottom: 0; }
+  .screen {
+    padding: 16px 14px 24px;
+  }
+  .card {
+    padding: 20px 18px;
+    border-radius: 18px;
+  }
+  .card::before { height: 3px; }
+
+  h2.section-title {
+    font-size: 20px;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tag { font-size: 10px; padding: 5px 11px; letter-spacing: 1px; }
+  p { font-size: 15px; line-height: 1.65; }
+  ul.lista { padding-left: 20px; line-height: 1.75; }
+  ul.lista li { font-size: 15px; }
+
+  .destaque, .box-info, .box-resultado {
+    padding: 14px 16px;
+    font-size: 14px;
+    border-radius: 12px;
+    margin-top: 14px;
+  }
+  .destaque ol, .box-info ol { padding-left: 22px; margin: 6px 0 0; }
+
+  /* ---- Hero ---- */
+  .hero { padding: 30px 12px 20px; min-height: auto; }
+  .hero .africa-emoji {
+    font-size: 80px;
+    filter: drop-shadow(0 0 25px rgba(246,194,56,.55));
+  }
+  .hero h1 {
+    font-size: 30px;
+    letter-spacing: 2px;
+    line-height: 1.1;
+    margin: 10px 0 6px;
+  }
+  .hero .subtitle { font-size: 11px; letter-spacing: 2.5px; }
+  .hero p.lead { font-size: 14px; margin: 14px 0; padding: 0 8px; }
+  .hero .student {
+    font-size: 13px; padding: 11px 22px; letter-spacing: 1.5px;
+  }
+  .start-btn {
+    margin-top: 24px;
+    padding: 15px 36px;
+    font-size: 13px;
+    letter-spacing: 2px;
+  }
+  .hero .hint { font-size: 11px; margin-top: 20px; line-height: 1.6; }
+
+  /* ---- Quiz ---- */
+  .quiz-question {
+    font-size: 15px; letter-spacing: .3px;
+    margin: 18px 0 12px;
+    line-height: 1.4;
+  }
+  .quiz-options button {
+    padding: 13px 16px; font-size: 14px;
+    border-radius: 12px;
+    line-height: 1.4;
+  }
+  .quiz-options button:hover:not(:disabled) {
+    transform: none; /* sem deslocamento horizontal no mobile */
+  }
+  .feedback { padding: 14px 16px; font-size: 14px; border-radius: 12px; }
+  .feedback button { width: 100%; margin-top: 12px !important; }
+
+  /* ---- Caça-palavras ---- */
+  .cp-wrap { flex-direction: column; gap: 16px; }
+  .cp-grid {
+    grid-template-columns: repeat(14, minmax(0, 1fr)) !important;
+    width: 100%;
+    padding: 8px;
+    gap: 2px;
+  }
+  .cp-cell {
+    width: 100%; height: auto;
+    aspect-ratio: 1;
+    font-size: 11px;
+    border-radius: 4px;
+  }
+  .cp-list { min-width: 0; width: 100%; }
+  .cp-list ul { padding-left: 18px; }
+  .cp-list li { font-size: 14px; margin-bottom: 8px; }
+  .cp-list .hint { font-size: 11px; }
+
+  /* ---- Forca ---- */
+  .forca-hangman { font-size: 12px; }
+  .forca-word {
+    font-size: 26px;
+    letter-spacing: 6px;
+    margin: 14px 0;
+    word-break: break-all;
+  }
+  .forca-letters {
+    gap: 5px;
+    max-width: 100%;
+  }
+  .forca-letters button {
+    width: 32px; height: 32px;
+    font-size: 13px;
+    border-radius: 6px;
+  }
+  .forca-info { font-size: 11px; letter-spacing: 1px; }
+
+  /* ---- Velha ---- */
+  .velha-board {
+    grid-template-columns: repeat(3, minmax(80px, 90px));
+    gap: 6px;
+    margin: 16px auto;
+  }
+  .velha-cell {
+    width: 100%; height: 90px;
+    font-size: 42px;
+    border-radius: 12px;
+  }
+
+  /* ---- Memória ---- */
+  .mem-wrap {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin: 14px auto;
+  }
+  .mem-card {
+    height: 84px;
+    font-size: 11px;
+    padding: 6px;
+    border-radius: 12px;
+  }
+  .mem-card:hover { transform: none; }
+
+  /* ---- Navbar / Botões ---- */
+  .navbar {
+    padding: 10px 12px;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+    gap: 8px;
+  }
+  .phase-title {
+    display: none; /* economiza espaço no mobile */
+  }
+  .nav-btn {
+    padding: 11px 18px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    flex: 1;
+    max-width: 50%;
+  }
+  .nav-btn:hover:not(:disabled) { transform: none; }
+
+  /* ---- Vitória ---- */
+  .victory { padding: 24px 14px; }
+  .victory .medal { font-size: 110px; }
+  .victory h1 { font-size: 34px; letter-spacing: 2px; }
+  .victory .checks { margin: 18px auto; }
+  .victory .checks p { font-size: 14px; padding: 9px 14px; }
+  .victory .final-msg { font-size: 15px !important; letter-spacing: 1px; }
+
+  /* ---- Cenário cósmico reduzido ---- */
+  .sun {
+    width: 100px; height: 100px;
+    top: 4%; right: 4%;
+  }
+  .sun-core { width: 50px; height: 50px; }
+  .sun-ring-2 { inset: -16px; }
+  .planet-africa {
+    width: 130px; height: 130px;
+    bottom: 6%; left: -20px;
+    opacity: .55;
+  }
+  .planet-small {
+    width: 60px; height: 60px;
+    top: 28%; left: 4%;
+    opacity: .65;
+  }
+  .nebula-1 { width: 320px; height: 320px; }
+  .nebula-2 { width: 380px; height: 380px; }
+  .nebula-3 { width: 280px; height: 280px; }
+  .savanna { height: 100px; opacity: .7; }
+  .adinkra { font-size: 18px !important; opacity: .15; }
+  .adinkra-3 { font-size: 22px !important; }
+}
+
+/* ===== CELULAR PEQUENO (≤ 380px) ===== */
+@media (max-width: 380px) {
+  .topbar { padding: 8px 10px; }
+  .brand h1 { font-size: 12px; letter-spacing: 1px; }
+  .brand small { font-size: 9px; }
+  .logo-orb { width: 38px; height: 38px; }
+  .logo-orb-core { font-size: 18px; }
+
+  .screen { padding: 12px 10px 20px; }
+  .card { padding: 16px 14px; border-radius: 14px; }
+
+  .hero h1 { font-size: 24px; letter-spacing: 1.5px; }
+  .hero .africa-emoji { font-size: 68px; }
+  .hero .subtitle { font-size: 10px; letter-spacing: 2px; }
+  .hero p.lead { font-size: 13px; }
+  .hero .student { font-size: 12px; padding: 10px 18px; }
+  .start-btn { padding: 13px 28px; font-size: 12px; letter-spacing: 1.5px; }
+
+  h2.section-title { font-size: 17px; }
+  p, ul.lista li { font-size: 14px; }
+  .quiz-options button { padding: 11px 14px; font-size: 13px; }
+  .quiz-question { font-size: 14px; }
+
+  .forca-word { font-size: 20px; letter-spacing: 4px; }
+  .forca-letters button { width: 28px; height: 28px; font-size: 11px; }
+
+  .velha-board { grid-template-columns: repeat(3, 72px); }
+  .velha-cell { height: 72px; font-size: 34px; }
+
+  .cp-cell { font-size: 9px; }
+
+  .nav-btn { padding: 10px 12px; font-size: 10px; letter-spacing: .5px; }
+
+  .victory .medal { font-size: 90px; }
+  .victory h1 { font-size: 26px; }
+}
+
+/* ===== TELA BAIXA (paisagem mobile) ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero { padding: 14px; }
+  .hero .africa-emoji { font-size: 50px; }
+  .hero h1 { font-size: 24px; margin: 4px 0; }
+  .hero p.lead { margin: 8px 0; font-size: 12px; }
+  .start-btn { margin-top: 12px; padding: 10px 24px; font-size: 11px; }
+  .topbar { flex-direction: row; }
+  .progress-wrap { min-width: 200px; width: auto; }
 }
