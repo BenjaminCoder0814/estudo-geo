@@ -171,10 +171,10 @@ const QUIZZES = {
       {
         q: 'Em poucas palavras: o que é um ENCLAVE ECONÔMICO?',
         opcoes: [
-          'Uma fazenda comunitária africana.',
-          'Uma atividade econômica desconectada do território onde acontece (a riqueza sai, não fica na região).',
-          'Um tipo de moeda.',
-          'Uma área cercada por muros militares.',
+          'Uma fazenda comunitária africana voltada para o consumo local.',
+          'Uma atividade econômica isolada do território onde acontece (a riqueza sai).',
+          'Um tipo de moeda usada apenas dentro do continente africano.',
+          'Uma área cercada por muros militares para controlar a população.',
         ],
         correta: 1,
         explicacoes: [
@@ -185,10 +185,10 @@ const QUIZZES = {
       {
         q: 'Quem normalmente controla um enclave africano (mineração, petróleo)?',
         opcoes: [
-          'Cooperativas locais de pequenos produtores.',
-          'O governo estadual sozinho.',
-          'Empresas transnacionais estrangeiras.',
-          'Organizações ambientais.',
+          'Cooperativas locais de pequenos produtores e moradores da região.',
+          'O governo nacional sozinho, sem qualquer parceria internacional.',
+          'Empresas transnacionais estrangeiras com sede em outros países.',
+          'Organizações ambientais ligadas à preservação dos recursos.',
         ],
         correta: 2,
         explicacoes: [
@@ -199,10 +199,10 @@ const QUIZZES = {
       {
         q: 'Por que o enclave NÃO ajuda muito a região onde ele está?',
         opcoes: [
-          'Porque a tecnologia não funciona na África.',
-          'Porque os lucros são enviados pro exterior em vez de virarem hospitais, escolas e estradas.',
-          'Porque a população africana recusa o emprego.',
-          'Porque o governo proíbe gastar localmente.',
+          'Porque a tecnologia europeia simplesmente não funciona em solo africano.',
+          'Porque os lucros vão pro exterior em vez de virarem hospital e escola.',
+          'Porque a população africana recusa os empregos que são oferecidos ali.',
+          'Porque o próprio governo proíbe gastar o dinheiro arrecadado na região.',
         ],
         correta: 1,
         explicacoes: [
@@ -215,10 +215,10 @@ const QUIZZES = {
       {
         q: 'Por que o modelo de "enclave econômico" não promove desenvolvimento amplo no país hospedeiro?',
         opcoes: [
-          'Porque cria muitos empregos formais bem pagos.',
-          'Porque os lucros e a maior parte da riqueza são enviados ao exterior, deixando pouca renda circulando localmente.',
-          'Porque distribui royalties igualmente entre todos os habitantes.',
-          'Porque obriga as empresas a investir em escolas locais.',
+          'Porque cria muitos empregos formais bem pagos para toda a população local.',
+          'Porque envia lucros e riqueza ao exterior, deixando pouca renda circulando.',
+          'Porque distribui royalties de forma igualitária entre todos os habitantes.',
+          'Porque obriga as empresas estrangeiras a investirem em escolas da região.',
         ],
         correta: 1,
         explicacoes: [
@@ -229,10 +229,10 @@ const QUIZZES = {
       {
         q: 'Qual destes é um EXEMPLO típico de enclave econômico em país africano?',
         opcoes: [
-          'Uma rede municipal de escolas públicas.',
-          'A extração de petróleo em Angola por petrolíferas estrangeiras, com lucros enviados ao exterior.',
-          'Um programa nacional de reforma agrária.',
-          'Uma cooperativa de pesca artesanal.',
+          'Uma rede municipal de escolas públicas atendendo crianças de toda a região.',
+          'Extração de petróleo em Angola por transnacionais com lucros indo ao exterior.',
+          'Um programa nacional de reforma agrária distribuindo terras a camponeses.',
+          'Uma cooperativa de pesca artesanal mantida por moradores da vila litorânea.',
         ],
         correta: 1,
         explicacoes: [
@@ -243,10 +243,10 @@ const QUIZZES = {
       {
         q: 'O enclave econômico está diretamente ligado a qual outro problema africano?',
         opcoes: [
-          'À expansão da classe média.',
-          'À desigualdade socioeconômica, pois concentra riqueza fora do alcance da maioria da população.',
-          'Ao excesso de serviços públicos.',
-          'À redução do desemprego.',
+          'À rápida expansão da classe média e ao acesso amplo a bens de consumo.',
+          'À desigualdade socioeconômica: concentra riqueza fora do alcance da maioria.',
+          'Ao excesso de serviços públicos universais em saúde, educação e moradia.',
+          'À forte redução do desemprego graças aos empregos formais bem pagos.',
         ],
         correta: 1,
         explicacoes: [
@@ -259,10 +259,10 @@ const QUIZZES = {
       {
         q: 'Numa cidade petrolífera em Angola, há refinarias modernas operadas por transnacionais, mas o bairro ao redor não tem saneamento nem hospital adequados. Isso é um exemplo direto de:',
         opcoes: [
-          'Diversificação econômica bem-sucedida.',
-          'Enclave econômico — atividade produtiva desconectada do desenvolvimento local.',
-          'Política de ajuste fiscal.',
-          'Migração internacional.',
+          'Diversificação econômica bem-sucedida liderada por empresas locais.',
+          'Enclave econômico: atividade produtiva isolada do desenvolvimento local.',
+          'Política de ajuste fiscal imposta por organismos internacionais ao país.',
+          'Migração internacional de trabalhadores em busca de melhores salários.',
         ],
         correta: 1,
         explicacoes: [
@@ -287,10 +287,10 @@ const QUIZZES = {
       {
         q: 'A "dependência de preços internacionais" das economias africanas em enclave significa que:',
         opcoes: [
-          'Os preços locais são totalmente controlados pelo governo africano.',
-          'Quando o preço da commodity exportada cai na bolsa internacional, todo o país entra em crise.',
-          'A população decide o valor dos produtos exportados.',
-          'A inflação local não tem relação com o mercado externo.',
+          'Os preços locais são totalmente controlados pelo governo africano, sem influência externa.',
+          'Quando o preço da commodity exportada cai na bolsa internacional, o país inteiro entra em crise.',
+          'A população local decide diariamente o valor de venda dos produtos enviados ao exterior.',
+          'A inflação dentro do país africano não tem qualquer relação com o mercado externo global.',
         ],
         correta: 1,
         explicacoes: [
@@ -306,10 +306,10 @@ const QUIZZES = {
       {
         q: 'Quando vemos mansões de luxo a poucos quilômetros de favelas em Lagos ou Joanesburgo, estamos vendo:',
         opcoes: [
-          'Uma sociedade muito igualitária.',
-          'O contraste entre áreas de luxo e assentamentos informais — desigualdade socioeconômica nas metrópoles africanas.',
-          'Apenas turismo de alto padrão.',
-          'Cidades planejadas com sucesso.',
+          'Uma sociedade muito igualitária e justa, com renda bem distribuída.',
+          'O forte contraste entre áreas de luxo e assentamentos informais (desigualdade).',
+          'Apenas o crescimento do turismo de alto padrão nas metrópoles africanas.',
+          'Cidades muito bem planejadas, com sucesso urbano para todos os bairros.',
         ],
         correta: 1,
         explicacoes: [
@@ -320,10 +320,10 @@ const QUIZZES = {
       {
         q: 'O que normalmente acontece quando o FMI exige "ajuste fiscal" de um país africano?',
         opcoes: [
-          'O governo gasta mais em saúde e educação.',
-          'O governo precisa CORTAR gastos públicos — incluindo saúde, educação e moradia.',
-          'O FMI envia dinheiro de graça pra todos os pobres.',
-          'Os salários dos servidores aumentam.',
+          'O governo passa a gastar mais em saúde, educação e moradia popular.',
+          'O governo precisa cortar gastos públicos — saúde, educação e moradia.',
+          'O FMI envia recursos de graça diretamente para os mais pobres do país.',
+          'Os salários dos servidores públicos aumentam para combater a pobreza.',
         ],
         correta: 1,
         explicacoes: [
@@ -334,10 +334,10 @@ const QUIZZES = {
       {
         q: 'A desigualdade socioeconômica africana resulta em:',
         opcoes: [
-          'Inclusão social ampla.',
-          'Exclusão e segregação: a maioria fica fora dos benefícios do desenvolvimento.',
-          'Igualdade automática.',
-          'Fim das favelas.',
+          'Inclusão social ampla, com acesso universal a saúde e educação.',
+          'Exclusão e segregação: a maioria fica fora dos ganhos do desenvolvimento.',
+          'Igualdade automática entre todas as camadas da população do país.',
+          'Fim das favelas e dos assentamentos informais nas grandes cidades.',
         ],
         correta: 1,
         explicacoes: [
@@ -350,10 +350,10 @@ const QUIZZES = {
       {
         q: 'Qual a principal característica da desigualdade nas metrópoles africanas?',
         opcoes: [
-          'A homogeneidade entre todos os bairros.',
+          'A homogeneidade entre todos os bairros, com renda e estrutura iguais.',
           'O forte contraste entre áreas de alto padrão e grandes assentamentos informais.',
-          'A predominância de condomínios fechados em todo o território.',
-          'A ausência total de pobreza urbana.',
+          'A predominância absoluta de condomínios fechados em todo o território urbano.',
+          'A ausência total de pobreza urbana graças aos investimentos públicos amplos.',
         ],
         correta: 1,
         explicacoes: [
@@ -364,10 +364,10 @@ const QUIZZES = {
       {
         q: 'O que as políticas de ajuste fiscal impostas por FMI e Banco Mundial provocam nos países africanos?',
         opcoes: [
-          'Aumento dos investimentos em saúde e educação.',
-          'Investimento massivo do Estado em moradia popular.',
-          'Limitação dos investimentos do Estado em direitos sociais.',
-          'Distribuição igualitária da renda.',
+          'Aumento expressivo dos investimentos públicos em saúde e educação básica.',
+          'Investimento massivo do Estado africano na construção de moradia popular.',
+          'Limitação severa dos investimentos do Estado em direitos sociais e públicos.',
+          'Distribuição igualitária da renda nacional entre todas as camadas sociais.',
         ],
         correta: 2,
         explicacoes: [
@@ -378,10 +378,10 @@ const QUIZZES = {
       {
         q: 'Como a desigualdade socioeconômica resulta para a maior parte da população africana?',
         opcoes: [
-          'Em inclusão e oportunidades iguais.',
-          'Em exclusão e segregação, deixando-a à margem do desenvolvimento.',
-          'Em crescimento econômico distribuído.',
-          'No fim das favelas e dos assentamentos informais.',
+          'Em inclusão social ampla e oportunidades iguais para todas as classes.',
+          'Em exclusão e segregação, deixando a maioria à margem do desenvolvimento.',
+          'Em crescimento econômico distribuído de forma justa entre toda a população.',
+          'No fim das favelas e dos assentamentos informais espalhados pelas cidades.',
         ],
         correta: 1,
         explicacoes: [
@@ -394,10 +394,10 @@ const QUIZZES = {
       {
         q: 'Em Lagos (Nigéria), o bairro de Ikoyi tem mansões e iates, enquanto a poucos quilômetros fica Makoko, uma comunidade sobre palafitas na lagoa, sem saneamento. Esse cenário mostra principalmente:',
         opcoes: [
-          'Que a economia africana cresce de forma equilibrada.',
-          'Um forte contraste socioespacial entre áreas de luxo e assentamentos informais nas metrópoles africanas.',
-          'Que a maioria da população africana vive bem.',
-          'O sucesso das políticas públicas urbanas locais.',
+          'Que a economia africana cresce de forma equilibrada e justa entre todos.',
+          'Um forte contraste socioespacial entre áreas de luxo e assentamentos informais.',
+          'Que a maioria da população africana vive bem, com acesso a serviços urbanos.',
+          'O sucesso recente das políticas públicas urbanas locais nas metrópoles do país.',
         ],
         correta: 1,
         explicacoes: [
@@ -408,10 +408,10 @@ const QUIZZES = {
       {
         q: 'O governo de Gana, pressionado pelo FMI, faz um "ajuste fiscal". Qual cenário é o MAIS PROVÁVEL?',
         opcoes: [
-          'Salários de servidores aumentam e novos hospitais são construídos.',
-          'O Estado investe pesadamente em moradia popular.',
-          'Cortes em saúde, educação e saneamento, afetando principalmente os mais pobres.',
-          'O país para de pagar a dívida externa e investe tudo em direitos sociais.',
+          'Salários dos servidores aumentam e novos hospitais públicos são construídos.',
+          'O Estado investe pesadamente em moradia popular nas periferias das cidades.',
+          'Cortes em saúde, educação e saneamento, afetando sobretudo a população pobre.',
+          'O país para de pagar a dívida externa e aplica tudo em direitos sociais amplos.',
         ],
         correta: 2,
         explicacoes: [
@@ -422,9 +422,9 @@ const QUIZZES = {
       {
         q: 'Sobre os "assentamentos informais" em metrópoles africanas (Kibera em Nairóbi, townships em Joanesburgo), é INCORRETO afirmar:',
         opcoes: [
-          'Concentram população de baixa renda e migrantes rurais.',
-          'Costumam ter déficit grave de água tratada e saneamento.',
-          'São resultado direto da desigualdade e da segregação.',
+          'Concentram população de baixa renda e migrantes vindos das áreas rurais.',
+          'Costumam ter déficit grave de água tratada, esgoto e coleta de saneamento.',
+          'São resultado direto da desigualdade socioespacial e do processo de segregação.',
           'Recebem prioridade do Estado em obras de infraestrutura e serviços públicos.',
         ],
         correta: 3,
@@ -441,10 +441,10 @@ const QUIZZES = {
       {
         q: 'Quem desenhou as fronteiras dos países africanos atuais?',
         opcoes: [
-          'Os próprios africanos, em assembleias tribais.',
-          'Potências europeias na Conferência de Berlim (1884), sem consultar nenhum povo africano.',
-          'A ONU, em 1945.',
-          'Os EUA, depois da Segunda Guerra.',
+          'Os próprios africanos, em grandes assembleias tribais democráticas.',
+          'Potências europeias na Conferência de Berlim (1884), sem consultar africanos.',
+          'A ONU, em 1945, após o fim da Segunda Guerra Mundial e da escravidão.',
+          'Os Estados Unidos, após a Segunda Guerra Mundial, junto com a Inglaterra.',
         ],
         correta: 1,
         explicacoes: [
@@ -455,10 +455,10 @@ const QUIZZES = {
       {
         q: 'O que foi o APARTHEID?',
         opcoes: [
-          'Um movimento cultural africano.',
-          'Um sistema de segregação racial OFICIAL na África do Sul (1948–1994).',
-          'Uma guerra entre países africanos.',
-          'Uma moeda da época colonial.',
+          'Um movimento cultural africano de valorização das tradições ancestrais.',
+          'Um sistema de segregação racial oficial na África do Sul (1948–1994).',
+          'Uma guerra civil entre vários países africanos no século XX por territórios.',
+          'Uma moeda colonial usada apenas entre as colônias inglesas da África.',
         ],
         correta: 1,
         explicacoes: [
@@ -469,10 +469,10 @@ const QUIZZES = {
       {
         q: 'Quem foi Nelson Mandela?',
         opcoes: [
-          'O criador do Apartheid.',
-          'Um líder negro que combateu o Apartheid e foi eleito presidente da África do Sul em 1994.',
-          'Um general europeu.',
-          'O presidente atual da África do Sul.',
+          'O criador do sistema do Apartheid sul-africano nos anos 1940.',
+          'Líder negro que combateu o Apartheid, presidente da África do Sul em 1994.',
+          'Um general europeu que comandou tropas coloniais no sul do continente.',
+          'O atual presidente da África do Sul, no comando do país desde 2018.',
         ],
         correta: 1,
         explicacoes: [
@@ -485,10 +485,10 @@ const QUIZZES = {
       {
         q: 'Por que dizemos que as fronteiras africanas são "artificiais"?',
         opcoes: [
-          'Porque foram traçadas por satélites modernos.',
-          'Porque foram desenhadas pelos europeus na Conferência de Berlim, sem considerar povos e culturas locais.',
-          'Porque seguem montanhas e rios naturais.',
-          'Porque os africanos decidiram dividir o continente em linhas retas.',
+          'Porque foram traçadas por satélites modernos com imagens de alta precisão.',
+          'Porque foram desenhadas pelos europeus em Berlim, ignorando povos e culturas.',
+          'Porque seguem com rigor as principais montanhas e rios naturais do continente.',
+          'Porque os próprios africanos decidiram dividir o continente em linhas retas.',
         ],
         correta: 1,
         explicacoes: [
@@ -499,10 +499,10 @@ const QUIZZES = {
       {
         q: 'Durante o Apartheid, a população negra:',
         opcoes: [
-          'Tinha direitos iguais à branca.',
-          'Era proibida de morar em áreas brancas e tinha acesso limitado a educação, saúde e direitos políticos.',
-          'Comandava o governo do país.',
-          'Vivia apenas em áreas de luxo.',
+          'Tinha direitos políticos e civis iguais aos da população branca do país.',
+          'Era proibida de morar em áreas brancas e tinha acesso limitado a direitos.',
+          'Comandava todo o governo nacional e controlava a economia da África do Sul.',
+          'Vivia apenas em áreas de luxo, com pleno acesso a saúde e educação pública.',
         ],
         correta: 1,
         explicacoes: [
@@ -513,10 +513,10 @@ const QUIZZES = {
       {
         q: 'Mesmo depois das independências (anos 1950–70), por que a maioria dos países africanos continuou economicamente dependente?',
         opcoes: [
-          'Porque os africanos não sabiam administrar.',
-          'Porque a estrutura econômica herdada da colonização — voltada à exportação de matérias-primas — permaneceu intacta.',
-          'Porque os ex-colonizadores devolveram todo o dinheiro extraído.',
-          'Porque a independência trouxe igualdade imediata.',
+          'Porque os próprios africanos não sabiam administrar suas economias nacionais.',
+          'Porque a estrutura econômica colonial — voltada à exportação — permaneceu intacta.',
+          'Porque os ex-colonizadores europeus devolveram todo o dinheiro extraído às colônias.',
+          'Porque a independência trouxe imediata igualdade econômica entre todos os países.',
         ],
         correta: 1,
         explicacoes: [
@@ -529,10 +529,10 @@ const QUIZZES = {
       {
         q: 'A Conferência de Berlim (1884–1885) é um marco da divisão da África. Sobre ela, é CORRETO afirmar:',
         opcoes: [
-          'Foi uma reunião de líderes africanos que decidiram suas próprias fronteiras.',
-          'Reuniu potências europeias para partilhar o continente entre si, sem participação de povos africanos.',
-          'Estabeleceu a independência de todos os países africanos.',
-          'Foi conduzida pela ONU para garantir os direitos dos povos colonizados.',
+          'Foi uma reunião de líderes africanos que decidiram suas próprias fronteiras nacionais.',
+          'Reuniu potências europeias para partilhar o continente, sem participação dos africanos.',
+          'Estabeleceu de imediato a independência política de todos os países africanos.',
+          'Foi conduzida pela ONU para garantir os direitos dos povos colonizados na época.',
         ],
         correta: 1,
         explicacoes: [
@@ -543,10 +543,10 @@ const QUIZZES = {
       {
         q: 'Por que conflitos como Ruanda (1994), Sudão e Nigéria são relacionados às heranças coloniais?',
         opcoes: [
-          'Porque os africanos são naturalmente violentos.',
-          'Porque povos rivais foram forçados a viver dentro das mesmas fronteiras artificiais, sem coesão nacional.',
-          'Porque o clima africano provoca conflitos.',
-          'Porque a Europa atual ocupa esses países militarmente.',
+          'Porque os próprios povos africanos são naturalmente violentos entre si.',
+          'Porque povos rivais foram forçados a viver dentro das mesmas fronteiras artificiais.',
+          'Porque o clima quente e seco do continente africano provoca conflitos sociais.',
+          'Porque a Europa atual ainda ocupa esses países africanos militarmente até hoje.',
         ],
         correta: 1,
         explicacoes: [
@@ -557,10 +557,10 @@ const QUIZZES = {
       {
         q: 'Sobre o Apartheid (1948–1994) na África do Sul, marque a alternativa CORRETA:',
         opcoes: [
-          'Foi uma segregação apenas cultural, sem amparo legal.',
-          'Foi uma segregação racial INSTITUCIONALIZADA — organizada e imposta pelo Estado por meio de leis.',
-          'Foi uma política de integração entre brancos e negros.',
-          'Foi um sistema adotado em todos os países africanos no mesmo período.',
+          'Foi uma segregação apenas cultural, sem qualquer amparo na legislação do país.',
+          'Foi uma segregação racial institucionalizada — imposta pelo Estado por meio de leis.',
+          'Foi uma política de integração pacífica entre brancos e negros no território nacional.',
+          'Foi um sistema adotado em todos os países africanos no mesmo período do século XX.',
         ],
         correta: 1,
         explicacoes: [
@@ -576,10 +576,10 @@ const QUIZZES = {
       {
         q: 'Quais são impactos diretos da desigualdade na vida das pessoas na África?',
         opcoes: [
-          'Aumento de empregos formais bem pagos.',
-          'Moradias precárias em favelas, desemprego e subemprego.',
-          'Excesso de serviços públicos de qualidade.',
-          'Diminuição da migração interna.',
+          'Aumento de empregos formais bem pagos para a maior parte da população.',
+          'Moradias precárias em favelas, somadas a desemprego e ao subemprego.',
+          'Excesso de serviços públicos de qualidade disponíveis para toda a população.',
+          'Diminuição significativa da migração interna do campo para as grandes cidades.',
         ],
         correta: 1,
         explicacoes: [
@@ -590,10 +590,10 @@ const QUIZZES = {
       {
         q: 'O que é uma "migração interna"?',
         opcoes: [
-          'Sair da África para outro continente.',
-          'Animais migrando entre savanas.',
-          'Mudar de uma região para outra DENTRO do mesmo país, geralmente buscando vida melhor.',
-          'Turistas visitando o continente.',
+          'Pessoas saindo da África em direção à Europa em busca de melhores empregos.',
+          'Animais migrando entre as savanas conforme as estações secas e chuvosas do ano.',
+          'Pessoas mudando de região dentro do mesmo país buscando uma vida melhor.',
+          'Turistas internacionais visitando o continente africano em viagens organizadas.',
         ],
         correta: 2,
         explicacoes: [
@@ -604,10 +604,10 @@ const QUIZZES = {
       {
         q: 'Qual destes é um CAMINHO para reduzir as desigualdades na África?',
         opcoes: [
-          'Aumentar o modelo de enclave.',
-          'Cortar mais os gastos sociais.',
-          'Investir em direitos sociais, planejamento urbano inclusivo e diversificação econômica.',
-          'Manter tudo como está.',
+          'Aumentar o modelo de enclave em mais setores da economia nacional.',
+          'Cortar ainda mais os gastos sociais públicos do governo africano.',
+          'Investir em direitos sociais, planejamento urbano inclusivo e diversificação.',
+          'Manter exatamente tudo como está, sem mudar políticas e estruturas atuais.',
         ],
         correta: 2,
         explicacoes: [
@@ -620,10 +620,10 @@ const QUIZZES = {
       {
         q: 'O que é "subemprego" no contexto africano?',
         opcoes: [
-          'Trabalho formal com carteira e benefícios.',
-          'Trabalho informal, mal pago, sem direitos trabalhistas — muito comum nas metrópoles africanas.',
-          'Trabalho em empresas estrangeiras de alto padrão.',
-          'Aposentadoria antecipada.',
+          'Trabalho formal, com carteira assinada e benefícios trabalhistas garantidos.',
+          'Trabalho informal, mal pago, sem direitos — comum nas metrópoles africanas.',
+          'Trabalho em empresas estrangeiras de alto padrão, com salários elevados.',
+          'Aposentadoria antecipada concedida pelo governo a trabalhadores qualificados.',
         ],
         correta: 1,
         explicacoes: [
@@ -634,10 +634,10 @@ const QUIZZES = {
       {
         q: 'Por que ocorrem migrações internas na África?',
         opcoes: [
-          'Por turismo entre regiões.',
-          'Por busca de trabalho, serviços e melhores condições de vida, especialmente do campo para a cidade.',
-          'Por imposição direta dos governos.',
-          'Apenas por motivos religiosos.',
+          'Por turismo recreativo entre regiões do mesmo país nas épocas de férias.',
+          'Por busca de trabalho, serviços e melhores condições, em especial campo-cidade.',
+          'Por imposição direta dos governos africanos, que obrigam a população a se mudar.',
+          'Apenas por motivos religiosos, em peregrinações a locais sagrados tradicionais.',
         ],
         correta: 1,
         explicacoes: [
@@ -648,10 +648,10 @@ const QUIZZES = {
       {
         q: 'Qual destes NÃO é um caminho para mudança citado no mapa mental?',
         opcoes: [
-          'Investimentos públicos em direitos sociais.',
-          'Planejamento urbano inclusivo.',
-          'Aumento da exportação no modelo de enclave.',
-          'Valorização das culturas africanas.',
+          'Investimentos públicos amplos em direitos sociais básicos da população.',
+          'Planejamento urbano inclusivo, com integração das periferias à cidade.',
+          'Ampliação da exportação no modelo de enclave, aprofundando o atual padrão.',
+          'Valorização das culturas africanas e dos povos originários do continente.',
         ],
         correta: 2,
         explicacoes: [
@@ -664,10 +664,10 @@ const QUIZZES = {
       {
         q: 'Numa metrópole africana, um jovem trabalha como vendedor ambulante, sem carteira, ganhando por dia. Esse caso se enquadra em qual fenômeno?',
         opcoes: [
-          'Emprego formal de alta qualificação.',
-          'Investimento público em direitos sociais.',
-          'Subemprego — trabalho informal, mal pago, sem direitos.',
-          'Migração internacional.',
+          'Emprego formal de alta qualificação, com carteira assinada e plano de carreira.',
+          'Investimento público em direitos sociais ofertados pelo governo à população local.',
+          'Subemprego — trabalho informal, mal pago, sem direitos trabalhistas garantidos.',
+          'Migração internacional de trabalhadores em busca de melhores condições no exterior.',
         ],
         correta: 2,
         explicacoes: [
@@ -678,10 +678,10 @@ const QUIZZES = {
       {
         q: 'Sobre as migrações INTERNAS na África, qual afirmação está ERRADA?',
         opcoes: [
-          'Ocorrem dentro do mesmo país.',
-          'São motivadas pela busca por trabalho, serviços e melhores condições.',
-          'O fluxo campo → cidade é muito comum.',
-          'São sempre planejadas e organizadas pelos governos africanos.',
+          'Ocorrem dentro do mesmo país, sem atravessar fronteiras nacionais oficiais.',
+          'São motivadas pela busca de trabalho, serviços e melhores condições de vida.',
+          'O fluxo do campo em direção à cidade é o tipo mais comum dessas migrações.',
+          'São sempre planejadas e organizadas previamente pelos governos africanos.',
         ],
         correta: 3,
         explicacoes: [
@@ -692,10 +692,10 @@ const QUIZZES = {
       {
         q: 'Um caminho REAL para reduzir as desigualdades africanas seria:',
         opcoes: [
-          'Expandir o modelo de enclave para mais setores.',
-          'Atrair mais transnacionais sem cobrar impostos.',
-          'Diversificar a economia gerando empregos e investir em direitos sociais com planejamento urbano inclusivo.',
-          'Manter as fronteiras coloniais sem revisão.',
+          'Expandir o modelo de enclave econômico para ainda mais setores produtivos.',
+          'Atrair mais empresas transnacionais sem cobrar impostos nem royalties locais.',
+          'Diversificar a economia, investir em direitos sociais e planejar a cidade.',
+          'Manter as fronteiras coloniais sem qualquer revisão política ou territorial.',
         ],
         correta: 2,
         explicacoes: [
@@ -713,10 +713,10 @@ const QUIZ_FINAL = {
     {
       q: 'Resumão: o que é ENCLAVE ECONÔMICO?',
       opcoes: [
-        'Uma área com muitas escolas.',
-        'Atividade econômica desconectada do território — a riqueza sai, não fica.',
-        'Um partido político.',
-        'Um tipo de ônibus.',
+        'Uma área urbana com muitas escolas públicas e hospitais bem equipados.',
+        'Atividade econômica isolada do território — a riqueza sai e não fica.',
+        'Um partido político de esquerda atuante em vários países africanos.',
+        'Um tipo de transporte coletivo usado nas grandes metrópoles africanas.',
       ],
       correta: 1,
       explicacoes: ['Riqueza sai, não fica.', 'ENCLAVE: a riqueza é extraída e exportada, não beneficia a região.'],
@@ -724,10 +724,10 @@ const QUIZ_FINAL = {
     {
       q: 'O que o ajuste fiscal do FMI faz com os países africanos?',
       opcoes: [
-        'Investe em hospitais.',
-        'Obriga a CORTAR gastos sociais.',
-        'Distribui renda.',
-        'Acaba com a pobreza.',
+        'Investe pesado em hospitais públicos novos para a população pobre.',
+        'Obriga o país a cortar gastos sociais públicos como saúde e educação.',
+        'Distribui renda diretamente às famílias mais vulneráveis das cidades.',
+        'Acaba completamente com a pobreza extrema em poucos anos de programa.',
       ],
       correta: 1,
       explicacoes: ['Apertar o cinto.', 'Cortes em saúde, educação e moradia → desigualdade aumenta.'],
@@ -735,10 +735,10 @@ const QUIZ_FINAL = {
     {
       q: 'A Conferência de Berlim (1884) decidiu o quê?',
       opcoes: [
-        'A independência da África.',
-        'Como os europeus dividiriam a África entre si — sem consultar os africanos.',
-        'O fim da escravidão mundial.',
-        'A criação da ONU.',
+        'A independência política imediata de todos os países do continente africano.',
+        'Como os europeus dividiriam a África entre si, sem consultar os africanos.',
+        'O fim definitivo da escravidão mundial e o pagamento de reparações justas.',
+        'A criação da ONU para mediar conflitos entre as colônias e as metrópoles.',
       ],
       correta: 1,
       explicacoes: ['Europeus + régua no mapa.', 'Fronteiras artificiais que ainda geram conflitos hoje.'],
@@ -746,10 +746,10 @@ const QUIZ_FINAL = {
     {
       q: 'O APARTHEID foi:',
       opcoes: [
-        'Uma festa cultural.',
-        'Segregação racial OFICIAL na África do Sul (1948–1994).',
-        'Um time de futebol.',
-        'Um carro.',
+        'Uma festa cultural tradicional realizada anualmente em várias regiões da África.',
+        'Segregação racial oficial vigente na África do Sul entre 1948 e 1994.',
+        'Um time de futebol famoso que disputou vários campeonatos sul-africanos.',
+        'Um carro popular fabricado por uma montadora sul-africana na década de 1980.',
       ],
       correta: 1,
       explicacoes: ['Segregação por lei.', 'Apartheid = "separação" em africâner. Brancos e negros separados pelo Estado.'],
@@ -757,10 +757,10 @@ const QUIZ_FINAL = {
     {
       q: 'Subemprego é:',
       opcoes: [
-        'Emprego com carteira.',
-        'Trabalho informal, mal pago, sem direitos.',
-        'Aposentadoria.',
-        'Trabalho em empresa estrangeira.',
+        'Emprego formal com carteira assinada e todos os direitos trabalhistas garantidos.',
+        'Trabalho informal, mal pago, sem direitos — como vendedor ambulante.',
+        'Aposentadoria antecipada concedida após longos anos de serviço público.',
+        'Trabalho qualificado em empresa estrangeira com bom salário e benefícios.',
       ],
       correta: 1,
       explicacoes: ['Sem direitos = sub.', 'Vendedor ambulante sem carteira, por exemplo.'],
@@ -771,10 +771,10 @@ const QUIZ_FINAL = {
     {
       q: 'Por que o enclave NÃO promove desenvolvimento amplo no país?',
       opcoes: [
-        'Cria muitos empregos formais.',
-        'Os lucros são enviados ao exterior, deixando pouca riqueza no país.',
-        'Distribui royalties igualmente.',
-        'Obriga empresas a financiar escolas.',
+        'Cria muitos empregos formais bem pagos para a população local da região.',
+        'Os lucros são enviados ao exterior, deixando pouca riqueza dentro do país.',
+        'Distribui royalties igualmente entre todos os habitantes do território nacional.',
+        'Obriga empresas estrangeiras a financiar escolas e hospitais nas comunidades.',
       ],
       correta: 1,
       explicacoes: ['Onde vai o lucro?', 'Lucros saem do país → não viram benefícios locais.'],
@@ -782,10 +782,10 @@ const QUIZ_FINAL = {
     {
       q: 'O ajuste fiscal imposto pelo FMI provoca:',
       opcoes: [
-        'Aumento de investimentos sociais.',
-        'Limitação dos investimentos do Estado em direitos sociais.',
-        'Distribuição igualitária da renda.',
-        'Crescimento automático.',
+        'Aumento expressivo dos investimentos sociais em saúde, educação e moradia.',
+        'Limitação dos investimentos do Estado em direitos sociais e públicos básicos.',
+        'Distribuição igualitária da renda nacional entre as diferentes classes sociais.',
+        'Crescimento automático e sustentável da economia do país em poucos meses.',
       ],
       correta: 1,
       explicacoes: ['Ajuste = cortes.', 'Cortes em saúde/educação afetam principalmente os mais pobres.'],
@@ -793,10 +793,10 @@ const QUIZ_FINAL = {
     {
       q: 'Fronteiras africanas são "artificiais" porque:',
       opcoes: [
-        'Foram traçadas por satélite.',
-        'Foram desenhadas pelos europeus em Berlim, sem considerar povos locais.',
-        'Seguem rios naturais.',
-        'Foram votadas em referendos.',
+        'Foram traçadas por satélite usando imagens de alta precisão do continente.',
+        'Foram desenhadas pelos europeus em Berlim, sem considerar os povos locais.',
+        'Seguem com cuidado os principais rios naturais e cadeias de montanhas africanas.',
+        'Foram votadas em referendos populares nas comunidades de cada região do continente.',
       ],
       correta: 1,
       explicacoes: ['Berlim 1884.', 'Régua europeia ignorou etnias e culturas africanas.'],
@@ -804,10 +804,10 @@ const QUIZ_FINAL = {
     {
       q: 'Durante o Apartheid, a população negra:',
       opcoes: [
-        'Tinha direitos iguais.',
-        'Era proibida de viver em áreas brancas e tinha acesso limitado a educação, saúde e direitos políticos.',
-        'Comandava o governo.',
-        'Vivia em luxo.',
+        'Tinha direitos políticos e civis iguais aos da população branca da África do Sul.',
+        'Era proibida de morar em áreas brancas e tinha acesso limitado a direitos.',
+        'Comandava todo o governo nacional e controlava a economia da África do Sul.',
+        'Vivia apenas em áreas de grande luxo, com pleno acesso a saúde e educação.',
       ],
       correta: 1,
       explicacoes: ['"Whites Only" era lei.', 'Discriminação total prevista no código jurídico.'],
@@ -815,10 +815,10 @@ const QUIZ_FINAL = {
     {
       q: 'Qual NÃO é caminho para reduzir desigualdades?',
       opcoes: [
-        'Investimento em direitos sociais.',
-        'Planejamento urbano inclusivo.',
-        'Ampliação do modelo de enclave.',
-        'Valorização das culturas africanas.',
+        'Investimento público forte em direitos sociais básicos da população pobre.',
+        'Planejamento urbano inclusivo, com integração das periferias à cidade formal.',
+        'Ampliação do modelo de enclave para mais setores da economia nacional.',
+        'Valorização das culturas africanas e dos povos originários do continente.',
       ],
       correta: 2,
       explicacoes: ['Enclave é problema, não solução.', 'Diversificação é o caminho, não a ampliação do enclave.'],
@@ -826,10 +826,10 @@ const QUIZ_FINAL = {
     {
       q: 'O que dispara a "REPRODUÇÃO DA EXCLUSÃO" na África pós-colonial?',
       opcoes: [
-        'O fim das estruturas coloniais.',
+        'O fim completo das estruturas coloniais após as independências do século XX.',
         'A permanência de estruturas econômicas e urbanas herdadas da colonização.',
-        'A integração latino-americana.',
-        'O excesso de investimento estrangeiro em educação.',
+        'A integração latino-americana no comércio internacional de bens manufaturados.',
+        'O excesso de investimento estrangeiro em educação pública de qualidade.',
       ],
       correta: 1,
       explicacoes: ['Estrutura colonial não foi desmontada.', 'Mesmas engrenagens (exportação, segregação) continuam produzindo exclusão.'],
@@ -840,10 +840,10 @@ const QUIZ_FINAL = {
     {
       q: 'Numa cidade petrolífera angolana, transnacionais lucram bilhões enquanto o bairro vizinho carece de saneamento. O conceito que descreve isso é:',
       opcoes: [
-        'Diversificação produtiva.',
-        'Enclave econômico.',
-        'Reforma agrária.',
-        'Integração regional.',
+        'Diversificação produtiva nacional liderada por empresas pequenas locais.',
+        'Enclave econômico, atividade isolada do desenvolvimento do território.',
+        'Reforma agrária voltada à distribuição de terras a camponeses sem terra.',
+        'Integração regional entre países africanos para o comércio interno comum.',
       ],
       correta: 1,
       explicacoes: ['Riqueza no local que não vira benefício no local.', 'ENCLAVE clássico: extração + exportação + zero retorno social.'],
@@ -851,10 +851,10 @@ const QUIZ_FINAL = {
     {
       q: 'Sobre o enclave econômico, é INCORRETO afirmar:',
       opcoes: [
-        'Concentra-se em mineração, petróleo ou agronegócio exportador.',
-        'Reproduz a lógica colonial de extrair valor sem retorno social.',
-        'É controlado por transnacionais estrangeiras.',
-        'Promove ampla industrialização e diversificação do país hospedeiro.',
+        'Concentra-se em mineração, petróleo ou agronegócio voltado à exportação.',
+        'Reproduz a lógica colonial de extrair valor sem retorno social ao território.',
+        'É controlado majoritariamente por empresas transnacionais sediadas no exterior.',
+        'Promove ampla industrialização e diversificação produtiva do país hospedeiro.',
       ],
       correta: 3,
       explicacoes: ['Pergunta pede a INCORRETA.', 'O enclave APROFUNDA a especialização primário-exportadora, não diversifica.'],
@@ -862,10 +862,10 @@ const QUIZ_FINAL = {
     {
       q: 'Os "assentamentos informais" africanos (Kibera, Makoko, townships) NÃO se caracterizam por:',
       opcoes: [
-        'Concentrar população pobre e migrantes rurais.',
-        'Sofrer déficit de água tratada e saneamento.',
-        'Receber prioridade do Estado em infraestrutura.',
-        'Resultar diretamente da desigualdade e segregação.',
+        'Concentrar população pobre e migrantes vindos do campo em busca de trabalho.',
+        'Sofrer déficit grave de água tratada, saneamento básico e coleta de resíduos.',
+        'Receber prioridade do Estado em obras de infraestrutura e serviços públicos.',
+        'Resultar diretamente da desigualdade socioeconômica e do processo de segregação.',
       ],
       correta: 2,
       explicacoes: ['Pergunta pede o que NÃO é verdade.', 'Justamente o oposto: são NEGLIGENCIADOS pelo Estado. Por isso são "informais".'],
@@ -873,10 +873,10 @@ const QUIZ_FINAL = {
     {
       q: 'A Conferência de Berlim (1884–85):',
       opcoes: [
-        'Reuniu líderes africanos para definirem suas fronteiras.',
+        'Reuniu líderes africanos para que definissem suas próprias fronteiras nacionais.',
         'Reuniu potências europeias para partilhar o continente, sem participação africana.',
-        'Estabeleceu a independência africana.',
-        'Foi conduzida pela ONU.',
+        'Estabeleceu a independência imediata de todos os países africanos colonizados.',
+        'Foi conduzida pela ONU para garantir os direitos políticos dos povos colonizados.',
       ],
       correta: 1,
       explicacoes: ['ONU nem existia (1945).', 'Bismarck + potências europeias. Mapa desenhado com régua.'],
@@ -884,10 +884,10 @@ const QUIZ_FINAL = {
     {
       q: 'Conflitos como Ruanda 1994 são ligados à colonização porque:',
       opcoes: [
-        'A Europa ainda ocupa esses países militarmente.',
-        'Povos rivais foram forçados a viver dentro das mesmas fronteiras artificiais, sem coesão nacional.',
-        'O clima africano provoca conflitos.',
-        'Não há relação alguma com colonização.',
+        'A Europa ainda ocupa militarmente esses países africanos até os dias atuais.',
+        'Povos rivais foram forçados a viver dentro das mesmas fronteiras artificiais.',
+        'O clima quente e seco do continente africano provoca conflitos sociais agudos.',
+        'Não há relação alguma entre os conflitos atuais e a história da colonização.',
       ],
       correta: 1,
       explicacoes: ['Pense nas fronteiras inventadas.', 'Tutsis e hutus colocados à força no mesmo país inventado → conflito.'],
@@ -895,10 +895,10 @@ const QUIZ_FINAL = {
     {
       q: 'Sobre o Apartheid, é CORRETO afirmar:',
       opcoes: [
-        'Foi segregação apenas cultural, sem amparo legal.',
-        'Foi segregação racial INSTITUCIONALIZADA, imposta pelo Estado sul-africano por meio de leis.',
-        'Foi política de integração entre raças.',
-        'Foi adotado em todos os países africanos.',
+        'Foi uma segregação apenas cultural, sem qualquer amparo na legislação oficial.',
+        'Foi segregação racial institucionalizada, imposta pelo Estado sul-africano em lei.',
+        'Foi uma política de integração pacífica entre as diferentes raças no território.',
+        'Foi um sistema adotado em todos os países do continente africano no mesmo período.',
       ],
       correta: 1,
       explicacoes: ['Institucionalizado = previsto em lei.', 'Pass Laws, Group Areas Act, bantustões. Apenas África do Sul, 1948–1994.'],
@@ -906,10 +906,10 @@ const QUIZ_FINAL = {
     {
       q: 'Durante o Apartheid, os "bantustões" eram:',
       opcoes: [
-        'Áreas livres onde a população negra tinha cidadania plena.',
-        'Territórios pobres e mal localizados onde a população negra era forçada a viver, perdendo direitos.',
-        'Bairros de luxo da África do Sul.',
-        'Escolas integradas.',
+        'Áreas livres onde a população negra desfrutava de cidadania sul-africana plena.',
+        'Territórios pobres onde a população negra era forçada a viver, perdendo direitos.',
+        'Bairros nobres de luxo da África do Sul, voltados à elite branca da época colonial.',
+        'Escolas integradas onde crianças negras e brancas estudavam em conjunto nas séries.',
       ],
       correta: 1,
       explicacoes: ['Separação territorial forçada.', 'Os negros eram REMOVIDOS para áreas precárias, perdendo até a cidadania sul-africana.'],
@@ -917,10 +917,10 @@ const QUIZ_FINAL = {
     {
       q: 'Após o fim oficial do Apartheid (1994 com Mandela), é CORRETO dizer que:',
       opcoes: [
-        'A desigualdade racial e econômica acabou imediatamente.',
-        'A África do Sul tornou-se o país mais igualitário do mundo.',
-        'As marcas do sistema persistem: a população negra ainda concentra os piores indicadores sociais.',
-        'O Apartheid voltou a vigorar em 2000.',
+        'A desigualdade racial e econômica acabou imediatamente em todo o território nacional.',
+        'A África do Sul tornou-se o país mais igualitário do mundo em todos os indicadores.',
+        'As marcas do sistema persistem: a população negra ainda concentra os piores índices.',
+        'O regime do Apartheid voltou oficialmente a vigorar em 2000, com novas leis raciais.',
       ],
       correta: 2,
       explicacoes: ['Leis mudam rápido; sociedades, devagar.', '46 anos de segregação institucional deixaram marcas profundas que persistem hoje.'],
@@ -928,10 +928,10 @@ const QUIZ_FINAL = {
     {
       q: 'Vendedor ambulante sem carteira ganhando por dia exemplifica:',
       opcoes: [
-        'Emprego formal qualificado.',
-        'Investimento público.',
-        'Subemprego — trabalho informal sem direitos.',
-        'Migração internacional.',
+        'Emprego formal qualificado, com carteira assinada e plano de carreira de longo prazo.',
+        'Investimento público em programas sociais de geração de renda para população pobre.',
+        'Subemprego, ou seja, trabalho informal e mal pago, sem direitos trabalhistas.',
+        'Migração internacional de trabalhadores em busca de melhores condições no exterior.',
       ],
       correta: 2,
       explicacoes: ['Sem direitos = sub.', 'Subemprego é a regra nas metrópoles africanas devido ao enclave e à falta de empregos formais.'],
@@ -939,10 +939,10 @@ const QUIZ_FINAL = {
     {
       q: 'Sobre migrações internas na África, é ERRADO afirmar que:',
       opcoes: [
-        'Ocorrem dentro do mesmo país.',
-        'São motivadas por busca de trabalho e serviços.',
-        'Campo → cidade é o fluxo mais comum.',
-        'São sempre planejadas pelos governos.',
+        'Ocorrem dentro do mesmo país, sem atravessar fronteiras nacionais oficiais.',
+        'São motivadas pela busca de trabalho, serviços e melhores condições de vida.',
+        'O fluxo campo → cidade é o tipo mais comum dessas migrações no continente.',
+        'São sempre planejadas e organizadas previamente pelos governos africanos.',
       ],
       correta: 3,
       explicacoes: ['Pede a ERRADA.', 'Migrações são ESPONTÂNEAS. O Estado não planeja — por isso surgem favelas.'],
