@@ -1417,3 +1417,23 @@ b, strong { color: var(--gold-glow); }
 .leitura-mais .topico-corpo { color: var(--text); }
 .leitura-mais .topico-corpo p,
 .leitura-mais .topico-corpo li { color: var(--text); }
+
+/* ===== Progresso do modo ===== */
+.progresso-modo { margin: 0 0 22px; padding: 14px 16px; background: rgba(0,0,0,.35); border: 1px solid rgba(246,194,56,.25); border-radius: 14px; }
+.progresso-trilha { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.prog-step { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.08); border: 2px solid rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all .25s; }
+.prog-step.done { background: rgba(43,209,126,.25); border-color: #2bd17e; }
+.prog-step.active { background: rgba(246,194,56,.35); border-color: #f6c238; box-shadow: 0 0 18px rgba(246,194,56,.55); transform: scale(1.18); }
+.prog-line { width: 12px; height: 2px; background: rgba(255,255,255,.18); border-radius: 2px; }
+.progresso-label { text-align: center; margin-top: 10px; font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 1px; color: #f6c238; }
+
+/* ===== Contador de acertos no quiz ===== */
+.quiz-acertos { background: rgba(43,209,126,.12); border: 1px solid rgba(43,209,126,.4); color: #c8ffd8; padding: 10px 16px; border-radius: 12px; text-align: center; margin: 0 0 16px; font-size: 15px; }
+.quiz-acertos [data-acertos-num] { font-family: 'Orbitron', sans-serif; font-size: 18px; color: #2bd17e; padding: 0 4px; }
+
+/* ===== Botão mega Continuar ===== */
+.btn-continuar-mega { font-size: 17px !important; padding: 18px 40px !important; font-family: 'Orbitron', sans-serif; letter-spacing: 1.2px; text-transform: uppercase; }
+
+/* ===== Box de vitória do quiz ===== */
+.box-vitoria-quiz { width: 100%; text-align: center; padding: 22px 18px; background: linear-gradient(135deg, rgba(43,209,126,.25), rgba(246,194,56,.18)); border: 2px solid #2bd17e; border-radius: 16px; font-size: 18px; color: #fff; margin-bottom: 14px; }
+.box-vitoria-sub { display: inline-block; margin-top: 8px; font-size: 14px; color: #f6c238; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }

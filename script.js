@@ -1120,6 +1120,35 @@ function renderModosHub() {
    10 -> vitória
 */
 
+function barraProgressoHtml() {
+  // 9 etapas visíveis: 4 leituras + 4 quizzes de tópico + 1 quiz final
+  const labels = [];
+  for (let i = 0; i < 4; i++) {
+    labels.push({ tipo: 'leitura', topicoIdx: i, step: 1 + i * 2 });
+    labels.push({ tipo: 'quiz', topicoIdx: i, step: 2 + i * 2 });
+  }
+  labels.push({ tipo: 'quiz-final', step: 9 });
+  const current = state.modoStep;
+  const items = labels.map(l => {
+    const done = current > l.step;
+    const active = current === l.step;
+    const cls = ['prog-step', done && 'done', active && 'active'].filter(Boolean).join(' ');
+    let ic;
+    if (l.tipo === 'quiz-final') ic = '🏆';
+    else if (l.tipo === 'leitura') ic = TOPICOS[l.topicoIdx].icone;
+    else ic = '❓';
+    return `<div class="${cls}" title="${l.tipo === 'quiz-final' ? 'Quiz Final' : (l.tipo === 'quiz' ? 'Quiz ' : '') + TOPICOS[l.topicoIdx].titulo}">${ic}</div>`;
+  }).join('<div class="prog-line"></div>');
+  const passoNum = labels.findIndex(l => l.step === current) + 1;
+  const total = labels.length;
+  return `
+    <div class="progresso-modo">
+      <div class="progresso-trilha">${items}</div>
+      <div class="progresso-label">Passo <b>${passoNum}</b> de <b>${total}</b> · ${etiquetaModoStep()}</div>
+    </div>
+  `;
+}
+
 function passoInfo(step) {
   if (step === 0) return { tipo: 'intro' };
   if (step === 9) return { tipo: 'quiz-final' };
@@ -1185,6 +1214,7 @@ function renderTopicoLeitura(i) {
   const card = document.createElement('section');
   card.className = `card topico topico-${t.cor}`;
   card.innerHTML = `
+    ${barraProgressoHtml()}
     <div class="topico-head">
       <div class="topico-icon">${t.icone}</div>
       <div>
@@ -1194,7 +1224,7 @@ function renderTopicoLeitura(i) {
     </div>
     <div class="topico-corpo">${texto}</div>
     <div class="acoes">
-      <button class="btn-primario" data-next>Entendido — quiz desse tópico ➜</button>
+      <button class="btn-primario btn-continuar-mega" data-next>FAZER O QUIZ DE ${t.titulo.toUpperCase()} ➜</button>
     </div>
   `;
   $screens.appendChild(card);
@@ -1234,12 +1264,17 @@ function poolPorSlot(topicoId, slotIdx) {
 function renderQuizTopico(i) {
   const t = TOPICOS[i];
   const pools = [0, 1, 2].map(slot => poolPorSlot(t.id, slot));
+  const proximo = TOPICOS[i + 1];
+  const proximoLabel = proximo
+    ? `${proximo.icone} ${proximo.titulo.toUpperCase()}`
+    : `🏆 QUIZ FINAL`;
   renderQuiz({
     titulo: `Quiz — ${t.titulo}`,
     subtitulo: `Acerte as 3 para avançar. Errou? Volte ao conteúdo e tente de novo 📖`,
     pools,
     chaveErros: `${state.modo}-${t.id}`,
     voltarConteudoLabel: `📖 Reler o conteúdo de "${t.titulo}"`,
+    proximoLabel,
     onVoltarConteudo: () => { state.modoStep--; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); },
     onConclude: () => { state.modoStep++; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
   });
@@ -1254,12 +1289,13 @@ function renderQuizFinal() {
     subtitulo: `Mostra tudo o que você aprendeu. Acertar TODAS te leva à vitória 🚀`,
     pools,
     chaveErros: `${state.modo}-final`,
+    proximoLabel: `🏆 TELA DE VITÓRIA`,
     onConclude: () => { state.modoStep = 10; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
   });
 }
 
 /* ---------- QUIZ GENÉRICO (com variantes + embaralhamento) ---------- */
-function renderQuiz({ titulo, subtitulo, pools, chaveErros, onConclude, onVoltarConteudo, voltarConteudoLabel }) {
+function renderQuiz({ titulo, subtitulo, pools, chaveErros, onConclude, onVoltarConteudo, voltarConteudoLabel, proximoLabel }) {
   state.errosQuiz[chaveErros] = state.errosQuiz[chaveErros] || {};
   const erros = state.errosQuiz[chaveErros];
 
@@ -1273,13 +1309,20 @@ function renderQuiz({ titulo, subtitulo, pools, chaveErros, onConclude, onVoltar
 
   const card = document.createElement('section');
   card.className = 'card';
+  const totalSlots = pools.length;
+  const proxText = proximoLabel || 'PRÓXIMO';
   card.innerHTML = `
+    ${barraProgressoHtml()}
     <h2 class="sec-title">${titulo}</h2>
     <p class="sec-sub">${subtitulo}</p>
+    <div class="quiz-acertos" data-acertos><b>✅ Acertos:</b> <span data-acertos-num>0</span> / ${totalSlots}</div>
     <div class="quiz-list"></div>
     <div class="acoes" style="display:none" data-final>
-      <div class="box-resultado" style="width:100%;text-align:center">🎉 <b>Você acertou tudo!</b> Pode seguir para o próximo conteúdo.</div>
-      <button class="btn-primario" data-go-next style="font-size:16px;padding:16px 38px">CONTINUAR PARA O PRÓXIMO ➜</button>
+      <div class="box-vitoria-quiz">
+        🎉 <b>Você acertou TUDO!</b><br>
+        <span class="box-vitoria-sub">Próximo passo: <b>${proxText}</b></span>
+      </div>
+      <button class="btn-primario btn-continuar-mega" data-go-next>CONTINUAR ➜ ${proxText}</button>
     </div>
   `;
   const list = card.querySelector('.quiz-list');
@@ -1372,8 +1415,10 @@ function renderQuiz({ titulo, subtitulo, pools, chaveErros, onConclude, onVoltar
   slots.forEach((_, i) => renderBlock(i));
 
   function verificarConclusao() {
-    const ok = slots.every(s => s.acertou);
-    if (ok) {
+    const acertos = slots.filter(s => s.acertou).length;
+    const numEl = card.querySelector('[data-acertos-num]');
+    if (numEl) numEl.textContent = acertos;
+    if (acertos === slots.length) {
       const finalBox = card.querySelector('[data-final]');
       finalBox.style.display = '';
       const btn = finalBox.querySelector('[data-go-next]');
