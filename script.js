@@ -1052,6 +1052,11 @@ const Player = {
       quiz: {},
       velha: { vitorias: 0, derrotas: 0, empates: 0, sequencia: 0, melhorSequencia: 0 },
       forca: { vitorias: 0, derrotas: 0, sequencia: 0, melhorSequencia: 0 },
+      bonus: {
+        leiturasLidas: {},        // chave "modo-topicoId" => true
+        topicosCompletos: {},     // chave "modo-topicoId" => true (leu + acertou quiz)
+        modosCompletos: {},       // chave "modo" => true (terminou tudo)
+      },
     };
   },
   login(nome) {
@@ -1081,7 +1086,17 @@ const Player = {
     if (!p) return 0;
     const s = p.scores;
     const qAc = Object.values(s.quiz || {}).reduce((a, v) => a + v.acertos, 0);
-    return qAc * 1 + (s.velha?.vitorias || 0) * 5 + (s.forca?.vitorias || 0) * 3;
+    const bonus = s.bonus || {};
+    const leituras = Object.keys(bonus.leiturasLidas || {}).length;
+    const topicos  = Object.keys(bonus.topicosCompletos || {}).length;
+    const modos    = Object.keys(bonus.modosCompletos || {}).length;
+    return qAc * 1                          // 1 pt por acerto
+         + (s.velha?.vitorias || 0) * 10    // 10 pts por vitória contra a IA (é difícil)
+         + (s.velha?.empates  || 0) * 2     // 2 pts por empate (a IA é boa)
+         + (s.forca?.vitorias || 0) * 3     // 3 pts por palavra forca
+         + leituras * 2                     // 2 pts por leitura completada
+         + topicos  * 5                     // 5 pts por tópico (leu + zerou quiz)
+         + modos    * 25;                   // 25 pts por módulo inteiro concluído
   },
   ranking() {
     return this.list()
@@ -1126,6 +1141,32 @@ const Score = {
     let ac = 0, er = 0;
     Object.entries(s.quiz || {}).forEach(([k, v]) => { if (k.startsWith(modo + '-')) { ac += v.acertos; er += v.erros; } });
     return { ac, er };
+  },
+  registraLeitura(modo, topicoId) {
+    const s = this.cur(); if (!s) return false;
+    s.bonus = s.bonus || { leiturasLidas: {}, topicosCompletos: {}, modosCompletos: {} };
+    const key = `${modo}-${topicoId}`;
+    if (s.bonus.leiturasLidas[key]) return false;
+    s.bonus.leiturasLidas[key] = true;
+    this.saveCur();
+    return true; // primeira vez
+  },
+  registraTopicoCompleto(modo, topicoId) {
+    const s = this.cur(); if (!s) return false;
+    s.bonus = s.bonus || { leiturasLidas: {}, topicosCompletos: {}, modosCompletos: {} };
+    const key = `${modo}-${topicoId}`;
+    if (s.bonus.topicosCompletos[key]) return false;
+    s.bonus.topicosCompletos[key] = true;
+    this.saveCur();
+    return true;
+  },
+  registraModoCompleto(modo) {
+    const s = this.cur(); if (!s) return false;
+    s.bonus = s.bonus || { leiturasLidas: {}, topicosCompletos: {}, modosCompletos: {} };
+    if (s.bonus.modosCompletos[modo]) return false;
+    s.bonus.modosCompletos[modo] = true;
+    this.saveCur();
+    return true;
   }
 };
 
@@ -1305,6 +1346,22 @@ function renderHome() {
 
 function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 
+/* ---------- TOAST DE PONTOS ---------- */
+function toastPontos(msg) {
+  if (!Player.current()) return;
+  let host = document.getElementById('toastHost');
+  if (!host) {
+    host = document.createElement('div'); host.id = 'toastHost';
+    document.body.appendChild(host);
+  }
+  const t = document.createElement('div');
+  t.className = 'toast-pts';
+  t.textContent = msg;
+  host.appendChild(t);
+  setTimeout(() => { t.classList.add('toast-out'); }, 2200);
+  setTimeout(() => { t.remove(); }, 2900);
+}
+
 /* ---------- RANKING DA SALA (local, por navegador) ---------- */
 function renderRankingBox() {
   const rk = Player.ranking();
@@ -1330,7 +1387,7 @@ function renderRankingBox() {
   return `
     <div class="ranking-painel">
       <h3 class="score-titulo">\ud83c\udfc6 RANKING DA SALA \u00b7 ${rk.length} jogador${rk.length>1?'es':''}</h3>
-      <p class="sec-sub" style="text-align:center;margin-top:-8px">Pontos = acertos no quiz \u00d71 \u00b7 vit\u00f3rias na velha \u00d75 \u00b7 acertos na forca \u00d73</p>
+      <p class="sec-sub" style="text-align:center;margin-top:-8px">Quiz +1 · Tópico +5 · Módulo +25 · Leitura +2 · Velha +10 · Empate +2 · Forca +3</p>
       <div class="ranking-lista">${linhas}</div>
     </div>
   `;
@@ -1542,6 +1599,8 @@ function renderTopicoLeitura(i) {
   `;
   $screens.appendChild(card);
   card.querySelector('[data-next]').addEventListener('click', () => {
+    const ganhou = Score.registraLeitura(state.modo, t.id);
+    if (ganhou) toastPontos(`+2 pts por ler "${t.titulo}" 📖`);
     state.modoStep++;
     render();
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1602,7 +1661,11 @@ function renderQuizTopico(i) {
     voltarConteudoLabel: `📖 Reler o conteúdo de "${t.titulo}"`,
     proximoLabel,
     onVoltarConteudo: () => { state.modoStep--; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); },
-    onConclude: () => { state.modoStep++; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    onConclude: () => {
+      const ganhou = Score.registraTopicoCompleto(state.modo, t.id);
+      if (ganhou) toastPontos(`+5 pts por zerar o quiz de "${t.titulo}" 🎯`);
+      state.modoStep++; render(); window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   });
 }
 
@@ -1616,7 +1679,11 @@ function renderQuizFinal() {
     pools,
     chaveErros: `${state.modo}-final`,
     proximoLabel: `🏆 TELA DE VITÓRIA`,
-    onConclude: () => { state.modoStep = 10; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    onConclude: () => {
+      const ganhou = Score.registraModoCompleto(state.modo);
+      if (ganhou) toastPontos(`+25 pts por COMPLETAR o modo ${state.modo.toUpperCase()} 🏆`);
+      state.modoStep = 10; render(); window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   });
 }
 
@@ -2054,6 +2121,7 @@ function initForca(area) {
         eRest.textContent = 6 - erros.size;
         if (palavra.split('').every(c => acertos.has(c))) {
           Score.registraForca(true);
+          toastPontos('+3 pts pela palavra! 🔥');
           const sc2 = Score.load().forca;
           lEl.querySelectorAll('button').forEach(x => x.disabled = true);
           fb.innerHTML = `<div class="box-resultado">✅ Acertou: <b>${palavra}</b>! Sequência: ${sc2.sequencia} 🔥</div>
@@ -2152,10 +2220,33 @@ function initVelha(area) {
   function iaMove() {
     if (fim) return;
     const isFirst = cells.every(c => c === null);
+    const livres = emptyCells(cells);
     let idx;
+    // Chance de erro: ~35% das jogadas (a partir do 2º lance) a IA joga "errado" de propósito
+    // Isso garante que você consiga ganhar de vez em quando.
+    const ERRA_PCT = 0.35;
     if (isFirst) {
       const aberturas = [0, 2, 4, 6, 8];
       idx = aberturas[Math.floor(Math.random() * aberturas.length)];
+    } else if (Math.random() < ERRA_PCT) {
+      // Escolhe um lance NAO-ótimo: se houver jogada que NAO dê vitória imediata pra X
+      // nem bloqueie vitória de O, prefere essa (deixa o jogo aberto).
+      const opcoesRuins = livres.filter(i => {
+        // não pega se é jogada que ganha pra IA na hora (deixa quieto)
+        const b = cells.slice(); b[i] = 'X';
+        if (checkWin('X', b)) return false;
+        // não bloqueia uma vitória iminente do player (deixa player ganhar)
+        const b2 = cells.slice(); b2[i] = 'X';
+        const playerPodeGanhar = livres.some(j => {
+          if (j === i) return false;
+          const b3 = b2.slice(); b3[j] = 'O';
+          return checkWin('O', b3);
+        });
+        return playerPodeGanhar; // prioriza não bloquear
+      });
+      idx = opcoesRuins.length
+        ? opcoesRuins[Math.floor(Math.random() * opcoesRuins.length)]
+        : livres[Math.floor(Math.random() * livres.length)];
     } else {
       idx = minimax(cells.slice(), 'X').idx;
     }
@@ -2185,12 +2276,12 @@ function initVelha(area) {
     piEl.textContent = sc.derrotas;
     peEl.textContent = sc.empates;
     prEl.textContent = sc.melhorSequencia;
-    if (quem === 'player') { proximoComecador = 'player'; }
+    if (quem === 'player') { proximoComecador = 'player'; toastPontos('+10 pts por vencer a IA! 🎉'); }
     else if (quem === 'ia') { proximoComecador = 'ia'; }
     else {
-      // Empate: alterna entre player e IA a cada empate
       proximoComecador = proxEmpateComecador;
       proxEmpateComecador = proxEmpateComecador === 'player' ? 'ia' : 'player';
+      toastPontos('+2 pts pelo empate 🤝');
     }
     const proxTxt = proximoComecador === 'player' ? '🎯 Você' : '🤖 IA';
     status.innerHTML = `<div class="box-resultado">${msg}<br><small>Próxima partida: <b>${proxTxt}</b> começa</small></div>`;

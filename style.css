@@ -1483,3 +1483,14 @@ b, strong { color: var(--gold-glow); }
 /* ===== Velha travado durante turno IA ===== */
 .velha-board.travado { pointer-events: none; opacity: .65; filter: saturate(.6); position: relative; }
 .velha-board.travado::after { content: 'IA pensando...'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,.85); color: #f6c238; font-family: 'Orbitron', sans-serif; padding: 8px 16px; border-radius: 10px; font-size: 12px; letter-spacing: 1.5px; pointer-events: none; }
+
+/* ===== Toast de pontos ===== */
+#toastHost { position: fixed; top: 80px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+.toast-pts { background: linear-gradient(135deg, #2bd17e, #1aa05f); color: #000; font-family: 'Orbitron', sans-serif; font-size: 14px; font-weight: bold; padding: 12px 20px; border-radius: 12px; box-shadow: 0 8px 28px rgba(43,209,126,.45); animation: toastIn .35s ease-out; letter-spacing: .5px; }
+.toast-pts.toast-out { animation: toastOut .55s ease-in forwards; }
+@keyframes toastIn { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes toastOut { to { transform: translateX(120%); opacity: 0; } }
+@media (max-width: 540px) {
+  #toastHost { top: auto; bottom: 80px; right: 10px; left: 10px; }
+  .toast-pts { text-align: center; font-size: 13px; }
+}
