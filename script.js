@@ -688,14 +688,16 @@ function renderCapa() {
   return `
     <div class="hero">
       <div class="africa-emoji">🌍</div>
-      <h1>Prova de Geografia</h1>
-      <p><b>Levi Maciel</b> · Revisão AV2</p>
-      <p style="font-size:18px;color:#555;">África: Espaço, Economia e Desigualdades<br><small>Prof. Wesclay — 8º Ano</small></p>
-      <div class="student">📚 Modo Estudo Guiado por Fases</div>
-      <button id="startBtn" class="start-btn">Começar ▶</button>
-      <p style="margin-top:24px;font-size:13px;color:#666;">
-        🔒 Você só avança quando aprender o conteúdo!<br>
-        Use as <b>setas do teclado</b> ← → ou os botões abaixo.
+      <div class="subtitle">// Sistema de Revisão Interativa //</div>
+      <h1>PROVA DE GEOGRAFIA</h1>
+      <div class="subtitle">África · Espaço · Economia · Desigualdades</div>
+      <p class="lead">Embarque numa jornada cósmica pelo continente africano. Cada fase desbloqueia a próxima — só com conhecimento.</p>
+      <div class="student">⚡ LEVI MACIEL · REVISÃO AV2 ⚡</div>
+      <button id="startBtn" class="start-btn">▶ INICIAR JORNADA</button>
+      <p class="hint">
+        🔒 Você só avança quando dominar o conteúdo.<br>
+        Use as <b>setas ← →</b> do teclado ou os botões abaixo.<br>
+        <span style="opacity:.7;">Prof. Wesclay · 8º Ano</span>
       </p>
     </div>
   `;
@@ -705,10 +707,9 @@ function renderVitoria() {
   return `
     <div class="card victory">
       <div class="medal">🏆</div>
-      <h1>Parabéns, Levi!</h1>
-      <p style="font-size:20px;">Você concluiu TODA a revisão de Geografia!</p>
-      <p>Agora você domina:</p>
-      <div style="text-align:left;max-width:500px;margin:20px auto;">
+      <h1>MISSÃO CUMPRIDA</h1>
+      <p style="font-size:18px;color:var(--text-dim);">Levi, você concluiu TODA a jornada de revisão!</p>
+      <div class="checks">
         <p>✅ Enclave Econômico</p>
         <p>✅ Desigualdade Socioeconômica</p>
         <p>✅ Heranças Históricas</p>
@@ -716,9 +717,7 @@ function renderVitoria() {
         <p>✅ Apartheid na África do Sul</p>
         <p>✅ Conceitos-chave</p>
       </div>
-      <p style="font-size:22px;color:var(--verde);font-weight:bold;">
-        🎯 Boa sorte na prova de amanhã! Você vai mandar muito bem!
-      </p>
+      <p class="final-msg">🎯 BOA SORTE NA PROVA! VOCÊ VAI ARRASAR!</p>
     </div>
   `;
 }
