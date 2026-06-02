@@ -1186,14 +1186,39 @@ function renderTopicoLeitura(i) {
   card.querySelector('[data-next]').addEventListener('click', () => { state.modoStep++; render(); });
 }
 
+/* ---------- HELPERS DE QUIZ ---------- */
+function shuffleArray(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+/* Embaralha as opções de uma pergunta e retorna nova {q, opcoes, correta, explicacoes} */
+function embaralharOpcoes(p) {
+  const indices = shuffleArray(p.opcoes.map((_, i) => i));
+  const novasOpcoes = indices.map(i => p.opcoes[i]);
+  const novaCorreta = indices.indexOf(p.correta);
+  return { q: p.q, opcoes: novasOpcoes, correta: novaCorreta, explicacoes: p.explicacoes };
+}
+/* Constrói pool de variantes por slot: pega o mesmo slot nos 3 modos = 3 reformulações da mesma ideia */
+function poolPorSlot(topicoId, slotIdx) {
+  const modos = ['iniciante', 'intermediario', 'revisao'];
+  // Começa pelo modo atual e depois adiciona os outros como variantes alternativas
+  const ordem = [state.modo, ...modos.filter(m => m !== state.modo)];
+  return ordem
+    .map(m => QUIZZES[topicoId]?.[m]?.[slotIdx])
+    .filter(Boolean);
+}
+
 function renderQuizTopico(i) {
   const t = TOPICOS[i];
-  const perguntas = QUIZZES[t.id][state.modo];
-  state.errosQuiz = state.errosQuiz || {};
+  const pools = [0, 1, 2].map(slot => poolPorSlot(t.id, slot));
   renderQuiz({
     titulo: `Quiz — ${t.titulo}`,
-    subtitulo: `Acerte as 3 para avançar`,
-    perguntas,
+    subtitulo: `Acerte as 3 para avançar. Se errar, a pergunta inteira muda 🔄`,
+    pools,
     chaveErros: `${state.modo}-${t.id}`,
     onConclude: () => { state.modoStep++; render(); }
   });
@@ -1201,19 +1226,29 @@ function renderQuizTopico(i) {
 
 function renderQuizFinal() {
   const perguntas = QUIZ_FINAL[state.modo];
+  // No final, cada slot tem só uma variante (mas as opções ainda são embaralhadas)
+  const pools = perguntas.map(p => [p]);
   renderQuiz({
     titulo: `🏆 QUIZ FINAL — Modo ${state.modo.toUpperCase()}`,
-    subtitulo: `Mostra tudo o que você aprendeu. Acertar TODAS te leva à vitória.`,
-    perguntas,
+    subtitulo: `Mostra tudo o que você aprendeu. Acertar TODAS te leva à vitória 🚀`,
+    pools,
     chaveErros: `${state.modo}-final`,
     onConclude: () => { state.modoStep = 10; render(); }
   });
 }
 
-/* ---------- QUIZ GENÉRICO ---------- */
-function renderQuiz({ titulo, subtitulo, perguntas, chaveErros, onConclude }) {
+/* ---------- QUIZ GENÉRICO (com variantes + embaralhamento) ---------- */
+function renderQuiz({ titulo, subtitulo, pools, chaveErros, onConclude }) {
   state.errosQuiz[chaveErros] = state.errosQuiz[chaveErros] || {};
   const erros = state.errosQuiz[chaveErros];
+
+  // Estado de cada slot: índice da variante atual + pergunta embaralhada cacheada
+  const slots = pools.map((pool, i) => ({
+    pool,
+    variantIdx: 0,
+    pergunta: embaralharOpcoes(pool[0]),
+    tentativasNaVariante: 0,
+  }));
 
   const card = document.createElement('section');
   card.className = 'card';
@@ -1228,54 +1263,93 @@ function renderQuiz({ titulo, subtitulo, perguntas, chaveErros, onConclude }) {
   `;
   const list = card.querySelector('.quiz-list');
 
-  perguntas.forEach((p, pi) => {
-    const block = document.createElement('div');
-    block.className = 'quiz-block';
+  function renderBlock(slotIdx) {
+    const slot = slots[slotIdx];
+    const p = slot.pergunta;
+
+    let block = list.querySelector(`[data-slot="${slotIdx}"]`);
+    const isNew = !block;
+    if (isNew) {
+      block = document.createElement('div');
+      block.className = 'quiz-block';
+      block.dataset.slot = slotIdx;
+      list.appendChild(block);
+    }
+
+    const variantTag = slot.pool.length > 1 && slot.variantIdx > 0
+      ? `<span class="variant-tag">🔄 nova pergunta (variante ${slot.variantIdx + 1}/${slot.pool.length})</span>`
+      : '';
+
     block.innerHTML = `
-      <div class="quiz-pergunta"><b>${pi+1}.</b> ${p.q}</div>
+      <div class="quiz-pergunta"><b>${slotIdx + 1}.</b> ${p.q} ${variantTag}</div>
       <div class="quiz-options">
-        ${p.opcoes.map((o,oi)=>`<button data-i="${oi}">${o}</button>`).join('')}
+        ${p.opcoes.map((o, oi) => `<button data-i="${oi}">${String.fromCharCode(65 + oi)}) ${o}</button>`).join('')}
       </div>
       <div class="quiz-feedback" data-fb></div>
     `;
-    list.appendChild(block);
 
     const buttons = block.querySelectorAll('.quiz-options button');
     const fb = block.querySelector('[data-fb]');
+
     buttons.forEach(b => b.addEventListener('click', () => {
       const escolha = +b.dataset.i;
       if (escolha === p.correta) {
-        buttons.forEach(x => { x.disabled = true; x.classList.remove('correct','wrong'); });
+        buttons.forEach(x => { x.disabled = true; });
         b.classList.add('correct');
         fb.innerHTML = `<div class="box-resultado">✅ <b>Correto!</b> ${p.explicacoes[1]}</div>`;
+        slot.acertou = true;
         verificarConclusao();
       } else {
-        b.classList.add('wrong'); b.disabled = true;
-        erros[pi] = (erros[pi]||0) + 1;
-        const nivel = Math.min(erros[pi]-1, p.explicacoes.length-1);
-        const corClasse = nivel >= 1 ? 'explica-n2' : 'explica-n1';
+        buttons.forEach(x => x.disabled = true);
+        b.classList.add('wrong');
+        // marca a correta também
+        buttons[p.correta].classList.add('correct-reveal');
+
+        erros[slotIdx] = (erros[slotIdx] || 0) + 1;
+        slot.tentativasNaVariante++;
+        const nivel = Math.min(slot.tentativasNaVariante - 1, p.explicacoes.length - 1);
+        const letraEscolhida = String.fromCharCode(65 + escolha);
+        const letraCerta = String.fromCharCode(65 + p.correta);
+
+        const aindaTemVariante = slot.variantIdx < slot.pool.length - 1;
+        const labelBotao = aindaTemVariante
+          ? '🔄 Nova pergunta (sobre o mesmo tema)'
+          : '🔁 Tentar de novo (mesma pergunta)';
+
         fb.innerHTML = `
-          <div class="box-info ${corClasse}">
-            <b>❌ Errou (tentativa ${erros[pi]}):</b> ${p.explicacoes[nivel]}
+          <div class="box-erro">
+            <div class="erro-head">❌ <b>Você errou.</b> Marcou a letra <b>${letraEscolhida}</b> — a correta era <b>${letraCerta}</b>.</div>
+            <div class="erro-explica">${p.explicacoes[nivel]}</div>
           </div>
-          <button class="btn-secundario" data-retry>Tentar de novo 🔁</button>
+          <div class="erro-acoes">
+            <button class="btn-secundario" data-troca>${labelBotao}</button>
+          </div>
         `;
-        fb.querySelector('[data-retry]').addEventListener('click', () => {
-          buttons.forEach(x => { x.disabled = false; x.classList.remove('correct','wrong'); });
-          fb.innerHTML = '';
+        fb.querySelector('[data-troca]').addEventListener('click', () => {
+          if (aindaTemVariante) {
+            // Avança para próxima variante e re-embaralha opções
+            slot.variantIdx++;
+            slot.pergunta = embaralharOpcoes(slot.pool[slot.variantIdx]);
+            slot.tentativasNaVariante = 0;
+          } else {
+            // Mesma pergunta, mas re-embaralha as opções
+            slot.pergunta = embaralharOpcoes(slot.pool[slot.variantIdx]);
+          }
+          renderBlock(slotIdx);
         });
       }
     }));
-  });
+  }
+
+  slots.forEach((_, i) => renderBlock(i));
 
   function verificarConclusao() {
-    const blocks = card.querySelectorAll('.quiz-block');
-    const ok = Array.from(blocks).every(b => b.querySelector('.correct'));
+    const ok = slots.every(s => s.acertou);
     if (ok) {
       const finalBox = card.querySelector('[data-final]');
       finalBox.style.display = '';
       finalBox.querySelector('[data-go-next]').addEventListener('click', onConclude);
-      finalBox.scrollIntoView({behavior:'smooth', block:'center'});
+      finalBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
 

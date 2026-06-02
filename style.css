@@ -1328,3 +1328,48 @@ b, strong { color: var(--gold-glow); }
   .topbar { flex-direction: column; gap: 10px; align-items: flex-start; }
   .brand-credit { align-self: stretch; align-items: center; flex-direction: row; gap: 8px; justify-content: center; }
 }
+
+/* ============================================================
+   ERRO DESTACADO + VARIANTES (anti-decoreba)
+   ============================================================ */
+.box-erro {
+  background: linear-gradient(135deg, rgba(80,15,30,.92), rgba(40,8,18,.96));
+  border: 1.5px solid rgba(255,59,107,.6);
+  border-left: 4px solid var(--crimson);
+  padding: 16px 20px; border-radius: 14px;
+  margin-top: 12px;
+  box-shadow: 0 0 25px rgba(255,59,107,.22), inset 0 1px 0 rgba(255,180,200,.12);
+  color: #ffd7e0;
+}
+.box-erro .erro-head { font-size: 15px; margin-bottom: 8px; color: #ffadc0; }
+.box-erro .erro-head b { color: #fff; }
+.box-erro .erro-explica { font-size: 14px; line-height: 1.55; color: #ffe6ec; }
+.erro-acoes { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+.variant-tag {
+  display: inline-block; margin-left: 8px;
+  font-size: 11px; letter-spacing: 1px;
+  padding: 3px 9px; border-radius: 999px;
+  background: rgba(155,92,255,.2); color: #c8a8ff;
+  border: 1px solid rgba(155,92,255,.5);
+  font-family: 'Orbitron', sans-serif;
+  vertical-align: middle;
+}
+
+.quiz-options button.correct-reveal {
+  background: linear-gradient(135deg, rgba(43,209,126,.25), rgba(43,209,126,.08)) !important;
+  border-color: var(--emerald) !important;
+  color: var(--emerald-glow) !important;
+  outline: 2px dashed var(--emerald-glow); outline-offset: -4px;
+}
+
+/* Garantir legibilidade do <details> da leitura completa */
+.leitura-mais {
+  background: linear-gradient(135deg, rgba(35,20,55,.85), rgba(20,12,38,.92)) !important;
+  border: 1.5px solid rgba(155,92,255,.45) !important;
+  color: var(--text);
+}
+.leitura-mais summary { color: #d4baff !important; }
+.leitura-mais .topico-corpo { color: var(--text); }
+.leitura-mais .topico-corpo p,
+.leitura-mais .topico-corpo li { color: var(--text); }
