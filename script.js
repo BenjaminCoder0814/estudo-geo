@@ -1245,11 +1245,24 @@ function shuffleArray(arr) {
   return a;
 }
 /* Embaralha as opções de uma pergunta e retorna nova {q, opcoes, correta, explicacoes} */
-function embaralharOpcoes(p) {
+function embaralharOpcoes(p, alvoCorreta) {
   const indices = shuffleArray(p.opcoes.map((_, i) => i));
+  // Se alvoCorreta foi pedido, move o índice original da correta para a posição alvo
+  if (typeof alvoCorreta === 'number' && alvoCorreta >= 0 && alvoCorreta < indices.length) {
+    const posAtual = indices.indexOf(p.correta);
+    [indices[posAtual], indices[alvoCorreta]] = [indices[alvoCorreta], indices[posAtual]];
+  }
   const novasOpcoes = indices.map(i => p.opcoes[i]);
   const novaCorreta = indices.indexOf(p.correta);
   return { q: p.q, opcoes: novasOpcoes, correta: novaCorreta, explicacoes: p.explicacoes };
+}
+/* Sorteia letras corretas distribuídas (A,B,C,D em rodízio embaralhado) para N slots */
+function sortearLetrasDistintas(n, max = 4) {
+  const out = [];
+  while (out.length < n) {
+    out.push(...shuffleArray([0, 1, 2, 3].slice(0, max)));
+  }
+  return out.slice(0, n);
 }
 /* Constrói pool de variantes por slot: pega o mesmo slot nos 3 modos = 3 reformulações da mesma ideia */
 function poolPorSlot(topicoId, slotIdx) {
@@ -1299,11 +1312,14 @@ function renderQuiz({ titulo, subtitulo, pools, chaveErros, onConclude, onVoltar
   state.errosQuiz[chaveErros] = state.errosQuiz[chaveErros] || {};
   const erros = state.errosQuiz[chaveErros];
 
+  // Sorteia letras corretas distintas (uma por slot) para evitar repetição D-D-D
+  const letrasAlvo = sortearLetrasDistintas(pools.length);
   // Estado de cada slot: índice da variante atual + pergunta embaralhada cacheada
   const slots = pools.map((pool, i) => ({
     pool,
     variantIdx: 0,
-    pergunta: embaralharOpcoes(pool[0]),
+    letraAlvo: letrasAlvo[i],
+    pergunta: embaralharOpcoes(pool[0], letrasAlvo[i]),
     tentativasNaVariante: 0,
   }));
 
@@ -1400,11 +1416,11 @@ function renderQuiz({ titulo, subtitulo, pools, chaveErros, onConclude, onVoltar
           if (aindaTemVariante) {
             // Avança para próxima variante e re-embaralha opções
             slot.variantIdx++;
-            slot.pergunta = embaralharOpcoes(slot.pool[slot.variantIdx]);
+            slot.pergunta = embaralharOpcoes(slot.pool[slot.variantIdx], slot.letraAlvo);
             slot.tentativasNaVariante = 0;
           } else {
             // Mesma pergunta, mas re-embaralha as opções
-            slot.pergunta = embaralharOpcoes(slot.pool[slot.variantIdx]);
+            slot.pergunta = embaralharOpcoes(slot.pool[slot.variantIdx], slot.letraAlvo);
           }
           renderBlock(slotIdx);
         });
