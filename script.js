@@ -32,10 +32,10 @@ const TOPICOS = [
       <p>O <b>enclave</b> é a expressão geográfica contemporânea de um padrão herdado da colonização: extrair o máximo de valor, com o mínimo de retorno social para o território explorado.</p>
       <p>Características diagnósticas:</p>
       <ul>
-        <li><b>Especialização primário-exportadora</b> em poucas commodities (petróleo na Nigéria/Angola, cobre na Zâmbia/RDC, ouro em Gana/Mali, cacau na Costa do Marfim).</li>
+        <li><b>Especialização primário-exportadora</b> em poucos produtos (petróleo na Nigéria/Angola, cobre na Zâmbia/RDC, ouro em Gana/Mali, cacau na Costa do Marfim).</li>
         <li><b>Infraestrutura de exportação</b>: ferrovias e portos voltados a escoar a matéria-prima, NÃO a integrar o território.</li>
         <li><b>Repatriação de lucros</b> via transnacionais.</li>
-        <li><b>Dependência de preços internacionais</b>: a economia do país oscila ao sabor da bolsa de commodities.</li>
+        <li><b>Dependência de preços internacionais</b>: a economia do país oscila ao sabor do mercado externo.</li>
       </ul>
       <div class="box-info">⚠ Crítica: o enclave reproduz a lógica colonial. O território serve ao mercado externo, não a si mesmo.</div>
     `,
@@ -123,7 +123,7 @@ const TOPICOS = [
         <li>Pessoas saindo do campo pra cidade buscando vida melhor (<b>migração interna</b>).</li>
         <li>Falta de hospital, escola, água tratada.</li>
       </ul>
-      <p>Mas tem caminho de saída: investir em direitos sociais, planejar as cidades pensando em todo mundo, valorizar a cultura africana e <b>diversificar</b> a economia (não depender só de uma commodity).</p>
+      <p>Mas tem caminho de saída: investir em direitos sociais, planejar as cidades pensando em todo mundo, valorizar a cultura africana e <b>diversificar</b> a economia (não depender só de um produto exportado).</p>
     `,
     normal: `
       <p>Os <b>impactos diretos</b> na vida das pessoas:</p>
@@ -280,22 +280,22 @@ const QUIZZES = {
         ],
         correta: 3,
         explicacoes: [
-          'Atenção: a pergunta pede a INCORRETA. O enclave promove o quê: diversificação ou especialização?',
-          'Justamente o OPOSTO: o enclave APROFUNDA a especialização primário-exportadora, ele NÃO diversifica nem industrializa. Por isso o país fica dependente de poucas commodities.',
+          'Atenção: a pergunta pede a INCORRETA. O enclave promove diversificação ou o oposto disso?',
+          'Justamente o OPOSTO: o enclave APROFUNDA a especialização em poucos produtos de exportação e NÃO industrializa nem diversifica a economia local.',
         ],
       },
       {
-        q: 'A "dependência de preços internacionais" das economias africanas em enclave significa que:',
+        q: 'O enclave econômico africano é frequentemente apontado como uma continuação da lógica colonial porque:',
         opcoes: [
-          'Os preços locais são totalmente controlados pelo governo africano, sem influência externa.',
-          'Quando o preço da commodity exportada cai na bolsa internacional, o país inteiro entra em crise.',
-          'A população local decide diariamente o valor de venda dos produtos enviados ao exterior.',
-          'A inflação dentro do país africano não tem qualquer relação com o mercado externo global.',
+          'Distribui igualmente entre toda a população local os lucros gerados pela atividade extrativa.',
+          'Mantém a função de extrair recursos do território sem retorno social para a população local.',
+          'Garante ampla industrialização e diversificação produtiva ao país africano que recebe o investimento.',
+          'Força as empresas estrangeiras a reinvestir os lucros em escolas e hospitais nas redondezas.',
         ],
         correta: 1,
         explicacoes: [
-          'Se um país vive de exportar UM produto, o que acontece se esse produto perde valor?',
-          'Economia mono-exportadora = refém da bolsa de commodities. Caiu o preço do petróleo/cobre/cacau, o país quebra. Por isso a DIVERSIFICAÇÃO é tão importante.',
+          'O que a colonização fazia? Extraía riqueza e mandava pra fora. O enclave repete esse padrão.',
+          'Igual ao tempo colonial: o território serve para EXPORTAR riqueza às transnacionais, e a população local segue sem hospital, escola ou saneamento.',
         ],
       },
     ],
@@ -1217,9 +1217,11 @@ function renderQuizTopico(i) {
   const pools = [0, 1, 2].map(slot => poolPorSlot(t.id, slot));
   renderQuiz({
     titulo: `Quiz — ${t.titulo}`,
-    subtitulo: `Acerte as 3 para avançar. Se errar, a pergunta inteira muda 🔄`,
+    subtitulo: `Acerte as 3 para avançar. Errou? Volte ao conteúdo e tente de novo 📖`,
     pools,
     chaveErros: `${state.modo}-${t.id}`,
+    voltarConteudoLabel: `📖 Reler o conteúdo de "${t.titulo}"`,
+    onVoltarConteudo: () => { state.modoStep--; render(); },
     onConclude: () => { state.modoStep++; render(); }
   });
 }
@@ -1238,7 +1240,7 @@ function renderQuizFinal() {
 }
 
 /* ---------- QUIZ GENÉRICO (com variantes + embaralhamento) ---------- */
-function renderQuiz({ titulo, subtitulo, pools, chaveErros, onConclude }) {
+function renderQuiz({ titulo, subtitulo, pools, chaveErros, onConclude, onVoltarConteudo, voltarConteudoLabel }) {
   state.errosQuiz[chaveErros] = state.errosQuiz[chaveErros] || {};
   const erros = state.errosQuiz[chaveErros];
 
@@ -1316,15 +1318,22 @@ function renderQuiz({ titulo, subtitulo, pools, chaveErros, onConclude }) {
           ? '🔄 Nova pergunta (sobre o mesmo tema)'
           : '🔁 Tentar de novo (mesma pergunta)';
 
+        const btnVoltarHtml = onVoltarConteudo
+          ? `<button class="btn-primario" data-voltar-conteudo>${voltarConteudoLabel || '📖 Reler o conteúdo'}</button>`
+          : '';
+
         fb.innerHTML = `
           <div class="box-erro">
             <div class="erro-head">❌ <b>Você errou.</b> Marcou a letra <b>${letraEscolhida}</b> — a correta era <b>${letraCerta}</b>.</div>
             <div class="erro-explica">${p.explicacoes[nivel]}</div>
           </div>
           <div class="erro-acoes">
+            ${btnVoltarHtml}
             <button class="btn-secundario" data-troca>${labelBotao}</button>
           </div>
         `;
+        const btnVoltar = fb.querySelector('[data-voltar-conteudo]');
+        if (btnVoltar) btnVoltar.addEventListener('click', onVoltarConteudo);
         fb.querySelector('[data-troca]').addEventListener('click', () => {
           if (aindaTemVariante) {
             // Avança para próxima variante e re-embaralha opções
