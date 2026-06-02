@@ -992,18 +992,24 @@ function render() {
   }
 
   if (showNav) {
-    $prev.disabled = state.modoStep === 0;
+    $prev.disabled = false;
     $next.style.display = 'none'; // dentro do modo, o avanço é via botões da tela
     $phaseTitle.textContent = etiquetaModoStep();
   }
 }
 
 $prev.addEventListener('click', () => {
-  if (state.view === 'modo' && state.modoStep > 0) {
+  if (state.view !== 'modo') return;
+  if (state.modoStep > 0) {
     state.modoStep--;
     render();
+  } else {
+    go('home');
   }
 });
+
+const $brandHome = document.getElementById('brandHome');
+if ($brandHome) $brandHome.addEventListener('click', () => go('home'));
 
 /* ---------- HOME ---------- */
 function renderHome() {
@@ -1142,7 +1148,7 @@ function renderModoIntro() {
   const card = document.createElement('section');
   card.className = 'card';
   card.innerHTML = `
-    <button class="link-back" data-back>◀ Trocar de modo</button>
+    <button class="link-back" data-back>◀ Voltar ao início</button>
     <div class="modo-intro modo-${nomes.cor}">
       <div class="modo-intro-icon">${nomes.ic}</div>
       <h2 class="sec-title">${nomes.t}</h2>
@@ -1158,7 +1164,7 @@ function renderModoIntro() {
     </div>
   `;
   $screens.appendChild(card);
-  card.querySelector('[data-back]').addEventListener('click', () => go('modos-hub'));
+  card.querySelector('[data-back]').addEventListener('click', () => go('home'));
   card.querySelector('[data-start]').addEventListener('click', () => { state.modoStep = 1; render(); });
 }
 
@@ -1357,7 +1363,8 @@ function renderQuiz({ titulo, subtitulo, pools, chaveErros, onConclude, onVoltar
     if (ok) {
       const finalBox = card.querySelector('[data-final]');
       finalBox.style.display = '';
-      finalBox.querySelector('[data-go-next]').addEventListener('click', onConclude);
+      const btn = finalBox.querySelector('[data-go-next]');
+      btn.onclick = onConclude;
       finalBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
