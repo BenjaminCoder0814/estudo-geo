@@ -82,45 +82,45 @@ const fases = [
     titulo: 'Quiz 1 — Enclave Econômico',
     perguntas: [
       {
-        q: 'O que melhor define um "enclave econômico" na África?',
+        q: '(Pegadinha) Uma empresa estrangeira instala uma fábrica em um país africano, contrata trabalhadores locais, paga salários baixos e exporta TODA a produção. Isso é ou não um enclave econômico?',
         opcoes: [
-          'Uma atividade econômica integrada à economia local que gera muitos empregos.',
-          'Um setor isolado, dominado por empresas estrangeiras, voltado à exportação e sem desenvolvimento regional.',
-          'Um programa do governo africano para distribuir terras.',
-          'Uma associação entre países africanos para vender produtos juntos.'
+          'Não é, porque ela contrata mão de obra local.',
+          'Sim, porque o que define o enclave é ser voltado ao mercado externo e não se integrar à economia local — mesmo empregando pessoas.',
+          'Não, porque só mineradoras são enclaves.',
+          'Sim, mas só se a empresa for chinesa.'
         ],
         correta: 1,
         explicacoes: [
-          'Lembre-se: ENCLAVE = isolado. A atividade fica "fechada" em si mesma, exporta tudo e não conversa com a economia do país.',
-          'Volte ao mapa mental: ENCLAVE significa que existe um setor (geralmente mineração ou petróleo) operado por empresas transnacionais, que usa portos e ferrovias só pra exportar, gera pouquíssimos empregos e NÃO promove desenvolvimento regional. É o OPOSTO de integrado.'
+          'Cuidado! Ter trabalhadores locais NÃO significa que há integração. Pense em pra ONDE vai a produção e o lucro.',
+          'O critério central do enclave é estar VOLTADO AO EXTERIOR e SEM INTEGRAÇÃO com a economia local (não compra de fornecedores locais, não reinveste no país, lucro vai pra fora). Empregar gente local pagando mal e exportando tudo é exatamente o padrão clássico do enclave — e não tem nada a ver com a nacionalidade da empresa.'
         ]
       },
       {
-        q: 'O que é extraído principalmente nos enclaves econômicos africanos?',
+        q: 'Marque a alternativa INCORRETA sobre o enclave econômico:',
         opcoes: [
-          'Alimentos industrializados e tecnologia.',
-          'Serviços bancários e turismo.',
-          'Recursos naturais como minérios, petróleo, gás e diamantes.',
-          'Produtos têxteis e roupas de luxo.'
+          'Usa infraestrutura própria (portos, ferrovias) para escoar a produção.',
+          'Tem pouca ligação com a economia local.',
+          'Promove o desenvolvimento regional ao seu redor, gerando muitos empregos formais.',
+          'Geralmente é operado por empresas transnacionais.'
         ],
         correta: 2,
         explicacoes: [
-          'O foco do enclave é EXTRAIR matéria-prima. Pense: ouro, diamantes, petróleo — tudo isso são recursos naturais.',
-          'No mapa mental está claro: "Extração de recursos naturais (minérios, petróleo, gás, diamantes etc.) por empresas transnacionais". Esses produtos saem em estado bruto e vão para fora do continente.'
+          'Atenção à palavra INCORRETA. Três frases são verdadeiras sobre o enclave, uma é falsa.',
+          'O enclave NÃO promove desenvolvimento regional — esse é justamente o problema! Ele extrai a riqueza, paga poucos impostos, não gera cadeia produtiva local e o lucro vai embora. As outras três são características reais (infraestrutura própria, pouca ligação com economia local, empresas transnacionais).'
         ]
       },
       {
-        q: 'Por que o enclave gera POUCOS benefícios para a população local?',
+        q: 'Por que a chamada "maldição dos recursos" se aplica a vários países africanos com enclaves?',
         opcoes: [
-          'Porque os africanos não querem trabalhar nesse setor.',
-          'Porque a produção é voltada ao mercado externo, usa infraestrutura própria e tem pouca ligação com a economia local.',
-          'Porque o governo africano proíbe a contratação local.',
-          'Porque os recursos extraídos não têm valor no mercado mundial.'
+          'Porque os recursos naturais são amaldiçoados pela natureza.',
+          'Porque países ricos em recursos acabam pobres, pois a riqueza extraída não se converte em desenvolvimento interno — ela sai do país.',
+          'Porque há poucos recursos naturais na África.',
+          'Porque a ONU proíbe a exploração desses recursos.'
         ],
         correta: 1,
         explicacoes: [
-          'Atenção: o problema não é "vontade" da população. É a forma como o enclave funciona — voltado pra FORA.',
-          'O enclave usa portos e ferrovias EXCLUSIVAS pra exportar, não compra de fornecedores locais e contrata pouca gente. Por isso o dinheiro circula entre a empresa estrangeira e o exterior, e quase nada chega à população africana.'
+          'Pense: como um país cheio de ouro, petróleo e diamantes pode ser POBRE? O segredo está em quem fica com a riqueza.',
+          'A "maldição dos recursos" descreve o paradoxo africano: países com gigantescas reservas (RD Congo, Nigéria, Angola) são pobres porque o modelo de enclave faz a riqueza ser EXTRAÍDA e EXPORTADA por empresas estrangeiras, sem desenvolver a economia interna. É o resultado direto do enclave + herança colonial.'
         ]
       }
     ]
@@ -144,7 +144,7 @@ const fases = [
         <li>💰 <b>Políticas de ajuste fiscal</b> impostas por organismos internacionais (como FMI e Banco Mundial)
             <b>limitam os investimentos</b> do Estado em direitos sociais.</li>
       </ul>
-      <div class="box-resultado" style="border-left-color: var(--azul); background:#eaf3ff;">
+      <div class="box-resultado">
         ✅ <b>RESULTA EM: Exclusão e Segregação</b><br>
         A <b>maior parte da população</b> fica <b>à margem</b> dos benefícios do desenvolvimento econômico.
       </div>
@@ -228,7 +228,7 @@ const fases = [
         <li>🚢 <b>Estruturas econômicas voltadas ao exterior</b> desde o período colonial.</li>
         <li>🏘️ <b>Padrões de ocupação do espaço</b> que <b>mantêm desigualdades até hoje</b>.</li>
       </ul>
-      <div class="box-resultado" style="border-left-color: var(--laranja); background:#fff1e0;">
+      <div class="box-resultado">
         ✅ <b>RESULTA EM: Reprodução da Exclusão</b><br>
         A organização do espaço urbano e econômico ainda <b>reflete as lógicas coloniais</b>,
         mantendo grande parte da população segregada.
@@ -309,7 +309,7 @@ const fases = [
         <li>⚔️ <b>Conflitos sociais</b> e violência urbana.</li>
         <li>🚶 <b>Migrações internas</b> em busca de melhores condições de vida.</li>
       </ul>
-      <div class="box-resultado" style="border-left-color: var(--roxo); background:#f4eafa;">
+      <div class="box-resultado">
         🛠️ <b>CAMINHOS PARA MUDANÇAS:</b>
         <ul>
           <li>Investimentos públicos em direitos sociais.</li>
@@ -473,15 +473,15 @@ const fases = [
         🌐 <b>ENCLAVE ECONÔMICO:</b> Atividade econômica <u>isolada</u>, voltada à exportação,
         sem integração com a economia local.
       </div>
-      <div class="box-info" style="border-left-color: var(--roxo); background:#f4eafa;">
+      <div class="box-info">
         👥 <b>SEGREGAÇÃO ESPACIAL:</b> Separação de grupos sociais no espaço urbano,
         onde uns têm acesso a serviços e outros não.
       </div>
-      <div class="box-info" style="border-left-color: var(--laranja); background:#fff1e0;">
+      <div class="box-info">
         🕰️ <b>HERANÇA COLONIAL:</b> Marcas deixadas pela colonização que influenciam
         a economia, a política e o espaço até os dias atuais.
       </div>
-      <div class="box-info" style="border-left-color: var(--verde); background:#e8f7ee;">
+      <div class="box-info">
         ⚖️ <b>DESIGUALDADE SOCIAL:</b> Diferenças no acesso à riqueza, aos serviços
         e às oportunidades entre as pessoas.
       </div>
@@ -775,7 +775,7 @@ function wireQuiz(fase) {
               ❌ Errou! Vamos reler com mais calma:
               <div style="margin-top:10px;">
                 <span class="explica-nivel ${nivel>=2?'n2':''}">📘 Explicação ${nivel >= 2 ? 'DETALHADA' : 'reforço'}</span>
-                <div style="margin-top:6px;color:#000;font-weight:normal;">${expl}</div>
+                <div style="margin-top:6px;color:var(--text);font-weight:normal;">${expl}</div>
               </div>
               <button class="nav-btn primary" style="margin-top:12px;" onclick="resetPergunta(${pi})">🔁 Tentar de novo</button>
             </div>
@@ -1149,7 +1149,7 @@ function initMemoria() {
       </div>`;
     });
     html += `</div>
-      <p id="memStatus" style="text-align:center;margin-top:14px;color:#555;">Pares encontrados: <b>${matched}</b>/${pares.length}</p>`;
+      <p id="memStatus" style="text-align:center;margin-top:14px;color:var(--text-dim);">Pares encontrados: <b>${matched}</b>/${pares.length}</p>`;
     card.innerHTML = html;
 
     card.querySelectorAll('.mem-card').forEach(el => {
