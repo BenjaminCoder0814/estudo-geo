@@ -996,6 +996,15 @@ function render() {
     $next.style.display = 'none'; // dentro do modo, o avanço é via botões da tela
     $phaseTitle.textContent = etiquetaModoStep();
   }
+
+  // Botão Voltar fixo no rodapé de TODAS as telas (exceto home)
+  if (state.view !== 'home') {
+    const back = document.createElement('div');
+    back.className = 'voltar-rodape';
+    back.innerHTML = `<button class="btn-voltar-global">◀ Voltar ao início</button>`;
+    back.querySelector('button').addEventListener('click', () => go('home'));
+    $screens.appendChild(back);
+  }
 }
 
 $prev.addEventListener('click', () => {
@@ -1589,18 +1598,40 @@ function initCacaPalavras(area) {
 
 /* ---------- FORCA ---------- */
 function initForca(area) {
-  const PALAVRAS = ['APARTHEID','ENCLAVE','COLONIZACAO','SEGREGACAO','MANDELA','DESIGUALDADE','BANTUSTAO','SUBEMPREGO'];
+  const PALAVRAS = [
+    { p: 'APARTHEID',    tema: 'História África do Sul', dica: 'Sistema de segregação racial oficial (1948–1994).' },
+    { p: 'ENCLAVE',      tema: 'Economia',                 dica: 'Atividade produtiva isolada do desenvolvimento local.' },
+    { p: 'COLONIZACAO',  tema: 'História',                 dica: 'Processo de dominação europeia sobre a África.' },
+    { p: 'SEGREGACAO',   tema: 'Desigualdade',             dica: 'Separação socioespacial entre ricos e pobres.' },
+    { p: 'MANDELA',      tema: 'Pessoas',                  dica: 'Líder que combateu o Apartheid; presidente em 1994.' },
+    { p: 'DESIGUALDADE', tema: 'Sociedade',                dica: 'Distribuição injusta de renda, serviços e direitos.' },
+    { p: 'BANTUSTAO',    tema: 'Apartheid',                dica: 'Território pobre onde negros eram forçados a viver.' },
+    { p: 'SUBEMPREGO',   tema: 'Trabalho',                 dica: 'Trabalho informal, mal pago e sem direitos.' },
+    { p: 'BERLIM',       tema: 'História',                 dica: 'Cidade onde em 1884 a África foi partilhada pelos europeus.' },
+    { p: 'FAVELA',       tema: 'Cidades',                  dica: 'Assentamento urbano informal sem infraestrutura.' },
+  ];
   let vitorias = 0;
+  let usadas = new Set();
   novaRodada();
 
   function novaRodada() {
-    const palavra = PALAVRAS[Math.floor(Math.random()*PALAVRAS.length)];
+    let disp = PALAVRAS.filter(x => !usadas.has(x.p));
+    if (disp.length === 0) { usadas.clear(); disp = PALAVRAS; }
+    const item = disp[Math.floor(Math.random() * disp.length)];
+    usadas.add(item.p);
+    const palavra = item.p;
     const acertos = new Set();
     const erros = new Set();
+    let dicaUsada = false;
 
     area.innerHTML = `
       <p class="sec-sub">Vitórias: <b>${vitorias}/3</b> · Erros restantes: <b id="erestar">6</b></p>
+      <div class="box-info" style="text-align:center">🏷️ <b>Tema:</b> ${item.tema}</div>
       <div class="forca-word"></div>
+      <div class="acoes" style="justify-content:center">
+        <button class="btn-secundario" data-dica>💡 Pedir dica (custa 1 erro)</button>
+      </div>
+      <div class="forca-dica" data-dica-box style="display:none"></div>
       <div class="forca-letters"></div>
       <div class="forca-feedback"></div>
     `;
@@ -1608,11 +1639,31 @@ function initForca(area) {
     const lEl = area.querySelector('.forca-letters');
     const fb  = area.querySelector('.forca-feedback');
     const eRest = area.querySelector('#erestar');
+    const dicaBox = area.querySelector('[data-dica-box]');
+    const btnDica = area.querySelector('[data-dica]');
+
+    btnDica.addEventListener('click', () => {
+      if (dicaUsada) return;
+      dicaUsada = true;
+      btnDica.disabled = true;
+      erros.add('__dica__');
+      eRest.textContent = 6 - erros.size;
+      dicaBox.style.display = '';
+      dicaBox.innerHTML = `💡 <b>Dica:</b> ${item.dica}`;
+      if (erros.size >= 6) perdeu();
+    });
 
     function renderWord() {
       wEl.innerHTML = palavra.split('').map(c => `<span class="forca-letra">${acertos.has(c)?c:'_'}</span>`).join('');
     }
     renderWord();
+
+    function perdeu() {
+      lEl.querySelectorAll('button').forEach(b => b.disabled = true);
+      fb.innerHTML = `<div class="box-info">💀 Era <b>${palavra}</b>. (${item.dica})</div><button class="btn-primario" data-retry>Nova palavra</button>`;
+      fb.querySelector('[data-retry]').addEventListener('click', novaRodada);
+    }
+
     'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(L => {
       const b = document.createElement('button'); b.textContent = L;
       b.addEventListener('click', () => {
@@ -1623,80 +1674,122 @@ function initForca(area) {
         eRest.textContent = 6 - erros.size;
         if (palavra.split('').every(c => acertos.has(c))) {
           vitorias++;
+          lEl.querySelectorAll('button').forEach(x => x.disabled = true);
           fb.innerHTML = `<div class="box-resultado">✅ Acertou: <b>${palavra}</b>!</div>` +
             (vitorias>=3
               ? '<div class="destaque">🏆 Você venceu a forca! (3 palavras)</div>'
               : '<button class="btn-primario" data-next>Próxima palavra ➜</button>');
           if (vitorias<3) fb.querySelector('[data-next]').addEventListener('click', novaRodada);
         }
-        if (erros.size>=6) {
-          fb.innerHTML = `<div class="box-info">💀 Era <b>${palavra}</b>. Tente de novo!</div><button class="btn-primario" data-retry>Nova palavra</button>`;
-          fb.querySelector('[data-retry]').addEventListener('click', novaRodada);
-        }
+        if (erros.size>=6) perdeu();
       });
       lEl.appendChild(b);
     });
   }
 }
 
-/* ---------- VELHA ---------- */
+/* ---------- VELHA (IA imbatível via minimax, IA joga primeiro) ---------- */
 function initVelha(area) {
+  const placar = { player: 0, ia: 0, empate: 0 };
   area.innerHTML = `
-    <p class="sec-sub">Você é <b>X</b>. Boa sorte contra a IA.</p>
+    <p class="sec-sub">Você é <b>O</b>. A IA (X) começa e joga sem perdão 😈</p>
+    <div class="velha-placar">
+      <span>Você: <b data-pp>0</b></span> ·
+      <span>IA: <b data-pi>0</b></span> ·
+      <span>Empates: <b data-pe>0</b></span>
+    </div>
     <div class="velha-board"></div>
     <div class="velha-status"></div>
-    <div class="acoes"><button class="btn-secundario" data-reset>Reiniciar</button></div>
+    <div class="acoes"><button class="btn-secundario" data-reset>Nova partida</button></div>
   `;
-  const board = area.querySelector('.velha-board');
+  const board  = area.querySelector('.velha-board');
   const status = area.querySelector('.velha-status');
-  let cells, jogador;
+  const ppEl   = area.querySelector('[data-pp]');
+  const piEl   = area.querySelector('[data-pi]');
+  const peEl   = area.querySelector('[data-pe]');
+  let cells, fim;
+
+  const LINHAS = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 
   function reset() {
-    cells = Array(9).fill(null); jogador = 'X';
+    cells = Array(9).fill(null); fim = false;
     board.innerHTML = '';
     for (let i=0;i<9;i++) {
       const c = document.createElement('div'); c.className='velha-cell';
-      c.addEventListener('click',()=>play(i,c));
+      c.addEventListener('click', () => playerMove(i));
       board.appendChild(c);
     }
     status.innerHTML = '';
+    // IA começa
+    iaMove();
   }
+
+  function checkWin(p, b = cells) {
+    return LINHAS.some(l => l.every(i => b[i] === p));
+  }
+  function emptyCells(b) {
+    const r = []; for (let i=0;i<9;i++) if (!b[i]) r.push(i); return r;
+  }
+
+  function minimax(b, jogador) {
+    if (checkWin('X', b)) return { score: 10 };
+    if (checkWin('O', b)) return { score: -10 };
+    const livres = emptyCells(b);
+    if (livres.length === 0) return { score: 0 };
+    let melhor = jogador === 'X' ? { score: -Infinity } : { score: Infinity };
+    for (const i of livres) {
+      b[i] = jogador;
+      const r = minimax(b, jogador === 'X' ? 'O' : 'X');
+      b[i] = null;
+      const score = r.score - (jogador === 'X' ? livres.length : -livres.length) * 0;
+      if (jogador === 'X') {
+        if (score > melhor.score) melhor = { score, idx: i };
+      } else {
+        if (score < melhor.score) melhor = { score, idx: i };
+      }
+    }
+    return melhor;
+  }
+
+  function iaMove() {
+    if (fim) return;
+    // Primeiro lance: aleatório entre canto/centro para variar
+    const isFirst = cells.every(c => c === null);
+    let idx;
+    if (isFirst) {
+      const aberturas = [0, 2, 4, 6, 8];
+      idx = aberturas[Math.floor(Math.random() * aberturas.length)];
+    } else {
+      idx = minimax(cells.slice(), 'X').idx;
+    }
+    cells[idx] = 'X';
+    board.children[idx].textContent = 'X';
+    board.children[idx].classList.add('x');
+    if (checkWin('X')) return end('💀 A IA ganhou.', 'ia');
+    if (emptyCells(cells).length === 0) return end('🤝 Empate.', 'empate');
+  }
+
+  function playerMove(i) {
+    if (fim || cells[i]) return;
+    cells[i] = 'O';
+    board.children[i].textContent = 'O';
+    board.children[i].classList.add('o');
+    if (checkWin('O')) return end('🎉 Você ganhou! (raro)', 'player');
+    if (emptyCells(cells).length === 0) return end('🤝 Empate.', 'empate');
+    setTimeout(iaMove, 280);
+  }
+
+  function end(msg, quem) {
+    fim = true;
+    placar[quem]++;
+    ppEl.textContent = placar.player;
+    piEl.textContent = placar.ia;
+    peEl.textContent = placar.empate;
+    status.innerHTML = `<div class="box-resultado">${msg}</div>`;
+  }
+
   reset();
   area.querySelector('[data-reset]').addEventListener('click', reset);
-
-  function checkWin(p) {
-    const w = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-    return w.some(l => l.every(i => cells[i]===p));
-  }
-  function play(i,c) {
-    if (cells[i] || jogador!=='X') return;
-    cells[i]='X'; c.textContent='X'; c.classList.add('x');
-    if (checkWin('X')) return end('🎉 Você ganhou!');
-    if (cells.every(Boolean)) return end('🤝 Empate.');
-    jogador='O';
-    setTimeout(()=>{
-      const m = bestMove();
-      cells[m]='O';
-      board.children[m].textContent='O';
-      board.children[m].classList.add('o');
-      if (checkWin('O')) return end('💀 A IA ganhou.');
-      if (cells.every(Boolean)) return end('🤝 Empate.');
-      jogador='X';
-    }, 350);
-  }
-  function bestMove() {
-    // 1. ganhar 2. bloquear 3. centro 4. canto 5. qualquer
-    for (const p of ['O','X']) {
-      for (let i=0;i<9;i++) if (!cells[i]) { cells[i]=p; if (checkWin(p)) { cells[i]=null; if (p==='O'||p==='X') return i; } cells[i]=null; }
-    }
-    if (!cells[4]) return 4;
-    for (const i of [0,2,6,8]) if (!cells[i]) return i;
-    for (let i=0;i<9;i++) if (!cells[i]) return i;
-  }
-  function end(msg) {
-    status.innerHTML = `<div class="box-resultado">${msg}</div>`;
-    [...board.children].forEach(c => c.style.pointerEvents='none');
-  }
 }
 
 /* ---------- MEMÓRIA ---------- */
