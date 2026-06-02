@@ -210,6 +210,34 @@ const QUIZZES = {
           'Lucros vão pro exterior → não viram serviços públicos → população continua sem hospital, escola e saneamento.',
         ],
       },
+      {
+        q: 'Em qual SETOR da economia o enclave africano costuma aparecer?',
+        opcoes: [
+          'No comércio de rua das vilas e pequenas cidades do interior.',
+          'Em mineração, petróleo e agronegócio voltado à exportação.',
+          'Na educação básica e nos serviços públicos de saúde da população.',
+          'Na pesca artesanal feita pelas comunidades costeiras locais.',
+        ],
+        correta: 1,
+        explicacoes: [
+          'Pense em mina de ouro, poço de petróleo, plantação gigante.',
+          'Enclave = SETOR PRIMÁRIO-EXPORTADOR. Ouro em Gana, petróleo na Nigéria/Angola, cobre na Zâmbia, cacau na Costa do Marfim — tudo voltado pra fora.',
+        ],
+      },
+      {
+        q: 'Para onde vão os LUCROS gerados por um enclave em país africano?',
+        opcoes: [
+          'Para a matriz da empresa transnacional, sediada no exterior.',
+          'Para a prefeitura local construir hospitais e escolas na região.',
+          'Para um fundo africano que redistribui renda entre a população.',
+          'Para as escolas e creches da comunidade onde está a mina ou o poço.',
+        ],
+        correta: 0,
+        explicacoes: [
+          'Quem é o dono da empresa? Onde fica a sede dela?',
+          'Os lucros são REMETIDOS ao exterior, pra matriz da transnacional. Não ficam no país, não viram serviços públicos — esse é o coração da crítica ao enclave.',
+        ],
+      },
     ],
     intermediario: [
       {
@@ -345,6 +373,34 @@ const QUIZZES = {
           'EXCLUSÃO e SEGREGAÇÃO. A maioria fica à margem do desenvolvimento — sem acesso aos ganhos econômicos.',
         ],
       },
+      {
+        q: 'Onde mora a maior parte da população pobre nas grandes cidades africanas?',
+        opcoes: [
+          'Em condomínios fechados de alto padrão, perto dos centros financeiros.',
+          'Em assentamentos informais — favelas, townships, palafitas urbanas.',
+          'Em casas históricas no centro renovado da capital de cada país.',
+          'Em hotéis de luxo construídos na orla pelas grandes redes mundiais.',
+        ],
+        correta: 1,
+        explicacoes: [
+          'Sem dinheiro, sem regularização, sem saneamento. Onde sobra?',
+          'ASSENTAMENTOS INFORMAIS: Kibera (Nairóbi), Makoko (Lagos), townships sul-africanas. É o retrato urbano direto da desigualdade.',
+        ],
+      },
+      {
+        q: 'Por que FMI e Banco Mundial costumam AGRAVAR a desigualdade na África?',
+        opcoes: [
+          'Porque distribuem alimentos diretamente para todas as famílias pobres do país.',
+          'Porque exigem ajustes fiscais que cortam direitos sociais e serviços públicos.',
+          'Porque constroem hospitais e escolas em todas as cidades africanas atendidas.',
+          'Porque proíbem a presença de empresas transnacionais em qualquer setor.',
+        ],
+        correta: 1,
+        explicacoes: [
+          'Ajuste fiscal = corte. Quem mais depende dos serviços públicos?',
+          'Os cortes atingem JUSTAMENTE os mais pobres, que dependem de saúde, educação e moradia pública. Por isso ajustes fiscais APROFUNDAM a desigualdade.',
+        ],
+      },
     ],
     intermediario: [
       {
@@ -478,6 +534,34 @@ const QUIZZES = {
         explicacoes: [
           'Mandela é o símbolo da luta contra o Apartheid.',
           'Preso por 27 anos por lutar contra o Apartheid, foi solto em 1990 e eleito presidente em 1994 — marcando o fim oficial da segregação.',
+        ],
+      },
+      {
+        q: 'Por que muitos países africanos continuaram economicamente dependentes mesmo após a independência?',
+        opcoes: [
+          'Porque os colonizadores devolveram tudo o que tinham tirado nas colônias.',
+          'Porque a estrutura econômica colonial — monocultura e exportação — continuou intacta.',
+          'Porque a ONU obrigou os países africanos a continuar exportando matérias-primas.',
+          'Porque a África inteira preferiu manter o modelo colonial por simples tradição.',
+        ],
+        correta: 1,
+        explicacoes: [
+          'Mudou a bandeira, mas a engrenagem econômica?',
+          'A ESTRUTURA permaneceu: ferrovias do interior para o porto, monocultura de exportação, dependência do mercado externo. Independência política sem independência econômica.',
+        ],
+      },
+      {
+        q: 'Qual destas é uma herança CULTURAL da colonização ainda visível na África?',
+        opcoes: [
+          'Idiomas oficiais europeus (francês, inglês, português) em vários países.',
+          'Retorno completo das línguas africanas como únicas oficiais nos países.',
+          'Apagamento total da religião cristã em todo o continente africano.',
+          'Adoção universal de moedas africanas tradicionais nas trocas comerciais.',
+        ],
+        correta: 0,
+        explicacoes: [
+          'Por que se fala francês em Senegal e português em Angola?',
+          'Línguas dos colonizadores ficaram OFICIAIS. A colonização marcou não só a economia, mas IDIOMA, religião e sistema educacional — efeitos até hoje.',
         ],
       },
     ],
@@ -950,6 +1034,57 @@ const QUIZ_FINAL = {
   ],
 };
 
+/* ---------- SCOREBOARD (persistente por navegador) ---------- */
+const SCORE_KEY = 'geo-av2-scores-v1';
+const Score = {
+  data: null,
+  load() {
+    if (this.data) return this.data;
+    try {
+      this.data = JSON.parse(localStorage.getItem(SCORE_KEY)) || null;
+    } catch { this.data = null; }
+    if (!this.data) {
+      this.data = {
+        quiz: {},   // chave "modo-topico" => {acertos, erros, melhorAcertos}
+        velha: { vitorias: 0, derrotas: 0, empates: 0, sequencia: 0, melhorSequencia: 0 },
+        forca: { vitorias: 0, derrotas: 0, sequencia: 0, melhorSequencia: 0 },
+        caca: { partidasVencidas: 0 },
+        memoria: { melhorTempo: null, partidasVencidas: 0 },
+      };
+    }
+    return this.data;
+  },
+  save() { try { localStorage.setItem(SCORE_KEY, JSON.stringify(this.data)); } catch {} },
+  registraQuiz(chave, acertou) {
+    this.load();
+    const s = this.data.quiz[chave] = this.data.quiz[chave] || { acertos: 0, erros: 0 };
+    if (acertou) s.acertos++; else s.erros++;
+    this.save();
+  },
+  registraVelha(quem) {
+    this.load();
+    const v = this.data.velha;
+    if (quem === 'player') { v.vitorias++; v.sequencia++; v.melhorSequencia = Math.max(v.melhorSequencia, v.sequencia); }
+    else if (quem === 'ia') { v.derrotas++; v.sequencia = 0; }
+    else { v.empates++; }
+    this.save();
+  },
+  registraForca(venceu) {
+    this.load();
+    const f = this.data.forca;
+    if (venceu) { f.vitorias++; f.sequencia++; f.melhorSequencia = Math.max(f.melhorSequencia, f.sequencia); }
+    else { f.derrotas++; f.sequencia = 0; }
+    this.save();
+  },
+  resumoQuizModo(modo) {
+    this.load();
+    let ac = 0, er = 0;
+    Object.entries(this.data.quiz).forEach(([k, v]) => { if (k.startsWith(modo + '-')) { ac += v.acertos; er += v.erros; } });
+    return { ac, er };
+  }
+};
+Score.load();
+
 /* ---------- ESTADO GLOBAL ---------- */
 const state = {
   view: 'home',          // 'home' | 'modos-hub' | 'modo' | 'leitura' | 'jogos-hub' | 'jogo'
@@ -1056,11 +1191,61 @@ function renderHome() {
         <div class="hub-desc">Caça-palavras, Forca, Jogo da Velha e Memória. Escolha qual quer jogar.</div>
       </button>
     </div>
+
+    ${renderScoreHomeBox()}
   `;
   $screens.appendChild(card);
   card.querySelectorAll('[data-go]').forEach(b =>
     b.addEventListener('click', () => go(b.dataset.go))
   );
+  const btnReset = card.querySelector('[data-reset-score]');
+  if (btnReset) btnReset.addEventListener('click', () => {
+    if (confirm('Apagar TODOS os seus scores deste navegador? N\u00e3o d\u00e1 pra desfazer.')) {
+      localStorage.removeItem(SCORE_KEY);
+      Score.data = null; Score.load();
+      render();
+    }
+  });
+}
+
+/* ---------- PAINEL DE SCORE ---------- */
+function renderScoreHomeBox() {
+  const s = Score.load();
+  const totalQuizAc = Object.values(s.quiz).reduce((a, v) => a + v.acertos, 0);
+  const totalQuizEr = Object.values(s.quiz).reduce((a, v) => a + v.erros, 0);
+  const totalQuiz = totalQuizAc + totalQuizEr;
+  const pct = totalQuiz > 0 ? Math.round(totalQuizAc * 100 / totalQuiz) : 0;
+  const porModo = ['iniciante','intermediario','revisao'].map(m => {
+    const { ac, er } = Score.resumoQuizModo(m);
+    const tot = ac + er;
+    const p = tot > 0 ? Math.round(ac * 100 / tot) : 0;
+    const nome = { iniciante: '\ud83c\udf31 Iniciante', intermediario: '\u26a1 Intermedi\u00e1rio', revisao: '\ud83d\udd25 Revis\u00e3o' }[m];
+    return `<div class="sc-modo"><b>${nome}</b><br>${ac} \u2705 / ${er} \u274c <span class="sc-pct">${p}%</span></div>`;
+  }).join('');
+  return `
+    <div class="score-painel">
+      <h3 class="score-titulo">\ud83d\udcca SEU SCORE NESTE NAVEGADOR</h3>
+      <div class="score-grid">
+        <div class="score-bloco score-quiz">
+          <div class="score-cabec">\ud83c\udfaf QUIZZES</div>
+          <div class="score-num">${totalQuizAc} <span class="score-mini">acertos</span></div>
+          <div class="score-sub">${totalQuizEr} erros \u00b7 aproveitamento <b>${pct}%</b></div>
+          <div class="score-modos">${porModo}</div>
+        </div>
+        <div class="score-bloco score-velha">
+          <div class="score-cabec">\u274c\u2b55 JOGO DA VELHA</div>
+          <div class="score-num">${s.velha.vitorias} <span class="score-mini">vit\u00f3rias</span></div>
+          <div class="score-sub">${s.velha.derrotas} der \u00b7 ${s.velha.empates} emp \u00b7 \ud83d\udd25 recorde ${s.velha.melhorSequencia}</div>
+        </div>
+        <div class="score-bloco score-forca">
+          <div class="score-cabec">\ud83d\udc80 FORCA</div>
+          <div class="score-num">${s.forca.vitorias} <span class="score-mini">acertos</span></div>
+          <div class="score-sub">${s.forca.derrotas} derrotas \u00b7 \ud83d\udd25 recorde ${s.forca.melhorSequencia}</div>
+        </div>
+      </div>
+      <button class="link-back" data-reset-score style="margin-top:10px">\ud83d\uddd1\ufe0f Zerar meu score</button>
+    </div>
+  `;
 }
 
 /* ---------- MODOS HUB ---------- */
@@ -1276,7 +1461,7 @@ function poolPorSlot(topicoId, slotIdx) {
 
 function renderQuizTopico(i) {
   const t = TOPICOS[i];
-  const pools = [0, 1, 2].map(slot => poolPorSlot(t.id, slot));
+  const pools = [0, 1, 2, 3, 4].map(slot => poolPorSlot(t.id, slot)).filter(p => p.length > 0);
   const proximo = TOPICOS[i + 1];
   const proximoLabel = proximo
     ? `${proximo.icone} ${proximo.titulo.toUpperCase()}`
@@ -1378,6 +1563,7 @@ function renderQuiz({ titulo, subtitulo, pools, chaveErros, onConclude, onVoltar
         b.classList.add('correct');
         fb.innerHTML = `<div class="box-resultado">✅ <b>Correto!</b> ${p.explicacoes[1]}</div>`;
         slot.acertou = true;
+        if (!slot.jaContabilizou) { Score.registraQuiz(chaveErros, true); slot.jaContabilizou = true; }
         verificarConclusao();
       } else {
         buttons.forEach(x => x.disabled = true);
@@ -1386,6 +1572,7 @@ function renderQuiz({ titulo, subtitulo, pools, chaveErros, onConclude, onVoltar
         buttons[p.correta].classList.add('correct-reveal');
 
         erros[slotIdx] = (erros[slotIdx] || 0) + 1;
+        Score.registraQuiz(chaveErros, false);
         slot.tentativasNaVariante++;
         const nivel = Math.min(slot.tentativasNaVariante - 1, p.explicacoes.length - 1);
         const letraEscolhida = String.fromCharCode(65 + escolha);
@@ -1665,39 +1852,47 @@ function initCacaPalavras(area) {
 /* ---------- FORCA ---------- */
 function initForca(area) {
   const PALAVRAS = [
-    { p: 'APARTHEID',    tema: 'História África do Sul', dica: 'Sistema de segregação racial oficial (1948–1994).' },
-    { p: 'ENCLAVE',      tema: 'Economia',                 dica: 'Atividade produtiva isolada do desenvolvimento local.' },
-    { p: 'COLONIZACAO',  tema: 'História',                 dica: 'Processo de dominação europeia sobre a África.' },
-    { p: 'SEGREGACAO',   tema: 'Desigualdade',             dica: 'Separação socioespacial entre ricos e pobres.' },
-    { p: 'MANDELA',      tema: 'Pessoas',                  dica: 'Líder que combateu o Apartheid; presidente em 1994.' },
-    { p: 'DESIGUALDADE', tema: 'Sociedade',                dica: 'Distribuição injusta de renda, serviços e direitos.' },
-    { p: 'BANTUSTAO',    tema: 'Apartheid',                dica: 'Território pobre onde negros eram forçados a viver.' },
-    { p: 'SUBEMPREGO',   tema: 'Trabalho',                 dica: 'Trabalho informal, mal pago e sem direitos.' },
-    { p: 'BERLIM',       tema: 'História',                 dica: 'Cidade onde em 1884 a África foi partilhada pelos europeus.' },
-    { p: 'FAVELA',       tema: 'Cidades',                  dica: 'Assentamento urbano informal sem infraestrutura.' },
+    { p: 'APARTHEID',    tema: 'História África do Sul', dica: 'Sistema de segregação racial oficial (1948–1994).', frase: 'Foi a política que separava brancos e negros por lei na África do Sul — Mandela lutou contra isso.' },
+    { p: 'ENCLAVE',      tema: 'Economia',                 dica: 'Atividade produtiva isolada do desenvolvimento local.', frase: 'Mina ou poço de petróleo cuja riqueza vai pro exterior em vez de virar hospital ou escola na região.' },
+    { p: 'COLONIZACAO',  tema: 'História',                 dica: 'Processo de dominação europeia sobre a África.', frase: 'Foi quando os europeus dominaram, dividiram e exploraram o continente africano — sem c-cedilha.' },
+    { p: 'SEGREGACAO',   tema: 'Desigualdade',             dica: 'Separação socioespacial entre ricos e pobres.', frase: 'Quando a cidade divide os ricos dos pobres em áreas separadas — sem c-cedilha.' },
+    { p: 'MANDELA',      tema: 'Pessoas',                  dica: 'Líder que combateu o Apartheid; presidente em 1994.', frase: 'Sobrenome do líder negro preso por 27 anos que virou presidente da África do Sul em 1994.' },
+    { p: 'DESIGUALDADE', tema: 'Sociedade',                dica: 'Distribuição injusta de renda, serviços e direitos.', frase: 'Quando poucos têm muito e muitos têm quase nada — marca registrada da África pós-colonial.' },
+    { p: 'BANTUSTAO',    tema: 'Apartheid',                dica: 'Território pobre onde negros eram forçados a viver.', frase: 'Nome dos territórios pobres onde os negros eram forçados a viver durante o Apartheid — sem til.' },
+    { p: 'SUBEMPREGO',   tema: 'Trabalho',                 dica: 'Trabalho informal, mal pago e sem direitos.', frase: 'O vendedor ambulante sem carteira está nessa situação de trabalho — prefixo "sub".' },
+    { p: 'BERLIM',       tema: 'História',                 dica: 'Cidade onde em 1884 a África foi partilhada pelos europeus.', frase: 'Cidade alemã onde, em 1884, os europeus dividiram a África com régua no mapa.' },
+    { p: 'FAVELA',       tema: 'Cidades',                  dica: 'Assentamento urbano informal sem infraestrutura.', frase: 'Tipo de moradia precaria sem saneamento que aparece nas periferias das grandes cidades africanas e brasileiras.' },
   ];
-  let vitorias = 0;
   let usadas = new Set();
-  novaRodada();
+  let ultimoPerdeu = false; // (não influencia ordem na forca; a forca é single-player)
+  novaRodada(false);
 
-  function novaRodada() {
-    let disp = PALAVRAS.filter(x => !usadas.has(x.p));
-    if (disp.length === 0) { usadas.clear(); disp = PALAVRAS; }
-    const item = disp[Math.floor(Math.random() * disp.length)];
-    usadas.add(item.p);
+  function novaRodada(repetir) {
+    let item;
+    if (repetir && window.__forcaUltima) {
+      item = window.__forcaUltima;
+    } else {
+      let disp = PALAVRAS.filter(x => !usadas.has(x.p));
+      if (disp.length === 0) { usadas.clear(); disp = PALAVRAS; }
+      item = disp[Math.floor(Math.random() * disp.length)];
+      usadas.add(item.p);
+      window.__forcaUltima = item;
+    }
     const palavra = item.p;
     const acertos = new Set();
     const erros = new Set();
-    let dicaUsada = false;
+    const sc = Score.load().forca;
 
     area.innerHTML = `
-      <p class="sec-sub">Vitórias: <b>${vitorias}/3</b> · Erros restantes: <b id="erestar">6</b></p>
-      <div class="box-info" style="text-align:center">🏷️ <b>Tema:</b> ${item.tema}</div>
-      <div class="forca-word"></div>
-      <div class="acoes" style="justify-content:center">
-        <button class="btn-secundario" data-dica>💡 Pedir dica (custa 1 erro)</button>
+      <div class="velha-placar">
+        <span>🏆 Vitórias: <b>${sc.vitorias}</b></span> ·
+        <span>💀 Derrotas: <b>${sc.derrotas}</b></span> ·
+        <span>🔥 Sequência: <b>${sc.sequencia}</b> (recorde ${sc.melhorSequencia})</span>
       </div>
-      <div class="forca-dica" data-dica-box style="display:none"></div>
+      <div class="box-info" style="text-align:center">🏷️ <b>Tema:</b> ${item.tema}</div>
+      <div class="forca-dica" style="display:block">💡 <b>Pista:</b> ${item.frase}</div>
+      <p class="sec-sub" style="text-align:center;margin-top:8px">Erros restantes: <b id="erestar">6</b></p>
+      <div class="forca-word"></div>
       <div class="forca-letters"></div>
       <div class="forca-feedback"></div>
     `;
@@ -1705,19 +1900,6 @@ function initForca(area) {
     const lEl = area.querySelector('.forca-letters');
     const fb  = area.querySelector('.forca-feedback');
     const eRest = area.querySelector('#erestar');
-    const dicaBox = area.querySelector('[data-dica-box]');
-    const btnDica = area.querySelector('[data-dica]');
-
-    btnDica.addEventListener('click', () => {
-      if (dicaUsada) return;
-      dicaUsada = true;
-      btnDica.disabled = true;
-      erros.add('__dica__');
-      eRest.textContent = 6 - erros.size;
-      dicaBox.style.display = '';
-      dicaBox.innerHTML = `💡 <b>Dica:</b> ${item.dica}`;
-      if (erros.size >= 6) perdeu();
-    });
 
     function renderWord() {
       wEl.innerHTML = palavra.split('').map(c => `<span class="forca-letra">${acertos.has(c)?c:'_'}</span>`).join('');
@@ -1726,8 +1908,12 @@ function initForca(area) {
 
     function perdeu() {
       lEl.querySelectorAll('button').forEach(b => b.disabled = true);
-      fb.innerHTML = `<div class="box-info">💀 Era <b>${palavra}</b>. (${item.dica})</div><button class="btn-primario" data-retry>Nova palavra</button>`;
-      fb.querySelector('[data-retry]').addEventListener('click', novaRodada);
+      Score.registraForca(false);
+      const sc2 = Score.load().forca;
+      fb.innerHTML = `<div class="box-info">💀 Era <b>${palavra}</b>. (${item.dica})</div>
+        <div class="velha-placar" style="margin-top:12px">📊 Total: ${sc2.vitorias} vit / ${sc2.derrotas} der</div>
+        <button class="btn-primario" data-retry>Nova palavra ➜</button>`;
+      fb.querySelector('[data-retry]').addEventListener('click', () => novaRodada(false));
     }
 
     'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(L => {
@@ -1739,13 +1925,13 @@ function initForca(area) {
         renderWord();
         eRest.textContent = 6 - erros.size;
         if (palavra.split('').every(c => acertos.has(c))) {
-          vitorias++;
+          Score.registraForca(true);
+          const sc2 = Score.load().forca;
           lEl.querySelectorAll('button').forEach(x => x.disabled = true);
-          fb.innerHTML = `<div class="box-resultado">✅ Acertou: <b>${palavra}</b>!</div>` +
-            (vitorias>=3
-              ? '<div class="destaque">🏆 Você venceu a forca! (3 palavras)</div>'
-              : '<button class="btn-primario" data-next>Próxima palavra ➜</button>');
-          if (vitorias<3) fb.querySelector('[data-next]').addEventListener('click', novaRodada);
+          fb.innerHTML = `<div class="box-resultado">✅ Acertou: <b>${palavra}</b>! Sequência: ${sc2.sequencia} 🔥</div>
+            <button class="btn-primario" data-next>Próxima palavra ➜</button>`;
+          fb.querySelector('[data-next]').addEventListener('click', () => novaRodada(false));
+          return;
         }
         if (erros.size>=6) perdeu();
       });
@@ -1754,25 +1940,37 @@ function initForca(area) {
   }
 }
 
-/* ---------- VELHA (IA imbatível via minimax, IA joga primeiro) ---------- */
+/* ---------- VELHA (IA imbatível via minimax) ----------
+   Regras de revezamento:
+   - 1ª partida: IA começa (X).
+   - Vencedor da partida anterior começa a próxima.
+   - Em empate: quem PERDEU a última partida (antes do empate) começa; se nunca houve perda, IA começa.
+*/
 function initVelha(area) {
-  const placar = { player: 0, ia: 0, empate: 0 };
+  const sc0 = Score.load().velha;
+  // proximoComecador: 'ia' | 'player'
+  let proximoComecador = 'ia';
+  let ultimoPerdedor = 'player'; // default antes da 1ª partida
   area.innerHTML = `
-    <p class="sec-sub">Você é <b>O</b>. A IA (X) começa e joga sem perdão 😈</p>
+    <p class="sec-sub">Você é <b>O</b>. A IA (X) joga com minimax 😈</p>
     <div class="velha-placar">
-      <span>Você: <b data-pp>0</b></span> ·
-      <span>IA: <b data-pi>0</b></span> ·
-      <span>Empates: <b data-pe>0</b></span>
+      <span>🏆 Você: <b data-pp>${sc0.vitorias}</b></span> ·
+      <span>💀 IA: <b data-pi>${sc0.derrotas}</b></span> ·
+      <span>🤝 Empates: <b data-pe>${sc0.empates}</b></span> ·
+      <span>🔥 Recorde: <b data-pr>${sc0.melhorSequencia}</b></span>
     </div>
+    <div class="box-info" data-quem style="text-align:center"></div>
     <div class="velha-board"></div>
     <div class="velha-status"></div>
     <div class="acoes"><button class="btn-secundario" data-reset>Nova partida</button></div>
   `;
   const board  = area.querySelector('.velha-board');
   const status = area.querySelector('.velha-status');
+  const quemBox= area.querySelector('[data-quem]');
   const ppEl   = area.querySelector('[data-pp]');
   const piEl   = area.querySelector('[data-pi]');
   const peEl   = area.querySelector('[data-pe]');
+  const prEl   = area.querySelector('[data-pr]');
   let cells, fim;
 
   const LINHAS = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
@@ -1786,8 +1984,10 @@ function initVelha(area) {
       board.appendChild(c);
     }
     status.innerHTML = '';
-    // IA começa
-    iaMove();
+    quemBox.innerHTML = proximoComecador === 'ia'
+      ? '🤖 <b>IA começa essa partida</b> (ganhou ou você perdeu antes)'
+      : '🎯 <b>Você começa essa partida!</b> (ganhou antes ou empatou após vitória sua)';
+    if (proximoComecador === 'ia') iaMove();
   }
 
   function checkWin(p, b = cells) {
@@ -1807,11 +2007,10 @@ function initVelha(area) {
       b[i] = jogador;
       const r = minimax(b, jogador === 'X' ? 'O' : 'X');
       b[i] = null;
-      const score = r.score - (jogador === 'X' ? livres.length : -livres.length) * 0;
       if (jogador === 'X') {
-        if (score > melhor.score) melhor = { score, idx: i };
+        if (r.score > melhor.score) melhor = { score: r.score, idx: i };
       } else {
-        if (score < melhor.score) melhor = { score, idx: i };
+        if (r.score < melhor.score) melhor = { score: r.score, idx: i };
       }
     }
     return melhor;
@@ -1819,7 +2018,6 @@ function initVelha(area) {
 
   function iaMove() {
     if (fim) return;
-    // Primeiro lance: aleatório entre canto/centro para variar
     const isFirst = cells.every(c => c === null);
     let idx;
     if (isFirst) {
@@ -1847,11 +2045,17 @@ function initVelha(area) {
 
   function end(msg, quem) {
     fim = true;
-    placar[quem]++;
-    ppEl.textContent = placar.player;
-    piEl.textContent = placar.ia;
-    peEl.textContent = placar.empate;
-    status.innerHTML = `<div class="box-resultado">${msg}</div>`;
+    Score.registraVelha(quem);
+    const sc = Score.load().velha;
+    ppEl.textContent = sc.vitorias;
+    piEl.textContent = sc.derrotas;
+    peEl.textContent = sc.empates;
+    prEl.textContent = sc.melhorSequencia;
+    if (quem === 'player') { proximoComecador = 'player'; ultimoPerdedor = 'ia'; }
+    else if (quem === 'ia') { proximoComecador = 'ia'; ultimoPerdedor = 'player'; }
+    else { proximoComecador = ultimoPerdedor; } // empate: último perdedor começa
+    const proxTxt = proximoComecador === 'player' ? '🎯 Você' : '🤖 IA';
+    status.innerHTML = `<div class="box-resultado">${msg}<br><small>Próxima partida: <b>${proxTxt}</b> começa</small></div>`;
   }
 
   reset();

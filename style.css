@@ -1437,3 +1437,16 @@ b, strong { color: var(--gold-glow); }
 /* ===== Box de vitória do quiz ===== */
 .box-vitoria-quiz { width: 100%; text-align: center; padding: 22px 18px; background: linear-gradient(135deg, rgba(43,209,126,.25), rgba(246,194,56,.18)); border: 2px solid #2bd17e; border-radius: 16px; font-size: 18px; color: #fff; margin-bottom: 14px; }
 .box-vitoria-sub { display: inline-block; margin-top: 8px; font-size: 14px; color: #f6c238; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
+
+/* ===== Painel de Score na home ===== */
+.score-painel { margin-top: 28px; padding: 20px; background: linear-gradient(135deg, rgba(0,0,0,.5), rgba(214,40,40,.12)); border: 2px solid rgba(246,194,56,.4); border-radius: 16px; }
+.score-titulo { text-align: center; font-family: 'Orbitron', sans-serif; color: #f6c238; letter-spacing: 2px; margin: 0 0 16px; font-size: 16px; }
+.score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.score-bloco { background: rgba(0,0,0,.4); border: 1px solid rgba(255,255,255,.12); border-radius: 12px; padding: 14px; text-align: center; }
+.score-cabec { font-family: 'Orbitron', sans-serif; font-size: 12px; letter-spacing: 1.5px; color: #f6c238; margin-bottom: 6px; }
+.score-num { font-family: 'Orbitron', sans-serif; font-size: 32px; color: #2bd17e; line-height: 1; }
+.score-mini { font-size: 13px; color: #c8ffd8; font-family: 'Inter', sans-serif; letter-spacing: 0; }
+.score-sub { font-size: 12px; color: #ccc; margin-top: 6px; }
+.score-modos { margin-top: 10px; display: grid; gap: 6px; font-size: 11px; color: #eee; }
+.sc-modo { background: rgba(255,255,255,.04); padding: 6px 8px; border-radius: 8px; text-align: left; }
+.sc-pct { float: right; color: #f6c238; font-weight: bold; }
