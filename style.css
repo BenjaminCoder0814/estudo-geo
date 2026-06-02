@@ -1,0 +1,280 @@
+/* ===== TEMA ÁFRICA ===== */
+:root {
+  --verde: #2e8b57;
+  --verde-claro: #6cc070;
+  --laranja: #e07a1f;
+  --laranja-claro: #f4a85b;
+  --amarelo: #f6c238;
+  --azul: #1f4e8a;
+  --azul-claro: #4a90c2;
+  --terra: #6b3410;
+  --areia: #f3e7c9;
+  --areia-clara: #fbf5e5;
+  --vermelho: #c0392b;
+  --roxo: #6c3d8f;
+  --texto: #2b2118;
+  --sombra: 0 6px 18px rgba(0,0,0,.18);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; font-family: 'Segoe UI', Tahoma, sans-serif; color: var(--texto); }
+body {
+  background:
+    radial-gradient(circle at 20% 10%, rgba(246,194,56,.25), transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(46,139,87,.25), transparent 45%),
+    linear-gradient(135deg, #fff4d6 0%, #ffe4b5 50%, #f4c47b 100%);
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+#app { display: flex; flex-direction: column; height: 100vh; }
+
+/* ===== TOPO ===== */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 24px;
+  background: linear-gradient(90deg, var(--verde), var(--azul));
+  color: #fff; box-shadow: var(--sombra);
+  z-index: 10;
+}
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand .globe { font-size: 38px; filter: drop-shadow(0 2px 3px rgba(0,0,0,.3)); }
+.brand h1 { margin: 0; font-size: 20px; letter-spacing: .5px; }
+.brand small { opacity: .9; font-size: 12px; }
+
+.progress-wrap { display: flex; align-items: center; gap: 12px; min-width: 260px; }
+.progress-bar {
+  flex: 1; height: 12px; background: rgba(255,255,255,.25);
+  border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,.35);
+}
+#progressFill {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--amarelo), var(--laranja));
+  transition: width .5s ease;
+}
+#progressLabel { font-weight: bold; font-size: 13px; min-width: 70px; text-align: right; }
+
+/* ===== TELAS ===== */
+#screens {
+  flex: 1; position: relative; overflow: hidden;
+}
+.screen {
+  position: absolute; inset: 0;
+  padding: 28px 40px;
+  overflow-y: auto;
+  opacity: 0; pointer-events: none;
+  transform: translateX(40px);
+  transition: opacity .45s ease, transform .45s ease;
+}
+.screen.active { opacity: 1; pointer-events: auto; transform: translateX(0); }
+
+.card {
+  max-width: 920px; margin: 0 auto;
+  background: var(--areia-clara);
+  border-radius: 18px; padding: 28px 32px;
+  box-shadow: var(--sombra);
+  border: 2px solid var(--areia);
+}
+
+h2.section-title {
+  margin: 0 0 6px;
+  font-size: 28px; color: var(--azul);
+  display: flex; align-items: center; gap: 12px;
+}
+.tag {
+  display: inline-block; padding: 4px 12px; border-radius: 999px;
+  font-size: 12px; font-weight: bold; color: #fff; background: var(--verde);
+  letter-spacing: .5px;
+}
+.tag.orange { background: var(--laranja); }
+.tag.blue { background: var(--azul); }
+.tag.purple { background: var(--roxo); }
+.tag.red { background: var(--vermelho); }
+
+p { line-height: 1.65; font-size: 16px; }
+ul.lista { line-height: 1.8; }
+ul.lista li { margin-bottom: 6px; }
+
+.destaque {
+  margin-top: 18px;
+  background: linear-gradient(135deg, #fff8e1, #ffe9b5);
+  border-left: 6px solid var(--laranja);
+  padding: 14px 18px; border-radius: 10px;
+}
+.destaque strong { color: var(--laranja); }
+
+.box-info {
+  background: #eaf3ff; border-left: 6px solid var(--azul);
+  padding: 14px 18px; border-radius: 10px; margin-top: 16px;
+}
+.box-resultado {
+  background: #e8f7ee; border-left: 6px solid var(--verde);
+  padding: 14px 18px; border-radius: 10px; margin-top: 16px;
+}
+
+/* ===== TELA INICIAL ===== */
+.hero {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; height: 100%;
+}
+.hero h1 {
+  font-size: 56px; margin: 8px 0;
+  background: linear-gradient(90deg, var(--verde), var(--laranja), var(--azul));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero .africa-emoji { font-size: 120px; animation: float 3s ease-in-out infinite; }
+@keyframes float { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-12px);} }
+.hero p { font-size: 20px; max-width: 600px; }
+.hero .student {
+  font-size: 24px; font-weight: bold; color: var(--azul);
+  background: #fff; padding: 12px 28px; border-radius: 999px;
+  box-shadow: var(--sombra); margin-top: 16px;
+}
+.start-btn {
+  margin-top: 30px; padding: 16px 40px; font-size: 20px;
+  background: linear-gradient(135deg, var(--verde), var(--verde-claro));
+  color: #fff; border: none; border-radius: 999px; cursor: pointer;
+  box-shadow: var(--sombra); transition: transform .2s;
+}
+.start-btn:hover { transform: scale(1.05); }
+
+/* ===== QUIZ ===== */
+.quiz-question { font-size: 18px; font-weight: bold; margin: 18px 0 12px; color: var(--azul); }
+.quiz-options { display: flex; flex-direction: column; gap: 10px; }
+.quiz-options button {
+  text-align: left; padding: 14px 18px; font-size: 16px;
+  background: #fff; border: 2px solid #ddd; border-radius: 12px;
+  cursor: pointer; transition: all .2s;
+  font-family: inherit;
+}
+.quiz-options button:hover:not(:disabled) { border-color: var(--azul); background: #f0f7ff; }
+.quiz-options button.correct { background: #d4f5dd; border-color: var(--verde); }
+.quiz-options button.wrong { background: #ffd6d6; border-color: var(--vermelho); }
+.quiz-options button:disabled { cursor: not-allowed; opacity: .85; }
+
+.feedback {
+  margin-top: 16px; padding: 14px 18px; border-radius: 10px;
+  font-weight: bold;
+}
+.feedback.ok { background: #d4f5dd; color: #1d6b3a; border-left: 6px solid var(--verde); }
+.feedback.err { background: #ffd6d6; color: #8a2020; border-left: 6px solid var(--vermelho); }
+
+.lock-msg {
+  background: #fff3cd; border-left: 6px solid var(--amarelo);
+  padding: 12px 16px; border-radius: 10px; margin-top: 14px;
+  color: #6b5100; font-weight: bold;
+}
+
+/* ===== JOGOS ===== */
+.game-title {
+  font-size: 24px; color: var(--roxo); margin: 0 0 4px;
+  display: flex; align-items: center; gap: 10px;
+}
+
+/* Caça-palavras */
+.cp-wrap { display: flex; gap: 24px; flex-wrap: wrap; }
+.cp-grid {
+  display: grid; gap: 4px; background: #fff;
+  padding: 10px; border-radius: 12px; box-shadow: var(--sombra);
+  user-select: none;
+}
+.cp-cell {
+  width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+  font-weight: bold; background: #fff4d6; border-radius: 4px; cursor: pointer;
+  font-size: 14px; transition: all .15s;
+}
+.cp-cell.sel { background: var(--amarelo); }
+.cp-cell.found { background: var(--verde-claro); color: #fff; }
+.cp-list { min-width: 220px; }
+.cp-list h4 { margin: 0 0 8px; color: var(--azul); }
+.cp-list li { margin-bottom: 8px; }
+.cp-list li.done { text-decoration: line-through; color: #888; }
+.cp-list .hint { font-size: 12px; color: #555; display: block; margin-left: 4px; }
+
+/* Forca */
+.forca-wrap { text-align: center; }
+.forca-word {
+  font-size: 36px; letter-spacing: 12px; font-weight: bold;
+  color: var(--azul); margin: 16px 0;
+}
+.forca-letters {
+  display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 16px;
+}
+.forca-letters button {
+  width: 38px; height: 38px; border-radius: 6px; border: 2px solid var(--azul);
+  background: #fff; color: var(--azul); font-weight: bold; cursor: pointer;
+  font-family: inherit;
+}
+.forca-letters button:disabled { opacity: .3; cursor: not-allowed; }
+.forca-letters button.used-ok { background: var(--verde); color: #fff; border-color: var(--verde); }
+.forca-letters button.used-bad { background: var(--vermelho); color: #fff; border-color: var(--vermelho); }
+.forca-hangman { font-size: 14px; font-family: monospace; white-space: pre; line-height: 1.2; }
+.forca-info { font-size: 14px; color: #555; margin-top: 8px; }
+
+/* Jogo da velha */
+.velha-board {
+  display: grid; grid-template-columns: repeat(3, 90px); gap: 6px;
+  justify-content: center; margin: 16px auto;
+}
+.velha-cell {
+  width: 90px; height: 90px; background: #fff; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px; font-weight: bold; cursor: pointer;
+  box-shadow: var(--sombra);
+}
+.velha-cell.x { color: var(--azul); }
+.velha-cell.o { color: var(--laranja); }
+
+/* Memória */
+.mem-wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 700px; margin: 0 auto; }
+.mem-card {
+  height: 90px; background: linear-gradient(135deg, var(--azul), var(--verde));
+  border-radius: 10px; cursor: pointer; color: #fff; font-weight: bold;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  padding: 6px; font-size: 13px; transition: transform .3s;
+}
+.mem-card.flipped { background: #fff; color: var(--texto); border: 2px solid var(--laranja); }
+.mem-card.matched { background: var(--verde-claro); color: #fff; }
+
+/* ===== RODAPÉ ===== */
+.navbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 24px; background: #fff;
+  box-shadow: 0 -4px 12px rgba(0,0,0,.1); z-index: 10;
+}
+.phase-title { font-weight: bold; color: var(--azul); font-size: 14px; }
+.nav-btn {
+  padding: 10px 22px; border: 2px solid var(--azul); background: #fff;
+  color: var(--azul); border-radius: 999px; font-weight: bold; cursor: pointer;
+  font-family: inherit; font-size: 15px;
+  transition: all .2s;
+}
+.nav-btn:hover:not(:disabled) { background: var(--azul); color: #fff; }
+.nav-btn.primary { background: var(--laranja); border-color: var(--laranja); color: #fff; }
+.nav-btn.primary:hover:not(:disabled) { background: var(--verde); border-color: var(--verde); }
+.nav-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+/* ===== VITÓRIA ===== */
+.victory {
+  text-align: center; padding: 40px;
+}
+.victory h1 { font-size: 64px; color: var(--verde); }
+.victory .medal { font-size: 140px; animation: spin 4s linear infinite; }
+@keyframes spin { from { transform: rotate(-10deg);} 50% { transform: rotate(10deg);} to {transform: rotate(-10deg);} }
+
+/* badges de explicação progressiva */
+.explica-nivel {
+  display: inline-block; margin-bottom: 8px; padding: 4px 10px;
+  background: var(--vermelho); color: #fff; border-radius: 6px; font-size: 12px; font-weight: bold;
+}
+.explica-nivel.n2 { background: var(--roxo); }
+
+@media (max-width: 720px) {
+  .topbar { flex-direction: column; gap: 8px; padding: 10px; }
+  .progress-wrap { width: 100%; }
+  .screen { padding: 14px; }
+  .card { padding: 18px; }
+  .velha-board { grid-template-columns: repeat(3, 70px); }
+  .velha-cell { width: 70px; height: 70px; font-size: 36px; }
+  .mem-wrap { grid-template-columns: repeat(3, 1fr); }
+}
