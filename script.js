@@ -217,7 +217,7 @@ const QUIZZES = {
         opcoes: [
           'Porque cria muitos empregos formais bem pagos para toda a população local.',
           'Porque envia lucros e riqueza ao exterior, deixando pouca renda circulando.',
-          'Porque distribui royalties de forma igualitária entre todos os habitantes.',
+          'Porque distribui igualmente toda a renda do enclave entre os moradores locais.',
           'Porque obriga as empresas estrangeiras a investirem em escolas da região.',
         ],
         correta: 1,
@@ -693,7 +693,7 @@ const QUIZZES = {
         q: 'Um caminho REAL para reduzir as desigualdades africanas seria:',
         opcoes: [
           'Expandir o modelo de enclave econômico para ainda mais setores produtivos.',
-          'Atrair mais empresas transnacionais sem cobrar impostos nem royalties locais.',
+          'Atrair mais empresas transnacionais para ampliar ainda mais o modelo de enclave.',
           'Diversificar a economia, investir em direitos sociais e planejar a cidade.',
           'Manter as fronteiras coloniais sem qualquer revisão política ou territorial.',
         ],
@@ -773,7 +773,7 @@ const QUIZ_FINAL = {
       opcoes: [
         'Cria muitos empregos formais bem pagos para a população local da região.',
         'Os lucros são enviados ao exterior, deixando pouca riqueza dentro do país.',
-        'Distribui royalties igualmente entre todos os habitantes do território nacional.',
+        'Distribui igualmente toda a renda do enclave entre todos os moradores do país.',
         'Obriga empresas estrangeiras a financiar escolas e hospitais nas comunidades.',
       ],
       correta: 1,
