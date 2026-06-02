@@ -1198,7 +1198,11 @@ function renderTopicoLeitura(i) {
     </div>
   `;
   $screens.appendChild(card);
-  card.querySelector('[data-next]').addEventListener('click', () => { state.modoStep++; render(); });
+  card.querySelector('[data-next]').addEventListener('click', () => {
+    state.modoStep++;
+    render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 }
 
 /* ---------- HELPERS DE QUIZ ---------- */
@@ -1236,8 +1240,8 @@ function renderQuizTopico(i) {
     pools,
     chaveErros: `${state.modo}-${t.id}`,
     voltarConteudoLabel: `📖 Reler o conteúdo de "${t.titulo}"`,
-    onVoltarConteudo: () => { state.modoStep--; render(); },
-    onConclude: () => { state.modoStep++; render(); }
+    onVoltarConteudo: () => { state.modoStep--; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); },
+    onConclude: () => { state.modoStep++; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
   });
 }
 
@@ -1250,7 +1254,7 @@ function renderQuizFinal() {
     subtitulo: `Mostra tudo o que você aprendeu. Acertar TODAS te leva à vitória 🚀`,
     pools,
     chaveErros: `${state.modo}-final`,
-    onConclude: () => { state.modoStep = 10; render(); }
+    onConclude: () => { state.modoStep = 10; render(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
   });
 }
 
@@ -1274,8 +1278,8 @@ function renderQuiz({ titulo, subtitulo, pools, chaveErros, onConclude, onVoltar
     <p class="sec-sub">${subtitulo}</p>
     <div class="quiz-list"></div>
     <div class="acoes" style="display:none" data-final>
-      <div class="box-resultado">🎉 <b>Você acertou tudo!</b> Pode seguir.</div>
-      <button class="btn-primario" data-go-next>Continuar ➜</button>
+      <div class="box-resultado" style="width:100%;text-align:center">🎉 <b>Você acertou tudo!</b> Pode seguir para o próximo conteúdo.</div>
+      <button class="btn-primario" data-go-next style="font-size:16px;padding:16px 38px">CONTINUAR PARA O PRÓXIMO ➜</button>
     </div>
   `;
   const list = card.querySelector('.quiz-list');
@@ -1374,6 +1378,7 @@ function renderQuiz({ titulo, subtitulo, pools, chaveErros, onConclude, onVoltar
       finalBox.style.display = '';
       const btn = finalBox.querySelector('[data-go-next]');
       btn.onclick = onConclude;
+      btn.classList.add('btn-pulse');
       finalBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
