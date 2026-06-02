@@ -161,45 +161,45 @@ const fases = [
     titulo: 'Quiz 2 — Desigualdade Socioeconômica',
     perguntas: [
       {
-        q: 'Qual é a principal característica das metrópoles africanas em relação à desigualdade?',
+        q: 'Em Lagos (Nigéria), o bairro de Ikoyi tem mansões e iates, enquanto a poucos quilômetros fica Makoko, uma comunidade construída sobre palafitas na lagoa, sem saneamento. Esse cenário mostra principalmente:',
         opcoes: [
-          'Todos vivem em áreas de luxo.',
-          'Existe um forte contraste entre áreas de luxo e grandes assentamentos informais.',
-          'A maioria vive em condomínios fechados.',
-          'Não há pobreza nas cidades africanas.'
+          'Que a economia africana está crescendo de forma equilibrada.',
+          'Um forte contraste socioespacial entre áreas de luxo e assentamentos informais nas metrópoles africanas.',
+          'Que a maioria da população africana vive bem.',
+          'O sucesso das políticas públicas urbanas locais.'
         ],
         correta: 1,
         explicacoes: [
-          'Pense em "contraste": lado a lado coisas opostas.',
-          'O mapa mental fala exatamente isso: "Contraste entre áreas de luxo e grandes assentamentos informais nas metrópoles". É um cenário de extremos — riqueza concentrada de um lado, pobreza extrema do outro.'
+          'Repare: luxo de um lado e palafitas do outro, lado a lado. Que palavra define isso?',
+          'O contraste é a marca da DESIGUALDADE SOCIOESPACIAL nas metrópoles africanas. Riqueza extrema e pobreza extrema dividindo o mesmo espaço urbano — isso NÃO é equilíbrio nem sucesso de política pública, é segregação gritante.'
         ]
       },
       {
-        q: 'O que as "políticas de ajuste fiscal" impostas por organismos internacionais provocam?',
+        q: 'O governo de Gana, pressionado pelo FMI, faz um "ajuste fiscal". Qual cenário é o MAIS PROVÁVEL de acontecer?',
         opcoes: [
-          'Aumentam os investimentos em saúde e educação.',
-          'Obrigam o Estado a investir em moradia digna.',
-          'Limitam os investimentos do Estado em direitos sociais.',
-          'Distribuem renda igualmente entre todos.'
+          'Salários de servidores aumentam e novos hospitais são construídos.',
+          'O Estado investe pesadamente em moradia popular.',
+          'Cortes em saúde, educação e saneamento, afetando principalmente os mais pobres.',
+          'O país para de pagar a dívida externa e investe tudo em direitos sociais.'
         ],
         correta: 2,
         explicacoes: [
-          'Ajuste fiscal = apertar o cinto = governo gasta MENOS.',
-          'Decorar: ajuste fiscal vindo de FMI/Banco Mundial obriga o governo africano a CORTAR gastos. Resultado: menos dinheiro pra saúde, educação, saneamento — exatamente os serviços que faltam pra população pobre. Por isso a desigualdade aumenta.'
+          'Ajuste fiscal vem com qual exigência? Cortar ou aumentar gastos?',
+          'Ajuste fiscal = APERTAR O CINTO. O FMI/Banco Mundial exige redução de gastos públicos como condição pra empréstimos. Resultado: cortes em saúde, educação e saneamento — serviços usados sobretudo pela população pobre, que fica ainda mais vulnerável.'
         ]
       },
       {
-        q: 'Qual é o RESULTADO dessa desigualdade socioeconômica, segundo o mapa mental?',
+        q: 'Sobre os "assentamentos informais" em metrópoles africanas como Nairóbi (favela de Kibera) ou Joanesburgo, é INCORRETO afirmar:',
         opcoes: [
-          'Inclusão e igualdade.',
-          'Exclusão e segregação — a maior parte da população fica à margem do desenvolvimento.',
-          'Crescimento econômico distribuído.',
-          'Fim das favelas.'
+          'Concentram população de baixa renda e migrantes rurais.',
+          'Costumam ter déficit grave de água tratada e saneamento.',
+          'São resultado direto da desigualdade socioeconômica e da segregação.',
+          'Recebem prioridade do Estado em obras de infraestrutura e serviços públicos.'
         ],
-        correta: 1,
+        correta: 3,
         explicacoes: [
-          'Se poucos têm muito e muitos têm quase nada, esse processo gera EXCLUSÃO.',
-          'O quadro azul do mapa mental diz: "RESULTA EM: EXCLUSÃO E SEGREGAÇÃO — a maior parte da população fica à margem dos benefícios do desenvolvimento econômico". Segregação = separação forçada por condição social.'
+          'Atenção: a pergunta pede a INCORRETA. Pense: o Estado realmente prioriza a favela?',
+          'Justamente o OPOSTO: assentamentos informais são, em regra, NEGLIGENCIADOS pelo Estado — por isso são "informais" (sem regularização, sem serviços). A prioridade do Estado costuma ir para áreas de classe média/alta. Por isso a desigualdade persiste.'
         ]
       }
     ]
@@ -247,45 +247,45 @@ const fases = [
     titulo: 'Quiz 3 — Heranças Históricas',
     perguntas: [
       {
-        q: 'Por que muitas fronteiras africanas são consideradas "artificiais"?',
+        q: 'A Conferência de Berlim (1884–1885) é um marco da divisão da África. Sobre ela, é CORRETO afirmar:',
         opcoes: [
-          'Porque foram criadas por satélites modernos.',
-          'Porque foram traçadas pelos europeus sem considerar povos e culturas locais.',
-          'Porque os africanos decidiram dividir o continente em linhas retas.',
-          'Porque seguem rios e montanhas naturais.'
+          'Foi uma reunião de líderes africanos que decidiram suas próprias fronteiras.',
+          'Reuniu potências europeias para partilhar o continente entre si, sem participação de povos africanos.',
+          'Estabeleceu a independência de todos os países africanos.',
+          'Foi conduzida pela ONU para garantir os direitos dos povos colonizados.'
         ],
         correta: 1,
         explicacoes: [
-          'Pense: quem desenhou aqueles países? Não foram os africanos.',
-          'As fronteiras foram traçadas pelos europeus na Conferência de Berlim, COM RÉGUA no mapa, sem perguntar nada aos povos que viviam ali. Por isso povos inimigos foram colocados no mesmo país, e povos parentes foram separados. Isso é fronteira ARTIFICIAL.'
+          'Em 1884 a ONU nem existia (foi criada em 1945). E os africanos não foram convidados.',
+          'A Conferência de Berlim foi convocada por Bismarck e reuniu APENAS potências europeias (Inglaterra, França, Bélgica, Portugal, Alemanha...). Desenharam o mapa da África COM RÉGUA, sem chamar nenhum povo africano. Por isso várias fronteiras são RETAS e ARTIFICIAIS — separaram povos parentes e juntaram inimigos.'
         ]
       },
       {
-        q: 'O que a colonização europeia explorou na África?',
+        q: 'Por que conflitos étnicos como o de Ruanda (1994), Sudão e Nigéria são relacionados às heranças coloniais?',
         opcoes: [
-          'Apenas terras desertas e improdutivas.',
-          'Recursos naturais e mão de obra africana.',
-          'Somente conhecimento científico.',
-          'Tecnologia local.'
+          'Porque os africanos são naturalmente violentos.',
+          'Porque povos rivais foram forçados a viver dentro das mesmas fronteiras artificiais criadas por europeus, sem coesão nacional.',
+          'Porque o clima africano provoca conflitos.',
+          'Porque a Europa atual continua ocupando esses países militarmente.'
         ],
         correta: 1,
         explicacoes: [
-          'A colonização sempre quis duas coisas: matéria-prima e trabalhadores baratos (ou escravizados).',
-          'O mapa mental diz: "A colonização europeia explorou recursos e mão de obra africana". Os europeus levaram ouro, marfim, diamantes e MILHÕES de pessoas escravizadas. Esse foi o motor da exploração.'
+          'Atenção: as outras opções são preconceito ou simplesmente falsas. Pense nas FRONTEIRAS artificiais.',
+          'Povos com línguas, religiões e histórias diferentes (tutsis e hutus em Ruanda, por exemplo) foram colocados à força dentro do mesmo país inventado pelos colonizadores. Isso criou Estados frágeis, sem identidade nacional comum — e até hoje muitos conflitos têm essa raiz colonial.'
         ]
       },
       {
-        q: 'Por que dizemos que há uma "REPRODUÇÃO DA EXCLUSÃO" na África?',
+        q: 'Mesmo após as independências (anos 1950–70), vários países africanos continuaram economicamente dependentes do exterior. Isso ocorre porque:',
         opcoes: [
-          'Porque a exclusão acabou com o fim da colonização.',
-          'Porque a organização do espaço urbano e econômico ainda segue lógicas coloniais e mantém a população segregada.',
-          'Porque os africanos escolheram continuar excluídos.',
-          'Porque as Nações Unidas obrigam a exclusão.'
+          'Os africanos não sabem administrar suas economias.',
+          'A própria estrutura econômica herdada da colonização — voltada à exportação de matérias-primas — se manteve depois da independência.',
+          'Os ex-colonizadores devolveram todo o dinheiro extraído.',
+          'A independência trouxe imediata igualdade econômica.'
         ],
         correta: 1,
         explicacoes: [
-          'Reprodução = se repete. As mesmas estruturas continuam funcionando até hoje.',
-          'Mesmo depois da independência, os países africanos mantiveram economias voltadas pra exportação, cidades divididas entre ricos e pobres e fronteiras herdadas. Esses padrões coloniais continuam REPRODUZINDO a exclusão — por isso a desigualdade não acabou.'
+          'Cuidado com a alternativa A (é preconceituosa e falsa). Pense: o país ficou livre, mas a ECONOMIA ficou amarrada como?',
+          'Os colonizadores foram embora, mas deixaram a estrutura montada: portos voltados a exportar matéria-prima, ferrovias que ligam a mina ao porto (e não cidades entre si), dependência de poucos produtos. É a chamada DEPENDÊNCIA ECONÔMICA herdada — muda a bandeira, mas a engrenagem colonial continua.'
         ]
       }
     ]
@@ -327,45 +327,45 @@ const fases = [
     titulo: 'Quiz 4 — Impactos na Vida das Pessoas',
     perguntas: [
       {
-        q: 'Qual é um impacto direto da desigualdade na vida das pessoas na África?',
+        q: 'Numa metrópole africana, um jovem trabalha como vendedor ambulante, sem carteira assinada, ganhando por dia. Ele se enquadra em qual fenômeno descrito no mapa mental?',
         opcoes: [
-          'Aumento de empregos formais bem pagos.',
-          'Moradias precárias em favelas e desemprego/subemprego.',
-          'Excesso de serviços públicos de qualidade.',
-          'Diminuição da migração interna.'
-        ],
-        correta: 1,
-        explicacoes: [
-          'O mapa mental lista os IMPACTOS — todos são problemas sociais sentidos no dia a dia.',
-          'Os impactos descritos são: moradias precárias, desemprego, subemprego, acesso desigual a serviços, conflitos urbanos e migrações internas. Tudo gira em torno da MÁ qualidade de vida, não do contrário.'
-        ]
-      },
-      {
-        q: 'O que são "migrações internas" no contexto africano?',
-        opcoes: [
-          'Pessoas saindo da África para a Europa.',
-          'Animais migrando entre savanas.',
-          'Pessoas mudando de uma região para outra DENTRO do mesmo país, buscando melhores condições de vida.',
-          'Turistas visitando o continente.'
+          'Emprego formal de alta qualificação.',
+          'Investimento público em direitos sociais.',
+          'Subemprego — trabalho informal, mal pago, sem direitos trabalhistas.',
+          'Migração internacional.'
         ],
         correta: 2,
         explicacoes: [
-          'INTERNA = dentro. Não atravessa fronteira nacional.',
-          'Migração interna é quando alguém sai do campo pra cidade, ou de uma região pobre pra uma região mais desenvolvida, dentro do mesmo país. Acontece muito na África por causa do desemprego e da falta de serviços nas áreas mais pobres.'
+          'Sem carteira, ganha por dia, na rua. Que palavra do mapa mental descreve isso?',
+          'SUBEMPREGO. É o trabalho informal, precário, sem direitos (férias, INSS, salário fixo). Muito comum em metrópoles africanas justamente por causa do enclave e da falta de empregos formais — a maioria da população vive disso.'
         ]
       },
       {
-        q: 'Qual destes NÃO é um caminho para mudanças propostos no mapa mental?',
+        q: 'Sobre as migrações INTERNAS na África, qual afirmação está ERRADA?',
         opcoes: [
-          'Investimentos públicos em direitos sociais.',
-          'Planejamento urbano inclusivo.',
-          'Aumento das exportações em forma de enclave.',
-          'Valorização das culturas e dos povos africanos.'
+          'Ocorrem dentro do mesmo país.',
+          'São motivadas pela busca por trabalho, serviços e melhores condições de vida.',
+          'O fluxo campo→cidade é muito comum.',
+          'São sempre planejadas e organizadas pelos governos africanos.'
+        ],
+        correta: 3,
+        explicacoes: [
+          'Atenção: pergunta pede a ERRADA. Três estão corretas, uma é falsa.',
+          'Migrações internas são ESPONTÂNEAS — as pessoas se mudam por conta própria, fugindo da pobreza rural ou de conflitos. Os governos NÃO planejam nem organizam isso; aliás, é justamente por isso que surgem favelas e assentamentos informais nas cidades grandes (o Estado não se prepara pra receber esse fluxo).'
+        ]
+      },
+      {
+        q: 'Um caminho REAL pra reduzir as desigualdades africanas, segundo o mapa mental, seria:',
+        opcoes: [
+          'Expandir o modelo de enclave para mais setores.',
+          'Atrair mais empresas transnacionais sem cobrar impostos.',
+          'Diversificar a economia gerando empregos e investir em direitos sociais com planejamento urbano inclusivo.',
+          'Manter as fronteiras coloniais sem revisão.'
         ],
         correta: 2,
         explicacoes: [
-          'Cuidado: enclave é o PROBLEMA, não solução.',
-          'Os caminhos propostos são: investimento social, planejamento urbano inclusivo, DIVERSIFICAÇÃO econômica (o oposto de enclave) e valorização da cultura. Aumentar o enclave seria piorar a situação, não resolver.'
+          'Pense: o que combate enclave + segregação + exclusão ao mesmo tempo?',
+          'As soluções têm que ir na DIREÇÃO OPOSTA dos problemas: diversificar a economia (oposto de enclave de uma matéria-prima só), investir em direitos sociais (oposto de ajuste fiscal), planejamento urbano inclusivo (oposto de segregação). Ampliar enclave ou dar isenção fiscal só piora.'
         ]
       }
     ]
@@ -412,45 +412,45 @@ const fases = [
     titulo: 'Quiz — Apartheid',
     perguntas: [
       {
-        q: 'O que foi o Apartheid?',
+        q: 'A palavra "apartheid" vem do africaner e significa "separação". O sistema sul-africano (1948–1994) destacou-se por ser:',
         opcoes: [
-          'Um movimento cultural africano.',
-          'Um sistema de segregação racial institucionalizado na África do Sul entre 1948 e 1994.',
-          'Uma guerra entre países africanos.',
-          'Um tipo de moeda usada na África do Sul.'
+          'Uma segregação racial apenas cultural, sem amparo legal.',
+          'Uma segregação racial INSTITUCIONALIZADA — organizada e imposta pelo próprio Estado por meio de leis.',
+          'Uma política de integração entre brancos e negros.',
+          'Um sistema usado em todos os países africanos no mesmo período.'
         ],
         correta: 1,
         explicacoes: [
-          'Apartheid = "separação" em africâner. Era um sistema oficial de separação por raça.',
-          'Decora assim: Apartheid = SEGREGAÇÃO RACIAL INSTITUCIONALIZADA (estava na lei), na ÁFRICA DO SUL, de 1948 a 1994. Brancos e negros tinham que viver separados — por força da lei.'
+          'A palavra-chave é "institucionalizado". O que ela significa?',
+          'Institucionalizado = previsto em LEI, sustentado pelo Estado. Não era apenas preconceito social: o próprio governo da África do Sul criava leis racistas (Pass Laws, Group Areas Act etc.) que obrigavam a separação. E foi um sistema EXCLUSIVO da África do Sul — não do continente inteiro.'
         ]
       },
       {
-        q: 'Durante o Apartheid, a população negra:',
+        q: 'Durante o Apartheid, um exemplo concreto de discriminação foi:',
         opcoes: [
-          'Tinha direitos iguais à população branca.',
-          'Era proibida de viver em áreas "brancas" e tinha acesso limitado à educação, saúde e direitos políticos.',
-          'Comandava o governo do país.',
-          'Vivia apenas em áreas de luxo.'
+          'Negros e brancos votarem livremente nas mesmas eleições.',
+          'A criação dos "bantustões" — territórios onde a população negra era forçada a viver, separada das áreas brancas.',
+          'A igualdade de salários entre as raças.',
+          'O direito único de negros estudarem nas mesmas escolas que brancos.'
         ],
         correta: 1,
         explicacoes: [
-          'Pense na placa "WHITE ONLY" — só brancos podiam.',
-          'A população negra era PROIBIDA de morar em áreas brancas, frequentar escolas brancas, sentar em bancos brancos. Tinha acesso muito limitado a serviços e quase nenhum direito político. Era discriminação total, garantida por lei.'
+          'Pense em separação territorial. Como o Estado afastava a população negra fisicamente?',
+          'Os BANTUSTÕES (ou "homelands") eram áreas pobres e mal localizadas onde a população negra era REMOVIDA à força, perdendo até a cidadania sul-africana. As outras opções são exatamente o OPOSTO do que acontecia: não havia voto livre, não havia igualdade salarial nem escolar.'
         ]
       },
       {
-        q: 'O Apartheid acabou em 1994. Suas consequências:',
+        q: 'Mesmo após o fim oficial do Apartheid (1994, com a eleição de Mandela), é CORRETO afirmar que:',
         opcoes: [
-          'Foram completamente apagadas e hoje não existe mais desigualdade.',
-          'Deixaram marcas profundas que ainda influenciam as desigualdades na África do Sul.',
-          'Foram só econômicas, sem efeito social.',
-          'Beneficiaram a população negra.'
+          'A desigualdade racial e econômica acabou imediatamente.',
+          'A África do Sul tornou-se o país mais igualitário do mundo.',
+          'As marcas do sistema persistem: a população negra ainda concentra os piores indicadores sociais do país.',
+          'O Apartheid voltou a vigorar em 2000.'
         ],
-        correta: 1,
+        correta: 2,
         explicacoes: [
-          'Cuidado: leis mudam rápido, mas a sociedade muda devagar.',
-          'O Apartheid acabou oficialmente em 1994 com Mandela, mas as desigualdades construídas em 46 anos de segregação NÃO desaparecem do dia pra noite. A maioria pobre da África do Sul ainda é negra, vivendo em condições piores que a minoria branca — é o que chamamos de HERANÇA do Apartheid.'
+          'Leis mudam rápido, mas a sociedade muda devagar. Olhe pra realidade atual da África do Sul.',
+          'O Apartheid acabou em 1994, mas 46 anos de segregação institucional deixaram marcas profundas. Até hoje a África do Sul é um dos países MAIS DESIGUAIS do mundo: a população negra (maioria) concentra desemprego, pobreza e mora majoritariamente nas townships. Essa é a HERANÇA do Apartheid.'
         ]
       }
     ]
